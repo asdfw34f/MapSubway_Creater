@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorSubwayMap", "EditorSubwayMap.csproj", "{4D19F37D-884F-43F7-B800-44528D8B390D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D19F37D-884F-43F7-B800-44528D8B390D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D19F37D-884F-43F7-B800-44528D8B390D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D19F37D-884F-43F7-B800-44528D8B390D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D19F37D-884F-43F7-B800-44528D8B390D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA64A296-7DD5-4F0E-BDBB-5634272A1814}
+	EndGlobalSection
+EndGlobal
