@@ -1,4 +1,6 @@
-﻿using EditorSubwayMap.DrawFigure;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
 using System;
 using System.Diagnostics;
@@ -34,10 +36,13 @@ namespace WpfApp1
         Point px, py = new Point();
         ftype f;
 
+        DrawStation ds;
+        DrawLine dl;
+
         public MainWindow()
         {
             InitializeComponent();
-            f = ftype.N;
+           // f = ftype.N;
         }
 
         private void btnPath_Click(object sender, RoutedEventArgs e)
@@ -73,49 +78,49 @@ namespace WpfApp1
                         break;
 
                     case ftype.station:
-                        ellipse.Margin = new Thickness(
-                            ellipse.Margin.Left, ellipse.Margin.Top,
-                            ((int)canDrawing.ActualWidth) - e.GetPosition(canDrawing).X,
-                            ((int)canDrawing.ActualHeight) - e.GetPosition(canDrawing).Y);
+                        ds.Pend = e.GetPosition(canDrawing);
+                        ellipse = ds.Edit(ellipse);
                         break;
                 }
         }
 
         private void canDrawing_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            py = e.GetPosition(canDrawing);
+            px = e.GetPosition(canDrawing);
             paint = false;
         }
 
         private void canDrawing_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (paint== true)
+            paint = true;
+            if (paint == true)
             {
                 px = e.GetPosition(canDrawing);
+
                 switch (f)
                 {
                     case ftype.N:
                         break;
 
                     case ftype.line:
-                        DrawLine dl = new DrawLine()
+                        dl = new DrawLine()
                         {
                             Pstart = px,
-                            Pend = e.GetPosition(canDrawing),
+                            Pend = px,
                             color = Brushes.Black
                         };
                         line = dl.Draw();
                         canDrawing.Children.Add(line);
-                        paint = true;
                         break;
 
                     case ftype.station:
-                        DrawStation ds = new DrawStation()
+                        ds = new DrawStation()
                         {
                             Pstart = px,
-                            Pend = e.GetPosition(canDrawing),
                             color = Brushes.Black
                         };
+
+                        ds.Pend = e.GetPosition(canDrawing);
                         ellipse = ds.Draw();
                         canDrawing.Children.Add(ellipse);
                         break;

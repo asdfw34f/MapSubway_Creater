@@ -1,4 +1,6 @@
-﻿using System;
+﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,32 +14,32 @@ namespace EditorSubwayMap.DrawFigure
 {
     internal class DrawStation : IFigure
     {
-        private Point Pstart1;
-        private Point Pend1;
+        private Point pStart;
+        private Point currentPoint;
         private SolidColorBrush color1;
 
         public DrawStation()
         {
-            Pstart1 = new Point(0, 0);
-            Pend1 = new Point(0, 0);
+            pStart = new Point(0, 0);
+            currentPoint = new Point(0, 0);
             color1 = Brushes.Black;
         }
 
         public Point Pstart
         {
-            get => Pstart1;
+            get => pStart;
             set
             {
-                Pstart1 = value;
+                pStart = value;
             }
         }
 
         public Point Pend
         {
-            get => Pend1;
+            get => currentPoint;
             set
             {
-                Pend1 = value;
+                currentPoint = value;
             }
         }
 
@@ -54,16 +56,51 @@ namespace EditorSubwayMap.DrawFigure
         {
             Ellipse newSt = new Ellipse()
             {
-                Fill = Brushes.White,
                 Stroke = color1,
                 Height = 20,
                 Width = 20,
                 StrokeThickness = 5,
-                Margin = new Thickness(Pstart1.X, Pstart1.Y, Pstart1.X + 20, Pstart1.Y + 20)
-
+                Margin = new Thickness(
+                    pStart.X, pStart.Y,
+                    pStart.X + 20, pStart.Y + 20)
             };
-
+            
             return newSt;
+        }
+
+        public Ellipse Edit(Ellipse ellipse)
+        {
+            Point ellipsePoint = new Point();
+
+            //Then we need to get the proper width/height;
+            if (currentPoint.X >= pStart.X)
+            {
+                ellipsePoint.X = pStart.X;
+                ellipse.Width = currentPoint.X - pStart.X;
+            }
+            else
+            {
+                ellipsePoint.X = currentPoint.X;
+                ellipse.Width = pStart.X - currentPoint.X;
+            }
+            if (currentPoint.Y >= pStart.Y)
+            {
+                ellipsePoint.Y = pStart.Y;
+                ellipse.Height = currentPoint.Y - pStart.Y;
+            }
+            else
+            {
+                ellipsePoint.Y = currentPoint.Y;
+                ellipse.Height = pStart.Y - currentPoint.Y;
+            }
+
+            ellipse.Margin = new Thickness(
+                ellipsePoint.X, 
+                ellipsePoint.Y, 
+                ellipse.Margin.Left, 
+                ellipse.Margin.Top);
+
+            return ellipse;
         }
     }
 }
