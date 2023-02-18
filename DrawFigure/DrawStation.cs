@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows;
 using System.Windows.Shapes;
+using System.Windows.Controls;
 
-namespace EditorSubwayMap.Model
+namespace EditorSubwayMap.DrawFigure
 {
-    public class DrawLine : IFigure
+    internal class DrawStation : IFigure
     {
         private Point Pstart1;
         private Point Pend1;
         private SolidColorBrush color1;
 
-        public DrawLine() 
+        public DrawStation()
         {
             Pstart1 = new Point(0, 0);
             Pend1 = new Point(0, 0);
@@ -52,19 +50,20 @@ namespace EditorSubwayMap.Model
             }
         }
 
-        public Line Draw()
+        public Ellipse Draw()
         {
-            Line newLine = new Line()
+            Ellipse newSt = new Ellipse()
             {
+                Fill = Brushes.White,
                 Stroke = color1,
-                StrokeThickness = 7
-            };
-            newLine.X1 = Pstart1.X;
-            newLine.Y1 = Pstart1.Y;
-            newLine.X2 = Pend1.X;
-            newLine.Y2 = Pend1.Y;
+                Height = 20,
+                Width = 20,
+                StrokeThickness = 5,
+                Margin = new Thickness(Pstart1.X, Pstart1.Y, Pstart1.X + 20, Pstart1.Y + 20)
 
-            return newLine;
+            };
+
+            return newSt;
         }
     }
 }
