@@ -59,27 +59,34 @@
 
             <!-- Select the pen Buttons-->
             <Button x:Name="btnPath"
-                    Canvas.Top="41" Canvas.Left="20"
-                    HorizontalAlignment="Center" VerticalAlignment="Top"
-                    Height="60" Width="60" Focusable="False"
+                    Canvas.Top="44" Canvas.Left="20"
+                    HorizontalAlignment="Left" VerticalAlignment="Top"
+                    Height="40" Width="40" Focusable="False"
                     Cursor="Hand" Click="btnPath_Click">
 
             </Button>
 
-            <Button x:Name="btnStation"
-                    Width="60" Height="60" Canvas.Top="41"
-                    HorizontalAlignment="Center" VerticalAlignment="Top" 
-                    Canvas.Left="100" Cursor="Hand" Click="btnStation_Click">
-
+            <Button x:Name="btnEllipse"
+                    Width="40" Height="40" Canvas.Top="44"
+                    HorizontalAlignment="Left" VerticalAlignment="Center" 
+                    Canvas.Left="70" Cursor="Hand" Click="btnEllipse_Click">
 
             </Button>
 
+            <Button x:Name="btnStation" Cursor="Hand"
+                Canvas.Top="44" Canvas.Right="20"
+                Width="40" Height="40" 
+                Canvas.Left="130" Click="btnStation_Click" 
+                    HorizontalAlignment="Left" VerticalAlignment="Center">
+                
+            </Button>
+            
             <Button x:Name="btnCursor" Cursor="Hand"
-                    Canvas.Top="41" Canvas.Right="20"
-                    Width="60" Height="60" 
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top" 
-                    Canvas.Left="180" Click="btnCursor_Click">
+                    Canvas.Top="44" Canvas.Right="20"
+                    Width="40" Height="40" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center" 
+                    Canvas.Left="200" Click="btnCursor_Click">
 
             </Button>
 
@@ -117,17 +124,18 @@
                     Background="#FF006A67" 
                     VerticalAlignment="Center" Width="120"/>
 
+            
             <!--Label text of Select btn Pen-->
             <Label Content="Маршрут" Foreground="#FF006A67" 
                 Height="27" 
                 FontSize="10" 
-                Width="60" 
+                Width="90" 
                 VerticalContentAlignment="Center" 
                 HorizontalContentAlignment="Center" 
                 FontStyle="Italic" FontWeight="Medium"
                 BorderBrush="#FF006A67" 
                 BorderThickness="1,1,1,1"
-                Canvas.Left="20" Canvas.Top="106" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                Canvas.Left="20" Canvas.Top="98" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Label Content="Станция" Foreground="#FF006A67" 
                 Height="27" 
                 FontSize="10" 
@@ -137,17 +145,18 @@
                 FontStyle="Italic" FontWeight="Medium"
                 BorderBrush="#FF006A67" 
                 BorderThickness="1,1,1,1"
-                Canvas.Left="100" Canvas.Top="106" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                Canvas.Left="120" Canvas.Top="98" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Label Content="Кликер" Foreground="#FF006A67" 
                 Height="27" 
                 FontSize="10" 
-                Width="60" 
+                Width="50" 
                 VerticalContentAlignment="Center" 
                 HorizontalContentAlignment="Center" 
                 FontStyle="Italic" FontWeight="Medium"
                 BorderBrush="#FF006A67" 
                 BorderThickness="1,1,1,1"
-                Canvas.Left="180" Canvas.Top="106" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                Canvas.Left="195" Canvas.Top="98" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
 
 
         </Canvas>

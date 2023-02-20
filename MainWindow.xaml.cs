@@ -1,5 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
 using System;
@@ -29,20 +30,19 @@ namespace WpfApp1
 
         Line line;
         Ellipse ellipse;
-        Label lable;
 
-        const int pt = 1, el = 2, st = 3 ;
+        const int pt = 1, el = 2, st = 3;
         bool paint = false;
         Point px, py = new Point();
         ftype f;
 
+        DrawEllipse de;
         DrawStation ds;
         DrawLine dl;
 
         public MainWindow()
         {
             InitializeComponent();
-           // f = ftype.N;
         }
 
         private void btnPath_Click(object sender, RoutedEventArgs e)
@@ -51,9 +51,9 @@ namespace WpfApp1
             paint = true;
         }
 
-        private void btnStation_Click(object sender, RoutedEventArgs e)
+        private void btnEllipse_Click(object sender, RoutedEventArgs e)
         {
-            f = ftype.station;
+            f = ftype.ellipse;
             paint = true;
         }
 
@@ -61,6 +61,12 @@ namespace WpfApp1
         {
             f = ftype.N;
             paint = false;
+        }
+
+        private void btnStation_Click(object sender, RoutedEventArgs e)
+        {
+            f = ftype.station;
+            paint = true;
         }
 
         private void canDrawing_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
@@ -78,8 +84,12 @@ namespace WpfApp1
                         break;
 
                     case ftype.station:
-                        ds.Pend = e.GetPosition(canDrawing);
-                        ellipse = ds.Edit(ellipse);
+
+                        break;
+
+                        case ftype.ellipse:
+                        de.Pend = e.GetPosition(canDrawing);
+                        ellipse = de.Edit(ellipse);
                         break;
                 }
         }
@@ -93,40 +103,51 @@ namespace WpfApp1
         private void canDrawing_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             paint = true;
-            if (paint == true)
+
+            px = e.GetPosition(canDrawing);
+
+            switch (f)
             {
-                px = e.GetPosition(canDrawing);
+                case ftype.N:
+                    break;
 
-                switch (f)
-                {
-                    case ftype.N:
-                        break;
+                case ftype.line:
+                    dl = new DrawLine()
+                    {
+                        Pstart = px,
+                        Pend = px,
+                        color = Brushes.Black
+                    };
+                    line = dl.Draw();
+                    canDrawing.Children.Add(line);
+                    break;
 
-                    case ftype.line:
-                        dl = new DrawLine()
-                        {
-                            Pstart = px,
-                            Pend = px,
-                            color = Brushes.Black
-                        };
-                        line = dl.Draw();
-                        canDrawing.Children.Add(line);
-                        break;
+                case ftype.station:
+                    ds = new DrawStation()
+                    {
+                        Pstart = px,
+                        color = Brushes.Black
+                    };
 
-                    case ftype.station:
-                        ds = new DrawStation()
-                        {
-                            Pstart = px,
-                            color = Brushes.Black
-                        };
+                    ds.Pend = e.GetPosition(canDrawing);
+                    ellipse = ds.Draw();
+                    canDrawing.Children.Add(ellipse);
+                    break;
 
-                        ds.Pend = e.GetPosition(canDrawing);
-                        ellipse = ds.Draw();
-                        canDrawing.Children.Add(ellipse);
-                        break;
-                }
+                case ftype.ellipse:
+                    de = new DrawEllipse()
+                    {
+                        Pstart = px,
+                        color = Brushes.Black
+                    };
+
+                    de.Pend = e.GetPosition(canDrawing);
+                    ellipse = de.Draw();
+                    canDrawing.Children.Add(ellipse);
+                    break;
             }
-
         }
+
     }
+
 }
