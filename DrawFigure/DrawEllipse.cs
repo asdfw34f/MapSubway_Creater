@@ -1,5 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+using System.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,14 @@ using System.Windows.Media;
 using System.Windows;
 using System.Windows.Shapes;
 using System.Windows.Controls;
+using Microsoft.Build.Tasks;
+using EditorSubwayMap.DrawFigure;
+using EditorSubwayMap.Model;
+using System.Diagnostics;
+using System.Net;
+using System.Windows.Input;
+using System.Windows.Media.Animation;
+using EditorSubwayMap.DrawFigure.EditLocation;
 
 namespace EditorSubwayMap.DrawFigure
 {
@@ -17,12 +26,14 @@ namespace EditorSubwayMap.DrawFigure
         private Point pStart;
         private Point currentPoint;
         private SolidColorBrush color1;
-
-        public DrawEllipse()
+        private Canvas can;
+        public DrawEllipse(Canvas canvas)
         {
+            can = canvas;
             pStart = new Point(0, 0);
             currentPoint = new Point(0, 0);
             color1 = Brushes.Black;
+
         }
 
         public Point Pstart
@@ -54,21 +65,29 @@ namespace EditorSubwayMap.DrawFigure
 
         public Ellipse Draw()
         {
-            Ellipse newSt = new Ellipse()
+            Ellipse newEl = new Ellipse()
             {
+                
                 Stroke = color1,
                 Height = 20,
                 Width = 20,
                 StrokeThickness = 5,
                 Margin = new Thickness(
                     pStart.X, pStart.Y,
-                    pStart.X + 20, pStart.Y + 20)
+                    pStart.X + 20, pStart.Y + 20),
+                Cursor= Cursors.Hand,
+                Fill = Brushes.Transparent
             };
-            
-            return newSt;
+
+            LocationEllipse locationEllipse = new LocationEllipse(can);
+            newEl.MouseLeftButtonDown += locationEllipse.ellipse_MouseLeftButtonDown;
+            newEl.MouseMove += locationEllipse.ellipse_MouseMove;
+            newEl.MouseLeftButtonUp += locationEllipse.ellipse_MouseLeftButtonUp;
+
+            return newEl;
         }
 
-        public Ellipse Edit(Ellipse ellipse)
+        public Ellipse EditSize(Ellipse ellipse)
         {
             Point ellipsePoint = new Point();
 

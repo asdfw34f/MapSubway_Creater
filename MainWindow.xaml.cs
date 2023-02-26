@@ -2,16 +2,19 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 using EditorSubwayMap.DrawFigure;
+using EditorSubwayMap.DrawFigure.EditLocation;
 using EditorSubwayMap.Model;
 using System;
 using System.Diagnostics;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WpfApp1
 {
@@ -33,6 +36,7 @@ namespace WpfApp1
 
         const int pt = 1, el = 2, st = 3;
         bool paint = false;
+        bool editLoc = false;
         Point px, py = new Point();
         ftype f;
 
@@ -61,6 +65,7 @@ namespace WpfApp1
         {
             f = ftype.N;
             paint = false;
+            editLoc = false;
         }
 
         private void btnStation_Click(object sender, RoutedEventArgs e)
@@ -87,9 +92,10 @@ namespace WpfApp1
 
                         break;
 
-                        case ftype.ellipse:
+                    case ftype.ellipse:
                         de.Pend = e.GetPosition(canDrawing);
-                        ellipse = de.Edit(ellipse);
+                        ellipse = de.EditSize(ellipse);
+
                         break;
                 }
         }
@@ -135,7 +141,7 @@ namespace WpfApp1
                     break;
 
                 case ftype.ellipse:
-                    de = new DrawEllipse()
+                    de = new DrawEllipse(canDrawing)
                     {
                         Pstart = px,
                         color = Brushes.Black
@@ -143,11 +149,13 @@ namespace WpfApp1
 
                     de.Pend = e.GetPosition(canDrawing);
                     ellipse = de.Draw();
+
+
                     canDrawing.Children.Add(ellipse);
                     break;
             }
         }
 
+        
     }
-
 }

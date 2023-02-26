@@ -63,6 +63,9 @@
                     HorizontalAlignment="Left" VerticalAlignment="Top"
                     Height="40" Width="40" Focusable="False"
                     Cursor="Hand" Click="btnPath_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/icons/line.png"/>
+                </Button.Background>
 
             </Button>
 
@@ -70,6 +73,9 @@
                     Width="40" Height="40" Canvas.Top="44"
                     HorizontalAlignment="Left" VerticalAlignment="Center" 
                     Canvas.Left="70" Cursor="Hand" Click="btnEllipse_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/icons/ellipse.png"/>
+                </Button.Background>
 
             </Button>
 
@@ -78,15 +84,21 @@
                 Width="40" Height="40" 
                 Canvas.Left="130" Click="btnStation_Click" 
                     HorizontalAlignment="Left" VerticalAlignment="Center">
-                
+                <Button.Background>
+                    <ImageBrush ImageSource="/icons/station.png"/>
+                </Button.Background>
+
             </Button>
-            
+
             <Button x:Name="btnCursor" Cursor="Hand"
                     Canvas.Top="44" Canvas.Right="20"
                     Width="40" Height="40" 
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center" 
                     Canvas.Left="200" Click="btnCursor_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="/icons/cursor.png" TileMode="FlipX" Stretch="Uniform"/>
+                </Button.Background>
 
             </Button>
 
@@ -124,7 +136,7 @@
                     Background="#FF006A67" 
                     VerticalAlignment="Center" Width="120"/>
 
-            
+
             <!--Label text of Select btn Pen-->
             <Label Content="Маршрут" Foreground="#FF006A67" 
                 Height="27" 
@@ -160,14 +172,16 @@
 
 
         </Canvas>
-        <Canvas x:Name="canDrawing" Background="Transparent"
+        <Canvas x:Name="canDrawing"
                 Grid.Row="0" Grid.Column="2"
                 Grid.RowSpan="3" Grid.ColumnSpan="2"
                 Mouse.MouseDown="canDrawing_MouseDown"
                 Mouse.MouseMove="canDrawing_MouseMove"
                 Mouse.MouseUp="canDrawing_MouseUp"
                 >
-
+            <Canvas.Background>
+                <ImageBrush/>
+            </Canvas.Background>
         </Canvas>
     </Grid>
 </Window>
