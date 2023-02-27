@@ -59,7 +59,8 @@ namespace EditorSubwayMap.Model
             Line newLine = new Line()
             {
                 Stroke = color1,
-                StrokeThickness = 7
+                StrokeThickness = 7,
+                Cursor = Cursors.Hand
             };
             newLine.X1 = Pstart1.X;
             newLine.Y1 = Pstart1.Y;

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows;
+using System.Windows.Input;
 
 namespace EditorSubwayMap.DrawFigure
 {
@@ -57,6 +58,7 @@ namespace EditorSubwayMap.DrawFigure
                 Stroke = color1,
                 Height = 20,
                 Width = 20,
+                Cursor = Cursors.Hand,
                 StrokeThickness = 5,
                 Margin = new Thickness(
                     pStart.X, pStart.Y,

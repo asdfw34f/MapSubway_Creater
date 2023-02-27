@@ -26,7 +26,8 @@ namespace EditorSubwayMap.DrawFigure
         private Point currentPoint;
         private SolidColorBrush color1;
         private Canvas can;
-        bool isMouseDown = false;
+        private bool isMouseDown = false;
+        private bool editLocation = false;
 
         public DrawEllipse(Canvas canvas)
         {
@@ -34,6 +35,12 @@ namespace EditorSubwayMap.DrawFigure
             pStart = new Point(0, 0);
             currentPoint = new Point(0, 0);
             color1 = Brushes.Black;
+        }
+
+        internal bool iditLoc
+        {
+            get => editLocation;
+            set => editLocation = value; 
         }
 
         public Point Pstart
@@ -78,11 +85,12 @@ namespace EditorSubwayMap.DrawFigure
 
             Canvas.SetLeft(newEl, Pstart.X);
             Canvas.SetTop(newEl, Pstart.Y);
-
+            
             newEl.MouseLeftButtonDown += ellipse_MouseLeftButtonDown;
             newEl.MouseMove += ellipse_MouseMove;
             newEl.MouseLeftButtonUp += ellipse_MouseLeftButtonUp;
-
+            newEl.AllowDrop = true;
+            
             return newEl;
         }
 
@@ -120,6 +128,8 @@ namespace EditorSubwayMap.DrawFigure
 
         private void ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if (!editLocation)
+                return;
 
             Ellipse b = sender as Ellipse;
 
@@ -142,9 +152,12 @@ namespace EditorSubwayMap.DrawFigure
 
         private void ellipse_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            if (!editLocation)
+                return;
             Ellipse b = sender as Ellipse;
             b.ReleaseMouseCapture();
             isMouseDown = false;
+            editLocation = false;
         }
     }
 }

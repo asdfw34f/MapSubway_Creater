@@ -51,24 +51,28 @@ namespace WpfApp1
         private void btnPath_Click(object sender, RoutedEventArgs e)
         {
             f = ftype.line;
+            Cursor = Cursors.Arrow;
             paint = true;
         }
 
         private void btnEllipse_Click(object sender, RoutedEventArgs e)
         {
             f = ftype.ellipse;
+            Cursor = Cursors.Arrow;
             paint = true;
         }
 
         private void btnCursor_Click(object sender, RoutedEventArgs e)
         {
             f = ftype.N;
+            Cursor = Cursors.Arrow;
             paint = false;
         }
 
         private void btnStation_Click(object sender, RoutedEventArgs e)
         {
             f = ftype.station;
+            Cursor = Cursors.Arrow;
             paint = true;
         }
 
@@ -98,14 +102,19 @@ namespace WpfApp1
                 }
             labelX.Content = "X: " + e.GetPosition(canDrawing).X;
             labelY.Content = "Y: " + e.GetPosition(canDrawing).Y;
-
-           // labelFX.Content = canDrawing.Children. 
         }
 
         private void canDrawing_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             px = e.GetPosition(canDrawing);
             paint = false;
+        }
+
+        private void BtnCursorMove_Click(object sender, RoutedEventArgs e)
+        {
+            Cursor = Cursors.SizeAll;
+            de.iditLoc = true;
+            f = ftype.N;
         }
 
         private void canDrawing_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -156,5 +165,7 @@ namespace WpfApp1
                     break;
             }
         }
+
+
     }
 }
