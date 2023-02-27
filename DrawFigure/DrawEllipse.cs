@@ -67,17 +67,17 @@ namespace EditorSubwayMap.DrawFigure
         {
             Ellipse newEl = new Ellipse()
             {
-                
+
                 Stroke = color1,
-                Height = 20,
                 Width = 20,
+                Height = 20,
+                Margin = new Thickness(0),
                 StrokeThickness = 5,
-                Margin = new Thickness(
-                    pStart.X, pStart.Y,
-                    pStart.X + 20, pStart.Y + 20),
                 Cursor= Cursors.Hand,
                 Fill = Brushes.Transparent
             };
+            Canvas.SetLeft(newEl, Pstart.X);
+            Canvas.SetTop(newEl, Pstart.Y);
 
             LocationEllipse locationEllipse = new LocationEllipse(can);
             newEl.MouseLeftButtonDown += locationEllipse.ellipse_MouseLeftButtonDown;
@@ -89,6 +89,7 @@ namespace EditorSubwayMap.DrawFigure
 
         public Ellipse EditSize(Ellipse ellipse)
         {
+            
             Point ellipsePoint = new Point();
 
             if (currentPoint.X >= pStart.X)
@@ -111,12 +112,9 @@ namespace EditorSubwayMap.DrawFigure
                 ellipsePoint.Y = currentPoint.Y;
                 ellipse.Height = pStart.Y - currentPoint.Y;
             }
-
-            ellipse.Margin = new Thickness(
-                ellipsePoint.X, 
-                ellipsePoint.Y, 
-                ellipse.Margin.Left, 
-                ellipse.Margin.Top);
+            
+            Canvas.SetLeft(ellipse, Pstart.X);
+            Canvas.SetTop(ellipse, Pstart.Y);
 
             return ellipse;
         }

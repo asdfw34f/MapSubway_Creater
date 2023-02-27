@@ -13,8 +13,6 @@ namespace EditorSubwayMap.DrawFigure.EditLocation
     public class LocationEllipse
     {
         private Canvas can;
-        double beginX = 0;
-        double beginY = 0;
         bool isMouseDown = false;
 
         public LocationEllipse(Canvas canvas) 
@@ -25,8 +23,10 @@ namespace EditorSubwayMap.DrawFigure.EditLocation
         internal void ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Ellipse b = sender as Ellipse;
-            beginX = e.GetPosition(can).X;
-            beginY = e.GetPosition(can).Y;
+
+            Canvas.SetLeft(b, e.GetPosition(can).X);
+            Canvas.SetTop(b, e.GetPosition(can).Y);
+
             isMouseDown = true;
             b.CaptureMouse();
         }
@@ -36,10 +36,9 @@ namespace EditorSubwayMap.DrawFigure.EditLocation
             if (isMouseDown)
             {
                 Ellipse b = sender as Ellipse;
-                double currX = e.GetPosition(can).X;
-                double currY = e.GetPosition(can).Y;
-                b.SetValue(Canvas.LeftProperty, currX);
-                b.SetValue(Canvas.TopProperty, currY);
+
+                Canvas.SetLeft(b, Mouse.GetPosition(can).X);
+                Canvas.SetTop(b, Mouse.GetPosition(can).Y);
             }
         }
 

@@ -47,6 +47,8 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            labelY.Content = "Y: ";
+            labelX.Content = "X: ";
         }
 
         private void btnPath_Click(object sender, RoutedEventArgs e)
@@ -98,6 +100,10 @@ namespace WpfApp1
 
                         break;
                 }
+            labelX.Content = "X: " + e.GetPosition(canDrawing).X;
+            labelY.Content = "Y: " + e.GetPosition(canDrawing).Y;
+
+           // labelFX.Content = canDrawing.Children. 
         }
 
         private void canDrawing_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)

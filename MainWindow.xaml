@@ -182,6 +182,20 @@
             <Canvas.Background>
                 <ImageBrush/>
             </Canvas.Background>
+            <Label x:Name="labelX" Content="Label" 
+                   Canvas.Left="0" Canvas.Bottom="0" 
+                   Height="28" Width="71" HorizontalAlignment="Left" 
+                   HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center"
+                   VerticalAlignment="Top"/>
+
+
+            <Label x:Name="labelY" Content="Label" 
+                   Canvas.Left="84" Canvas.Bottom="0" 
+                   Height="28" Width="71" HorizontalAlignment="Left" 
+                   HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center"
+                   VerticalAlignment="Top"/>
         </Canvas>
     </Grid>
 </Window>
