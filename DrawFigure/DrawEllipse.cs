@@ -17,7 +17,6 @@ using System.Diagnostics;
 using System.Net;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
-using EditorSubwayMap.DrawFigure.EditLocation;
 
 namespace EditorSubwayMap.DrawFigure
 {
@@ -27,13 +26,14 @@ namespace EditorSubwayMap.DrawFigure
         private Point currentPoint;
         private SolidColorBrush color1;
         private Canvas can;
+        bool isMouseDown = false;
+
         public DrawEllipse(Canvas canvas)
         {
             can = canvas;
             pStart = new Point(0, 0);
             currentPoint = new Point(0, 0);
             color1 = Brushes.Black;
-
         }
 
         public Point Pstart
@@ -67,7 +67,6 @@ namespace EditorSubwayMap.DrawFigure
         {
             Ellipse newEl = new Ellipse()
             {
-
                 Stroke = color1,
                 Width = 20,
                 Height = 20,
@@ -76,13 +75,13 @@ namespace EditorSubwayMap.DrawFigure
                 Cursor= Cursors.Hand,
                 Fill = Brushes.Transparent
             };
+
             Canvas.SetLeft(newEl, Pstart.X);
             Canvas.SetTop(newEl, Pstart.Y);
 
-            LocationEllipse locationEllipse = new LocationEllipse(can);
-            newEl.MouseLeftButtonDown += locationEllipse.ellipse_MouseLeftButtonDown;
-            newEl.MouseMove += locationEllipse.ellipse_MouseMove;
-            newEl.MouseLeftButtonUp += locationEllipse.ellipse_MouseLeftButtonUp;
+            newEl.MouseLeftButtonDown += ellipse_MouseLeftButtonDown;
+            newEl.MouseMove += ellipse_MouseMove;
+            newEl.MouseLeftButtonUp += ellipse_MouseLeftButtonUp;
 
             return newEl;
         }
@@ -117,6 +116,35 @@ namespace EditorSubwayMap.DrawFigure
             Canvas.SetTop(ellipse, Pstart.Y);
 
             return ellipse;
+        }
+
+        private void ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+            Ellipse b = sender as Ellipse;
+
+            Canvas.SetLeft(b, e.GetPosition(can).X);
+            Canvas.SetTop(b, e.GetPosition(can).Y);
+
+            isMouseDown = true;
+            b.CaptureMouse();
+        }
+
+        private void ellipse_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isMouseDown)
+            {
+                Ellipse b = sender as Ellipse;
+                Canvas.SetLeft(b, Mouse.GetPosition(can).X);
+                Canvas.SetTop(b, Mouse.GetPosition(can).Y);
+            }
+        }
+
+        private void ellipse_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Ellipse b = sender as Ellipse;
+            b.ReleaseMouseCapture();
+            isMouseDown = false;
         }
     }
 }

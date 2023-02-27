@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 using EditorSubwayMap.DrawFigure;
-using EditorSubwayMap.DrawFigure.EditLocation;
 using EditorSubwayMap.Model;
 using System;
 using System.Diagnostics;
@@ -33,11 +32,9 @@ namespace WpfApp1
 
         Line line;
         Ellipse ellipse;
-
-        const int pt = 1, el = 2, st = 3;
+        
         bool paint = false;
-        bool editLoc = false;
-        Point px, py = new Point();
+        Point px = new Point();
         ftype f;
 
         DrawEllipse de;
@@ -47,8 +44,8 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
-            labelY.Content = "Y: ";
-            labelX.Content = "X: ";
+            labelY.Content = "Y: 0";
+            labelX.Content = "X: 0";
         }
 
         private void btnPath_Click(object sender, RoutedEventArgs e)
@@ -67,7 +64,6 @@ namespace WpfApp1
         {
             f = ftype.N;
             paint = false;
-            editLoc = false;
         }
 
         private void btnStation_Click(object sender, RoutedEventArgs e)
@@ -130,6 +126,7 @@ namespace WpfApp1
                         Pend = px,
                         color = Brushes.Black
                     };
+
                     line = dl.Draw();
                     canDrawing.Children.Add(line);
                     break;
@@ -138,10 +135,10 @@ namespace WpfApp1
                     ds = new DrawStation()
                     {
                         Pstart = px,
-                        color = Brushes.Black
+                        color = Brushes.Black,
+                        Pend = e.GetPosition(canDrawing)
                     };
 
-                    ds.Pend = e.GetPosition(canDrawing);
                     ellipse = ds.Draw();
                     canDrawing.Children.Add(ellipse);
                     break;
@@ -155,13 +152,9 @@ namespace WpfApp1
 
                     de.Pend = e.GetPosition(canDrawing);
                     ellipse = de.Draw();
-
-
                     canDrawing.Children.Add(ellipse);
                     break;
             }
         }
-
-        
     }
 }

@@ -70,7 +70,6 @@
     </Compile>
     <Compile Include="DrawFigure\DrawEllipse.cs" />
     <Compile Include="DrawFigure\DrawStation.cs" />
-    <Compile Include="DrawFigure\EditLocation\LocationEllipse.cs" />
     <Compile Include="Interface\IFigure.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -116,6 +115,9 @@
   <ItemGroup>
     <Content Include="cursor.svg" />
     <Resource Include="icons\cursor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DrawFigure\EditLocation\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
