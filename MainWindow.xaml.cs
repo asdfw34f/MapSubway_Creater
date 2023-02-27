@@ -66,6 +66,7 @@ namespace WpfApp1
         {
             f = ftype.N;
             Cursor = Cursors.Arrow;
+            de.iditLoc = false;
             paint = false;
         }
 

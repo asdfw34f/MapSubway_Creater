@@ -157,7 +157,7 @@ namespace EditorSubwayMap.DrawFigure
             Ellipse b = sender as Ellipse;
             b.ReleaseMouseCapture();
             isMouseDown = false;
-            editLocation = false;
+            //editLocation = false;
         }
     }
 }
