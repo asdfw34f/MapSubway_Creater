@@ -37,7 +37,7 @@ namespace EditorSubwayMap.DrawFigure
             color1 = Brushes.Black;
         }
 
-        internal bool iditLoc
+        public bool iditLoc
         {
             get => editLocation;
             set => editLocation = value; 
@@ -157,7 +157,7 @@ namespace EditorSubwayMap.DrawFigure
             Ellipse b = sender as Ellipse;
             b.ReleaseMouseCapture();
             isMouseDown = false;
-            //editLocation = false;
+            editLocation = false;
         }
     }
 }

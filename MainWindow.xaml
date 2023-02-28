@@ -219,7 +219,7 @@
                 Click="BtnCursorMove_Click" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <Button.Background>
                     <ImageBrush 
-                        ImageSource="/cursor-move.png" TileMode="None" Stretch="Fill"/>
+                        ImageSource="/icons/cursor-move.png" TileMode="None" Stretch="Fill"/>
                 </Button.Background>
             </Button>
             <Label Content="Перетаскивание"

@@ -113,13 +113,9 @@
     <Resource Include="icons\station.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="cursor-move.png" />
-    <Content Include="cursor.svg" />
     <Resource Include="icons\cursor-move.png" />
     <Resource Include="icons\cursor.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DrawFigure\EditLocation\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

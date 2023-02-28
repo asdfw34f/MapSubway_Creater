@@ -19,12 +19,22 @@ namespace EditorSubwayMap.Model
         private Point Pstart1;
         private Point Pend1;
         private SolidColorBrush color1;
+        private bool isMouseDown = false;
+        private bool editLocation;
+        private Canvas can;
 
-        public DrawLine() 
+        public DrawLine(Canvas canvas) 
         {
+            can = canvas;
             Pstart1 = new Point(0, 0);
             Pend1 = new Point(0, 0);
             color1 = Brushes.Black;
+        }
+
+        public bool iditLoc
+        {
+            get => editLocation;
+            set => editLocation = value;
         }
 
         public Point Pstart
@@ -60,14 +70,50 @@ namespace EditorSubwayMap.Model
             {
                 Stroke = color1,
                 StrokeThickness = 7,
-                Cursor = Cursors.Hand
+                Cursor = Cursors.Hand,
+                Margin = new Thickness(0),
+                X1 = Pstart1.X,
+                Y1 = Pstart1.Y,
+                X2 = Pend1.X,
+                Y2 = Pend1.Y
             };
-            newLine.X1 = Pstart1.X;
-            newLine.Y1 = Pstart1.Y;
-            newLine.X2 = Pend1.X;
-            newLine.Y2 = Pend1.Y;
+
+            newLine.MouseLeftButtonDown += NewLine_MouseLeftDown;
+            newLine.MouseLeftButtonUp += NewLine_MouseLeftUp;
+            newLine.MouseMove += NewLine_MouseMove;
 
             return newLine;
+        }
+
+        private void NewLine_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isMouseDown)
+            {
+                Line line = sender as Line;
+
+                Canvas.SetLeft(line, e.GetPosition(can).X - line.X1);
+                Canvas.SetTop(line, e.GetPosition(can).Y - line.Y1);
+            }
+        }
+
+        private void NewLine_MouseLeftUp(object sender, MouseButtonEventArgs e)
+        {
+            if (!editLocation)
+                return;
+
+            Line line = sender as Line;
+            line.ReleaseMouseCapture();
+            isMouseDown = false;
+        }
+
+        private void NewLine_MouseLeftDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!editLocation)
+                return;
+
+            Line line = sender as Line;
+            isMouseDown = true;
+            line.CaptureMouse();
         }
     }
 }

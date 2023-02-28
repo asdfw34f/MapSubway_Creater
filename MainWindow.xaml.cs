@@ -44,6 +44,11 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+
+            de = new DrawEllipse(canDrawing);
+            ds = new DrawStation();
+            dl = new DrawLine(canDrawing);
+
             labelY.Content = "Y: 0";
             labelX.Content = "X: 0";
         }
@@ -115,13 +120,13 @@ namespace WpfApp1
         {
             Cursor = Cursors.SizeAll;
             de.iditLoc = true;
+            dl.iditLoc = true;
             f = ftype.N;
         }
 
         private void canDrawing_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             paint = true;
-
             px = e.GetPosition(canDrawing);
 
             switch (f)
@@ -129,36 +134,33 @@ namespace WpfApp1
                 case ftype.N:
                     break;
 
+                    //  DRAW LINE 
                 case ftype.line:
-                    dl = new DrawLine()
-                    {
-                        Pstart = px,
-                        Pend = px,
-                        color = Brushes.Black
-                    };
+                    
+                    dl.Pstart = px;
+                    dl.Pend = px;
+                    dl.color = Brushes.Black;
 
                     line = dl.Draw();
                     canDrawing.Children.Add(line);
                     break;
 
+                    //  DRAW STATION
                 case ftype.station:
-                    ds = new DrawStation()
-                    {
-                        Pstart = px,
-                        color = Brushes.Black,
-                        Pend = e.GetPosition(canDrawing)
-                    };
+
+                    ds.Pstart = px;
+                    ds.color = Brushes.Black;
+                    ds.Pend = e.GetPosition(canDrawing);
 
                     ellipse = ds.Draw();
                     canDrawing.Children.Add(ellipse);
                     break;
 
+                    //  DRAW ELLIPSE
                 case ftype.ellipse:
-                    de = new DrawEllipse(canDrawing)
-                    {
-                        Pstart = px,
-                        color = Brushes.Black
-                    };
+
+                    de.Pstart = px;
+                    de.color = Brushes.Black;
 
                     de.Pend = e.GetPosition(canDrawing);
                     ellipse = de.Draw();
