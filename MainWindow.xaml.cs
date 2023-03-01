@@ -176,7 +176,6 @@ namespace WpfApp1
 
                     ds.Pstart = px;
                     ds.color = Brushes.Black;
-                    ds.Pend = e.GetPosition(canDrawing);
 
                     ellipse = ds.Draw();
                     canDrawing.Children.Add(ellipse);

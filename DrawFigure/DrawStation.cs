@@ -10,13 +10,14 @@ using System.Windows.Shapes;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Controls;
+using System.Windows.Navigation;
+using System.CodeDom;
 
 namespace EditorSubwayMap.DrawFigure
 {
     internal class DrawStation : IFigure
     {
         private Point pStart;
-        private Point currentPoint;
         private SolidColorBrush color1;
         private Canvas can;
         private bool isMouseDown = false;
@@ -26,34 +27,71 @@ namespace EditorSubwayMap.DrawFigure
         {
             can = canvas;
             pStart = new Point(0, 0);
-            currentPoint = new Point(0, 0);
             color1 = Brushes.Black;
         }
 
+        /// <summary>
+        /// Сводка:
+        ///      Устанавливает истина или ложь для изменения локации станции по канвасу.
+        /// </summary>
+        /// <returns>
+        ///      Возвращает текущее состаяние (изначально ложь).
+        /// </returns>
         public bool iditLoc
         {
             get => editLocation;
             set => editLocation = value;
         }
 
+        /// <summary>
+        /// Сводка:
+        ///      Устанавливает позицию станции по канвасу.
+        /// </summary>
+        /// <returns>
+        ///      Возвращает текущую позицию станции по канвасу (изначально равен 0; 0).
+        /// </returns>
         public Point Pstart
         {
             get => pStart;
             set => pStart = value;
         }
 
+        /// <summary>
+        /// Сводка:
+        ///      Не играет роли для отрисовки станции на канвасе.
+        /// </summary>
+        /// <returns>
+        ///      Возвращает исключение.
+        /// </returns>
         public Point Pend
         {
-            get => currentPoint;
-            set => currentPoint = value;
+            get 
+            {
+                return new Point(0, 0); 
+            }
+            set => throw new Exception("Не нуждается в установке");
         }
 
+        /// <summary>
+        /// Сводка:
+        ///      Устанавливает цвет станции.
+        /// </summary>
+        /// <returns>
+        ///      Возвращает текущий цвет станции.
+        /// </returns>
         public SolidColorBrush color
         {
             get => color1;
             set => color1 = value;
         }
 
+        /// <summary>
+        /// Сводка:
+        ///      Рисует эллипс станции по заданым параметрам.
+        /// </summary>
+        /// <returns>
+        ///      Возвращает готовую станцию.
+        /// </returns>
         public Ellipse Draw()
         {
             Ellipse newSt = new Ellipse()

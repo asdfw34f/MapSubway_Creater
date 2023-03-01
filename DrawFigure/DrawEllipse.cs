@@ -38,30 +38,65 @@ namespace EditorSubwayMap.DrawFigure
             color1 = Brushes.Black;
         }
 
+        /// <summary>
+        /// Сводка:
+        ///      Устанавливает истина или ложь для изменения локации круговой ветки метро.
+        /// </summary>
+        /// <returns>
+        ///      Возвращает текущее состаяние (изначально ложь).
+        /// </returns>
         public bool iditLoc
         {
             get => editLocation;
             set => editLocation = value; 
         }
 
+        /// <summary>
+        /// Сводка:
+        ///      Устанавливает начальные координаты позиции круговой ветки метро по канвасу.
+        /// </summary>
+        /// <returns>
+        ///      Возвращает текущие начальные позицию круговой ветки метро по канвасу (изначально равен 0; 0).
+        /// </returns>
         public Point Pstart
         {
             get => pStart;
             set => pStart = value;
         }
 
+        /// <summary>
+        /// Сводка:
+        ///      Устанавливает конечные координаты позиции круговой ветки метро по канвасу.
+        /// </summary>
+        /// <returns>
+        ///      Возвращает текущие конечную позицию круговой ветки метро по канвасу (изначально равен 0; 0).
+        /// </returns>
         public Point Pend
         {
             get => currentPoint;
             set => currentPoint = value;
         }
 
+        /// <summary>
+        /// Сводка:
+        ///      Устанавливает цвет круговой ветки метро.
+        /// </summary>
+        /// <returns>
+        ///      Возвращает текущий цвет круговой ветки метро.
+        /// </returns>
         public SolidColorBrush color
         {
             get => color1;
             set => color1 = value;
         }
 
+        /// <summary>
+        /// Сводка:
+        ///      Рисует эллипс круговой ветки метро по заданым параметрам.
+        /// </summary>
+        /// <returns>
+        ///      Возвращает готовую ветку метро.
+        /// </returns>
         public Ellipse Draw()
         {
             Ellipse newEl = new Ellipse()
@@ -86,6 +121,13 @@ namespace EditorSubwayMap.DrawFigure
             return newEl;
         }
 
+        /// <summary>
+        /// Сводка:
+        ///      Изменяет размер ветки по новым параметрам.
+        /// </summary>
+        /// <returns>
+        ///      Возвращает изменённую ветки.
+        /// </returns>
         public Ellipse EditSize(Ellipse ellipse)
         {
             
