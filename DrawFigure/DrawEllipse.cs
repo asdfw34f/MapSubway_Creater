@@ -1,5 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
+
 using System.Xaml;
 using System;
 using System.Collections.Generic;
@@ -46,28 +47,19 @@ namespace EditorSubwayMap.DrawFigure
         public Point Pstart
         {
             get => pStart;
-            set
-            {
-                pStart = value;
-            }
+            set => pStart = value;
         }
 
         public Point Pend
         {
             get => currentPoint;
-            set
-            {
-                currentPoint = value;
-            }
+            set => currentPoint = value;
         }
 
         public SolidColorBrush color
         {
             get => color1;
-            set
-            {
-                color1 = value;
-            }
+            set => color1 = value;
         }
 
         public Ellipse Draw()
@@ -154,6 +146,7 @@ namespace EditorSubwayMap.DrawFigure
         {
             if (!editLocation)
                 return;
+
             Ellipse b = sender as Ellipse;
             b.ReleaseMouseCapture();
             isMouseDown = false;

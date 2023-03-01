@@ -46,41 +46,70 @@ namespace WpfApp1
             InitializeComponent();
 
             de = new DrawEllipse(canDrawing);
-            ds = new DrawStation();
+            ds = new DrawStation(canDrawing);
             dl = new DrawLine(canDrawing);
 
             labelY.Content = "Y: 0";
             labelX.Content = "X: 0";
         }
 
+        // BUTTONS
+
         private void btnPath_Click(object sender, RoutedEventArgs e)
         {
+            de.iditLoc = false;
+            dl.iditLoc = false;
+            ds.iditLoc = false;
+            paint = true;
+
             f = ftype.line;
             Cursor = Cursors.Arrow;
-            paint = true;
         }
 
         private void btnEllipse_Click(object sender, RoutedEventArgs e)
         {
+            de.iditLoc = false;
+            dl.iditLoc = false;
+            ds.iditLoc = false;
+            paint = true;
+
             f = ftype.ellipse;
             Cursor = Cursors.Arrow;
-            paint = true;
         }
 
         private void btnCursor_Click(object sender, RoutedEventArgs e)
         {
+            de.iditLoc = false;
+            dl.iditLoc = false;
+            ds.iditLoc = false;
+            paint = false;
+
             f = ftype.N;
             Cursor = Cursors.Arrow;
-            de.iditLoc = false;
-            paint = false;
         }
 
         private void btnStation_Click(object sender, RoutedEventArgs e)
         {
+            de.iditLoc = false;
+            dl.iditLoc = false;
+            ds.iditLoc = false;
+            paint = true;
+
             f = ftype.station;
             Cursor = Cursors.Arrow;
-            paint = true;
         }
+
+        private void BtnCursorMove_Click(object sender, RoutedEventArgs e)
+        {
+            de.iditLoc = true;
+            dl.iditLoc = true;
+            ds.iditLoc = true;
+
+            f = ftype.N;
+            Cursor = Cursors.SizeAll;
+        }
+
+        // CANVAS MOUSE EVENTS
 
         private void canDrawing_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
@@ -90,22 +119,25 @@ namespace WpfApp1
                     case ftype.N:
                         break;
 
+                    //  DRAW LINE 
                     case ftype.line:
 
                         line.X2 = e.GetPosition(canDrawing).X;
                         line.Y2 = e.GetPosition(canDrawing).Y;
                         break;
 
+                    //  DRAW STATION
                     case ftype.station:
-
                         break;
 
+                    //  DRAW ELLIPSE
                     case ftype.ellipse:
+
                         de.Pend = e.GetPosition(canDrawing);
                         ellipse = de.EditSize(ellipse);
-
                         break;
                 }
+
             labelX.Content = "X: " + e.GetPosition(canDrawing).X;
             labelY.Content = "Y: " + e.GetPosition(canDrawing).Y;
         }
@@ -116,13 +148,7 @@ namespace WpfApp1
             paint = false;
         }
 
-        private void BtnCursorMove_Click(object sender, RoutedEventArgs e)
-        {
-            Cursor = Cursors.SizeAll;
-            de.iditLoc = true;
-            dl.iditLoc = true;
-            f = ftype.N;
-        }
+
 
         private void canDrawing_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -168,7 +194,5 @@ namespace WpfApp1
                     break;
             }
         }
-
-
     }
 }

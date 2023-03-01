@@ -31,39 +31,65 @@ namespace EditorSubwayMap.Model
             color1 = Brushes.Black;
         }
 
+        /// <summary>
+        /// Сводка:
+        ///      Устанавливает истина или ложь для изменения локации линии маршрута по канвасу.
+        /// </summary>
+        /// <returns>
+        ///      Возвращает текущее состаяние (истина или ложь).
+        /// </returns>
         public bool iditLoc
         {
             get => editLocation;
             set => editLocation = value;
         }
 
+        /// <summary>
+        /// Сводка:
+        ///      Устанавливает позицию начала линии маршрута.
+        /// </summary>
+        /// <returns>
+        ///      Возвращает текущую позицию начала линии маршрута (изначально равен 0; 0).
+        /// </returns>
         public Point Pstart
         {
             get => Pstart1;
-            set
-            {
-                Pstart1 = value;
-            }
+            set => Pstart1 = value;
         }
 
+        /// <summary>
+        /// Сводка:
+        ///      Устанавливает позицию конца линии маршрута.
+        /// </summary>
+        /// <returns>
+        ///      Возвращает текущую позицию конца линии маршрута (изначально равен 0; 0).
+        /// </returns>
         public Point Pend
         {
             get => Pend1;
-            set
-            {
-                Pend1 = value;
-            }
+            set => Pend1 = value;
         }
 
+        /// <summary>
+        /// Сводка:
+        ///      Устанавливает цвет линии маршрута.
+        /// </summary>
+        /// <returns>
+        ///      Возвращает текущий цвет линии маршрута.
+        /// </returns>
         public SolidColorBrush color
         {
             get => color1;
-            set
-            {
-                color1 = value;
-            }
+            set => color1 = value;
         }
 
+        /// <summary>
+        /// Сводка:
+        ///      Рисует линию по заданым параметрам.
+        /// </summary>
+        /// <returns>
+        ///      Возвращает готовую линию маршрута.
+        /// </returns>
         public Line Draw()
         {
             Line newLine = new Line()
