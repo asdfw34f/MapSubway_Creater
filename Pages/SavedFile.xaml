@@ -9,10 +9,14 @@
     <Grid Background="#FF0EAFA4">
         <TextBox x:Name="NameFile" 
                  Margin="40,44,40,65" TextWrapping="Wrap"
-                 Text="map.png" BorderBrush="Black" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                 Text="map.png" BorderBrush="Black" FontSize="16"
+                 HorizontalContentAlignment="Center" 
+                 VerticalContentAlignment="Center"/>
+        
         <Button x:Name="button" Content="Сохранить" 
                 Margin="120,99,120,25" Background="Black" 
-                BorderBrush="#FF00FFD6" Foreground="#FF3EE0D5" d:LayoutOverrides="HorizontalAlignment"/>
+                BorderBrush="#FF00FFD6" Foreground="#FF3EE0D5"
+                d:LayoutOverrides="HorizontalAlignment"/>
 
     </Grid>
 </Window>
