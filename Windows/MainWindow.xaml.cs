@@ -195,5 +195,10 @@ namespace WpfApp1
                     break;
             }
         }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

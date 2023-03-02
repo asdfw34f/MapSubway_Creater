@@ -154,7 +154,7 @@
                     FontSize="14"
                     Background="#FF006A67" 
                     VerticalAlignment="Center"
-                    Width="120"/>
+                    Width="120" Click="btnSave_Click"/>
 
             <!--Label text of Select btn Pen-->
             <Label Content="Маршрут" 

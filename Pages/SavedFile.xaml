@@ -1,0 +1,18 @@
+﻿<Window x:Class="EditorSubwayMap.Pages.SavedFile"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EditorSubwayMap.Pages"
+        mc:Ignorable="d"
+        Title="" Height="160" Width="320">
+    <Grid Background="#FF0EAFA4">
+        <TextBox x:Name="NameFile" 
+                 Margin="40,44,40,65" TextWrapping="Wrap"
+                 Text="map.png" BorderBrush="Black" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Button x:Name="button" Content="Сохранить" 
+                Margin="120,99,120,25" Background="Black" 
+                BorderBrush="#FF00FFD6" Foreground="#FF3EE0D5" d:LayoutOverrides="HorizontalAlignment"/>
+
+    </Grid>
+</Window>
