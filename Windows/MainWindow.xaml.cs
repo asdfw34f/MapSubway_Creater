@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -44,6 +45,9 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            //Uri iconUri = new Uri(@"icons/icon-map.png", UriKind.RelativeOrAbsolute);
+            //this.Icon = BitmapFrame.Create(iconUri);
+
 
             de = new DrawEllipse(canDrawing);
             ds = new DrawStation(canDrawing);
@@ -147,8 +151,6 @@ namespace WpfApp1
             px = e.GetPosition(canDrawing);
             paint = false;
         }
-
-
 
         private void canDrawing_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
