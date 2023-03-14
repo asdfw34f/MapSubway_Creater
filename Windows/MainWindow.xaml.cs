@@ -3,12 +3,14 @@
 
 using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
+using EditorSubwayMap.Pages;
 using System;
 using System.Diagnostics;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -198,7 +200,18 @@ namespace WpfApp1
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            labelX.Visibility = Visibility.Hidden;
+            labelY.Visibility = Visibility.Hidden;
 
+            SavedFile save = new SavedFile(canDrawing);
+            save.ShowDialog();
+            save.Closed += WindowSave_Closed;
+        }
+
+        private void WindowSave_Closed(object sender, EventArgs e)
+        {
+            labelX.Visibility = Visibility.Visible;
+            labelY.Visibility = Visibility.Visible;
         }
     }
 }

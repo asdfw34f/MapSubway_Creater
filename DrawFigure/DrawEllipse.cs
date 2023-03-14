@@ -157,6 +157,8 @@ namespace EditorSubwayMap.DrawFigure
             Canvas.SetLeft(ellipse, Pstart.X);
             Canvas.SetTop(ellipse, Pstart.Y);
 
+            ellipse.Height = ellipse.Width;
+
             return ellipse;
         }
 

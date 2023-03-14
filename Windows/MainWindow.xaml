@@ -237,6 +237,9 @@
                 BorderThickness="1,1,1,1"
                 Canvas.Left="133" Canvas.Top="225" 
                    HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Frame x:Name="frame" Content="Frame" Height="101" Width="260" 
+                   HorizontalAlignment="Center" VerticalAlignment="Top" 
+                   Canvas.Top="256" NavigationUIVisibility="Hidden"/>
         </Canvas>
 
         <Canvas x:Name="canDrawing"
