@@ -86,9 +86,13 @@
     <Compile Include="Pages\AtrWriterSt.xaml.cs">
       <DependentUpon>AtrWriterSt.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PanelAtributs.xaml.cs">
+      <DependentUpon>PanelAtributs.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SavedFile.xaml.cs">
       <DependentUpon>SavedFile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Scripts\ALine.cs" />
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
