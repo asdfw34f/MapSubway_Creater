@@ -11,7 +11,6 @@ using System.Windows.Media;
 using System.Windows;
 using System.Windows.Shapes;
 using System.Windows.Controls;
-using Microsoft.Build.Tasks;
 using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
 using System.Diagnostics;
@@ -21,11 +20,11 @@ using System.Windows.Media.Animation;
 
 namespace EditorSubwayMap.DrawFigure
 {
-    internal class DrawEllipse : IFigure
+    public class DrawEllipse : IFigure
     {
         private Point pStart;
         private Point currentPoint;
-        private SolidColorBrush color1;
+        private Brush color1;
         private Canvas can;
         private bool isMouseDown = false;
         private bool editLocation = false;
@@ -84,7 +83,7 @@ namespace EditorSubwayMap.DrawFigure
         /// <returns>
         ///      Возвращает текущий цвет круговой ветки метро.
         /// </returns>
-        public SolidColorBrush color
+        public Brush color
         {
             get => color1;
             set => color1 = value;
@@ -157,6 +156,8 @@ namespace EditorSubwayMap.DrawFigure
             Canvas.SetLeft(ellipse, Pstart.X);
             Canvas.SetTop(ellipse, Pstart.Y);
 
+            ellipse.Height = ellipse.Width;
+
             return ellipse;
         }
 
@@ -179,6 +180,7 @@ namespace EditorSubwayMap.DrawFigure
             if (isMouseDown)
             {
                 Ellipse b = sender as Ellipse;
+
                 Canvas.SetLeft(b, Mouse.GetPosition(can).X);
                 Canvas.SetTop(b, Mouse.GetPosition(can).Y);
             }
@@ -194,5 +196,16 @@ namespace EditorSubwayMap.DrawFigure
             isMouseDown = false;
             editLocation = false;
         }
+        /*
+private void ellipse_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+{
+if (!editLocation)
+return;
+
+Ellipse b = sender as Ellipse;
+b.ReleaseMouseCapture();
+isMouseDown = false;
+editLocation = false;
+}*/
     }
 }

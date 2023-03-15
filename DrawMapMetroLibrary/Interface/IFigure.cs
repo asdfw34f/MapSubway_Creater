@@ -15,6 +15,6 @@ namespace EditorSubwayMap
     {
         Point Pstart  { get; set; }
         Point Pend { get; set; }
-        SolidColorBrush color { get; set; }
+        Brush color { get; set; }
     }
 }

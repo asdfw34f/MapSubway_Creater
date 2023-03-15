@@ -36,8 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Build.Tasks.v4.0" />
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -56,6 +58,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\AtrWriterLine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AtrWriterSt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\SavedFile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -68,9 +78,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DrawFigure\DrawEllipse.cs" />
-    <Compile Include="DrawFigure\DrawStation.cs" />
-    <Compile Include="Interface\IFigure.cs" />
+    <Compile Include="Atributs\Station.cs" />
+    <Compile Include="Atributs\WriteAtributsStation.cs" />
+    <Compile Include="Pages\AtrWriterLine.xaml.cs">
+      <DependentUpon>AtrWriterLine.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AtrWriterSt.xaml.cs">
+      <DependentUpon>AtrWriterSt.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SavedFile.xaml.cs">
       <DependentUpon>SavedFile.xaml</DependentUpon>
     </Compile>
@@ -80,7 +95,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DrawFigure\DrawLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -121,6 +135,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icons\icon-map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="XMLFile1.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="DrawMapMetroLibrary\DrawMapMetroLibrary.csproj">
+      <Project>{34c816a0-c125-49fa-9ae5-313b3c2ff862}</Project>
+      <Name>DrawMapMetroLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,11 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         WindowState="Maximized"
         Icon="/icons/icon-map.png"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="1027" Width="1628">
 
     <Window.Resources>
+
+        <ObjectDataProvider MethodName="GetType" 
+    ObjectType="{x:Type sys:Type}" x:Key="colorsTypeOdp">
+            <ObjectDataProvider.MethodParameters>
+                <sys:String>System.Windows.Media.Brushes, PresentationCore,
+            Version=3.0.0.0, Culture=neutral, 
+            PublicKeyToken=31bf3856ad364e35</sys:String>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider ObjectInstance="{StaticResource colorsTypeOdp}"  
+    MethodName="GetProperties" x:Key="colorPropertiesOdp">
+        </ObjectDataProvider>
+
+
         <Style x:Key="MyButtonStyle" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -45,6 +60,22 @@
 
         <Canvas Grid.Column="0" Grid.Row="0" 
                 Grid.RowSpan="3" Background="Black" Grid.ColumnSpan="2">
+
+            <ComboBox Name="cboColors"
+                      
+          
+          SelectedValuePath="Name" Height="30" Width="224" Canvas.Left="18" Canvas.Top="276" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Height="18" Margin="0,0,0,2">
+                            <Border BorderThickness="1" CornerRadius="2" 
+                  BorderBrush="Black" Width="50" VerticalAlignment="Stretch"
+                  Background="{Binding Name}"/>
+                            <TextBlock Text="{Binding Name}" Margin="8,0,0,0"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
             <Label Content="Выбор кисти" 
                    Foreground="#FF006A67" 
@@ -105,7 +136,7 @@
 
             <Button x:Name="btnCursor" 
                     Cursor="Hand"
-                    Canvas.Top="170" 
+                    Canvas.Top="160" 
                     Canvas.Left="36"
                     Width="50" Height="50" 
                     HorizontalAlignment="Center"
@@ -129,8 +160,8 @@
                 BorderBrush="#FF006A67" 
                 BorderThickness="1,1,1,1"
                 Canvas.Left="10" Canvas.Bottom="45" 
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Bottom"/>
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Center" Canvas.Top="921"/>
 
             <!--Open the map button-->
             <Button x:Name="btnOpenMap"
@@ -138,11 +169,11 @@
                     Content="Открыть схему"
                     Canvas.Bottom="15" 
                     Canvas.Left="140"
-                    HorizontalAlignment="Center" 
+                    HorizontalAlignment="Left" 
                     FontSize="14"
                     Background="#FF006A67" 
-                    VerticalAlignment="Bottom"
-                    Width="110" />
+                    VerticalAlignment="Center"
+                    Width="110" Click="btnOpenMap_Click" Canvas.Top="955" />
 
             <!--Save the map button-->
             <Button x:Name="btnSave"
@@ -154,7 +185,7 @@
                     FontSize="14"
                     Background="#FF006A67" 
                     VerticalAlignment="Center"
-                    Width="120" Click="btnSave_Click"/>
+                    Width="120" Click="btnSave_Click" Canvas.Top="955"/>
 
             <!--Label text of Select btn Pen-->
             <Label Content="Маршрут" 
@@ -185,6 +216,7 @@
                 Canvas.Left="160" Canvas.Top="95" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center"/>
+
             <Label Content="Кликер"
                    Foreground="#FF006A67" 
                 Height="26" 
@@ -196,9 +228,10 @@
                    FontWeight="Medium"
                 BorderBrush="#FF006A67" 
                 BorderThickness="1,1,1,1"
-                Canvas.Left="17" Canvas.Top="225" 
+                Canvas.Left="17" Canvas.Top="215" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Top"/>
+
             <Label Content="Выбор инструмента"
                    Foreground="#FF006A67" 
                 Height="29" 
@@ -210,15 +243,16 @@
                    FontWeight="Medium"
                 BorderBrush="#FF006A67" 
                 BorderThickness="1,1,1,1"
-                Canvas.Left="10" Canvas.Top="135"
+                Canvas.Left="10" Canvas.Top="128"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
+                   VerticalAlignment="Top"/>
+
             <Button x:Name="btnCursorMove" 
                 Cursor="Hand"
-                Canvas.Top="170" 
+                Canvas.Top="160" 
                 Canvas.Left="152"
                 Width="50" Height="50"
-                Click="BtnCursorMove_Click" HorizontalAlignment="Left" VerticalAlignment="Center">
+                Click="BtnCursorMove_Click" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Button.Background>
                     <ImageBrush 
                         ImageSource="/icons/cursor-move.png" TileMode="None" Stretch="Fill"/>
@@ -235,8 +269,16 @@
                 FontWeight="Medium"
                 BorderBrush="#FF006A67" 
                 BorderThickness="1,1,1,1"
-                Canvas.Left="133" Canvas.Top="225" 
-                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                Canvas.Left="133" Canvas.Top="215" 
+                   HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Button x:Name="btnRemoveAll"
+                Cursor="Hand"
+                Content="Удалить всё"
+                Canvas.Bottom="15" 
+                Canvas.Left="75" 
+                FontSize="14"
+                Background="#FF006A67"
+                Width="120" Click="btnRemoveAll_Click" Canvas.Top="893" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Calisto MT"/>
         </Canvas>
 
         <Canvas x:Name="canDrawing"

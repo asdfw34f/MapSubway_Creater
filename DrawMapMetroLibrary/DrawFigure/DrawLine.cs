@@ -19,7 +19,7 @@ namespace EditorSubwayMap.Model
     {
         private Point Pstart1;
         private Point Pend1;
-        private SolidColorBrush color1;
+        private Brush color1;
         private bool isMouseDown = false;
         private bool editLocation;
         private Canvas can;
@@ -78,7 +78,7 @@ namespace EditorSubwayMap.Model
         /// <returns>
         ///      Возвращает текущий цвет линии маршрута.
         /// </returns>
-        public SolidColorBrush color
+        public Brush color
         {
             get => color1;
             set => color1 = value;
@@ -96,6 +96,7 @@ namespace EditorSubwayMap.Model
             Line newLine = new Line()
             {
                 Stroke = color1,
+                Fill= color1,
                 StrokeThickness = 7,
                 Cursor = Cursors.Hand,
                 Margin = new Thickness(0),

@@ -15,10 +15,10 @@ using System.CodeDom;
 
 namespace EditorSubwayMap.DrawFigure
 {
-    internal class DrawStation : IFigure
+    public class DrawStation : IFigure
     {
         private Point pStart;
-        private SolidColorBrush color1;
+        private Brush color1;
         private Canvas can;
         private bool isMouseDown = false;
         private bool editLocation = false;
@@ -79,7 +79,7 @@ namespace EditorSubwayMap.DrawFigure
         /// <returns>
         ///      Возвращает текущий цвет станции.
         /// </returns>
-        public SolidColorBrush color
+        public Brush color
         {
             get => color1;
             set => color1 = value;
@@ -125,6 +125,7 @@ namespace EditorSubwayMap.DrawFigure
 
             Canvas.SetLeft(b, e.GetPosition(can).X);
             Canvas.SetTop(b, e.GetPosition(can).Y);
+
 
             isMouseDown = true;
             b.CaptureMouse();

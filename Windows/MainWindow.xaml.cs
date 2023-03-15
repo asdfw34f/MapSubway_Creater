@@ -1,20 +1,27 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
+using EditorSubwayMap.Atributs;
 using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
+using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
+using Path = System.IO.Path;
 
 namespace WpfApp1
 {
@@ -31,22 +38,45 @@ namespace WpfApp1
             station
         }
 
+        struct Atr_St
+        {
+            public string Name;
+            public int idLine;
+            public int backWay;
+            public int NextWay;
+        }
+
         Line line;
+
         Ellipse ellipse;
-        
+
         bool paint = false;
+
         Point px = new Point();
+
         ftype f;
+        Atr_St St;
 
         DrawEllipse de;
         DrawStation ds;
         DrawLine dl;
 
+        BrushConverter conv;
+
+
+        Brush br;
+
+        List<Station> stations;
+
         public MainWindow()
         {
             InitializeComponent();
-            //Uri iconUri = new Uri(@"icons/icon-map.png", UriKind.RelativeOrAbsolute);
-            //this.Icon = BitmapFrame.Create(iconUri);
+            conv = new BrushConverter(); 
+            stations = new List<Station>();
+            var values = typeof(Brushes).GetProperties().
+                Select(p => new { Name = p.Name, Brush = p.GetValue(null) as Brush }).
+                ToArray();
+            cboColors.ItemsSource = values;
 
 
             de = new DrawEllipse(canDrawing);
@@ -113,6 +143,22 @@ namespace WpfApp1
             Cursor = Cursors.SizeAll;
         }
 
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnOpenMap_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnRemoveAll_Click(object sender, RoutedEventArgs e)
+        {
+            canDrawing.Children.RemoveRange(0, canDrawing.Children.Count);
+        }
+
+
         // CANVAS MOUSE EVENTS
 
         private void canDrawing_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
@@ -132,6 +178,7 @@ namespace WpfApp1
 
                     //  DRAW STATION
                     case ftype.station:
+
                         break;
 
                     //  DRAW ELLIPSE
@@ -150,6 +197,31 @@ namespace WpfApp1
         {
             px = e.GetPosition(canDrawing);
             paint = false;
+
+            switch (f)
+            {
+                case ftype.N:
+                    break;
+
+                //  LINE 
+                case ftype.line:
+
+                    break;
+
+                //  STATION
+                case ftype.station:
+
+                    Station station = new Station(St.Name, St.NextWay,
+                        St.backWay, St.idLine);
+
+                    stations.Add(station);
+
+                    break;
+
+                //  ELLIPSE
+                case ftype.ellipse:
+                    break;
+            }
         }
 
         private void canDrawing_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -162,28 +234,32 @@ namespace WpfApp1
                 case ftype.N:
                     break;
 
-                    //  DRAW LINE 
+                //  DRAW LINE 
                 case ftype.line:
-                    
+
                     dl.Pstart = px;
                     dl.Pend = px;
-                    dl.color = Brushes.Black;
+
+                    string col = cboColors.SelectedValue as string;
+                    dl.color = conv.ConvertFromString(col) as Brush;
+                    
 
                     line = dl.Draw();
                     canDrawing.Children.Add(line);
                     break;
 
-                    //  DRAW STATION
+                //  DRAW STATION
                 case ftype.station:
 
                     ds.Pstart = px;
                     ds.color = Brushes.Black;
 
                     ellipse = ds.Draw();
+
                     canDrawing.Children.Add(ellipse);
                     break;
 
-                    //  DRAW ELLIPSE
+                //  DRAW ELLIPSE
                 case ftype.ellipse:
 
                     de.Pstart = px;
@@ -194,11 +270,6 @@ namespace WpfApp1
                     canDrawing.Children.Add(ellipse);
                     break;
             }
-        }
-
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
