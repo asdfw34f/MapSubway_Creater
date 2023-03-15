@@ -5,18 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EditorSubwayMap.Pages"
         mc:Ignorable="d"
-        Title="" Height="160" Width="320">
+        Title="Сохранение схемы" Height="160" Width="320"
+        AutomationProperties.Name="Сохранение схемы" SizeToContent="WidthAndHeight"
+        WindowState="Maximized" Icon="/icons/save-file-option_icon-icons.com_73423.png"
+                ResizeMode="NoResize">
+    
     <Grid Background="#FF0EAFA4">
         <TextBox x:Name="NameFile" 
-                 Margin="40,44,40,65" TextWrapping="Wrap"
+                 Margin="40,29,40,0" TextWrapping="Wrap"
                  Text="map.png" BorderBrush="Black" FontSize="16"
                  HorizontalContentAlignment="Center" 
-                 VerticalContentAlignment="Center"/>
-        
-        <Button x:Name="button" Content="Сохранить" 
+                 VerticalContentAlignment="Center" Height="35" VerticalAlignment="Top"/>
+
+        <Button x:Name="saveBtn" Content="Сохранить" 
                 Margin="120,99,120,25" Background="Black" 
                 BorderBrush="#FF00FFD6" Foreground="#FF3EE0D5"
-                d:LayoutOverrides="HorizontalAlignment"/>
+                d:LayoutOverrides="HorizontalAlignment" Click="saveBtn_Click"/>
 
     </Grid>
 </Window>

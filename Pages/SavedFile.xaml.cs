@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace EditorSubwayMap.Pages
 {
@@ -19,9 +12,23 @@ namespace EditorSubwayMap.Pages
     /// </summary>
     public partial class SavedFile : Window
     {
-        public SavedFile()
+        Canvas can;
+        public SavedFile(Canvas canvas)
         {
             InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            can = canvas;
+        }
+
+        private void saveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new FolderBrowserDialog();
+            var result = dialog.ShowDialog();
+
+            if (dialog.SelectedPath != null)
+            {
+                
+            }
         }
     }
 }
