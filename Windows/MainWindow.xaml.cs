@@ -78,7 +78,8 @@ namespace WpfApp1
                 Select(p => new { Name = p.Name, Brush = p.GetValue(null) as Brush }).
                 ToArray();
             cboColors.ItemsSource = values;
-
+            cboColors.SelectedIndex= 7;
+                
 
             de = new DrawEllipse(canDrawing);
             ds = new DrawStation(canDrawing);

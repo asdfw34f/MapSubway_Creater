@@ -58,10 +58,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Pages\AtrWriterLine.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\AtrWriterSt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -80,19 +76,12 @@
     </Compile>
     <Compile Include="Atributs\Station.cs" />
     <Compile Include="Atributs\WriteAtributsStation.cs" />
-    <Compile Include="Pages\AtrWriterLine.xaml.cs">
-      <DependentUpon>AtrWriterLine.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\AtrWriterSt.xaml.cs">
       <DependentUpon>AtrWriterSt.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\PanelAtributs.xaml.cs">
-      <DependentUpon>PanelAtributs.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\SavedFile.xaml.cs">
       <DependentUpon>SavedFile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Scripts\ALine.cs" />
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

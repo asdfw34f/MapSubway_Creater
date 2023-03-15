@@ -103,8 +103,7 @@ namespace EditorSubwayMap.Model
                 X1 = Pstart1.X,
                 Y1 = Pstart1.Y,
                 X2 = Pend1.X,
-                Y2 = Pend1.Y,
-                Fill = color1
+                Y2 = Pend1.Y
             };
 
             newLine.MouseLeftButtonDown += NewLine_MouseLeftDown;

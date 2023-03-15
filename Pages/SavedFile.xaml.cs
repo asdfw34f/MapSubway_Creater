@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -22,13 +21,6 @@ namespace EditorSubwayMap.Pages
 
         private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new FolderBrowserDialog();
-            var result = dialog.ShowDialog();
-
-            if (dialog.SelectedPath != null)
-            {
-                
-            }
         }
     }
 }
