@@ -4,6 +4,7 @@
 using EditorSubwayMap.Atributs;
 using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
+using EditorSubwayMap.Pages;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,9 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 using static System.Net.Mime.MediaTypeNames;
 using Path = System.IO.Path;
 
@@ -68,6 +71,7 @@ namespace WpfApp1
             cboColors.SelectedIndex= 7;
             col = cboColors.SelectedValue as string;
 
+            frame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
 
             de = new DrawEllipse(canDrawing);
             ds = new DrawStation(canDrawing);
@@ -201,6 +205,9 @@ namespace WpfApp1
                 //  STATION
                 case ftype.station:
 
+                    frame.Navigate(new AtrWriterSt(conv.ConvertFromString(col) as Brush,
+                        new Point(Canvas.GetLeft(ellipse), Canvas.GetTop(ellipse))));
+                    
                     break;
 
                 //  ELLIPSE

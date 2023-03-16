@@ -271,6 +271,7 @@
                 BorderThickness="1,1,1,1"
                 Canvas.Left="133" Canvas.Top="215" 
                    HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
             <Button x:Name="btnRemoveAll"
                 Cursor="Hand"
                 Content="Удалить всё"
@@ -278,7 +279,15 @@
                 Canvas.Left="75" 
                 FontSize="14"
                 Background="#FF006A67"
-                Width="120" Click="btnRemoveAll_Click" Canvas.Top="893" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Calisto MT"/>
+                Width="120" Click="btnRemoveAll_Click" 
+                    Canvas.Top="893" HorizontalAlignment="Left" 
+                    VerticalAlignment="Center" FontFamily="Calisto MT"/>
+
+            <Frame x:Name="frame" Height="299"
+                   Width="226" HorizontalAlignment="Center" 
+                   Canvas.Top="324" VerticalAlignment="Top"
+                   Canvas.Left="16" Background="Black"/>
+
         </Canvas>
 
         <Canvas x:Name="canDrawing"

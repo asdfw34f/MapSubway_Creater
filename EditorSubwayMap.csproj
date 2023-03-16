@@ -58,11 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Pages\AtrWriterSt.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\SavedFile.xaml">
+    <Page Include="Windows\Pages\AtrWriterSt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -75,11 +71,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Atributs\WriteAtributsStation.cs" />
-    <Compile Include="Pages\AtrWriterSt.xaml.cs">
+    <Compile Include="Windows\Pages\AtrWriterSt.xaml.cs">
       <DependentUpon>AtrWriterSt.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\SavedFile.xaml.cs">
-      <DependentUpon>SavedFile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

@@ -16,12 +16,16 @@ namespace DrawMapMetroLibrary.Atributs
         internal string NameWay { get; set; } = "Undefined";
         internal Point Position { get; set; } = new Point(1, 1);
         internal Brush Color { get; set; } = Brushes.Black;
+        double Height { get; set; } = 20;
+        double Width { get; set; } = 20;
 
-        internal EllipseWay(string NameWay, Point Position, Brush brush)
+        internal EllipseWay(string NameWay, Point Position, Brush brush, double Height, double Width)
         {
             this.NameWay = NameWay;
             this.Position = Position;
             Color = brush;
+            this.Height = Height;
+            this.Width = Width;
         }
     }
 }
