@@ -1,10 +1,10 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
+using DrawMapMetroLibrary.Saving;
 using EditorSubwayMap.Atributs;
 using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
-using EditorSubwayMap.Pages;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -71,7 +71,6 @@ namespace WpfApp1
             cboColors.SelectedIndex= 7;
             col = cboColors.SelectedValue as string;
 
-            frame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
 
             de = new DrawEllipse(canDrawing);
             ds = new DrawStation(canDrawing);
@@ -139,7 +138,8 @@ namespace WpfApp1
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-
+            
+         
         }
 
         private void btnOpenMap_Click(object sender, RoutedEventArgs e)
@@ -205,9 +205,6 @@ namespace WpfApp1
                 //  STATION
                 case ftype.station:
 
-                    frame.Navigate(new AtrWriterSt(conv.ConvertFromString(col) as Brush,
-                        new Point(Canvas.GetLeft(ellipse), Canvas.GetTop(ellipse))));
-                    
                     break;
 
                 //  ELLIPSE
