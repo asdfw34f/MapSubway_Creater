@@ -34,7 +34,6 @@ namespace EditorSubwayMap.DrawFigure
             can = canvas;
             pStart = new Point(0, 0);
             currentPoint = new Point(0, 0);
-            color1 = Brushes.Black;
         }
 
         /// <summary>
@@ -196,16 +195,5 @@ namespace EditorSubwayMap.DrawFigure
             isMouseDown = false;
             editLocation = false;
         }
-        /*
-private void ellipse_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-{
-if (!editLocation)
-return;
-
-Ellipse b = sender as Ellipse;
-b.ReleaseMouseCapture();
-isMouseDown = false;
-editLocation = false;
-}*/
     }
 }

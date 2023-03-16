@@ -39,47 +39,35 @@ namespace WpfApp1
             station
         }
 
-        struct Atr_St
-        {
-            public string Name;
-            public int idLine;
-            public int backWay;
-            public int NextWay;
-        }
-
-        Line line;
-
-        Ellipse ellipse;
-
-        bool paint = false;
-
         Point px = new Point();
 
         ftype f;
-        Atr_St St;
 
         DrawEllipse de;
         DrawStation ds;
         DrawLine dl;
 
+        Line line;
+        Ellipse ellipse;
+
         BrushConverter conv;
+        string col;
 
+        bool paint = false;
 
-        Brush br;
-
-        List<Station> stations;
 
         public MainWindow()
         {
             InitializeComponent();
+
             conv = new BrushConverter(); 
-            stations = new List<Station>();
             var values = typeof(Brushes).GetProperties().
                 Select(p => new { Name = p.Name, Brush = p.GetValue(null) as Brush }).
                 ToArray();
             cboColors.ItemsSource = values;
             cboColors.SelectedIndex= 7;
-                
+            col = cboColors.SelectedValue as string;
+
 
             de = new DrawEllipse(canDrawing);
             ds = new DrawStation(canDrawing);
@@ -213,11 +201,6 @@ namespace WpfApp1
                 //  STATION
                 case ftype.station:
 
-                    Station station = new Station(St.Name, St.NextWay,
-                        St.backWay, St.idLine);
-
-                    stations.Add(station);
-
                     break;
 
                 //  ELLIPSE
@@ -241,10 +224,7 @@ namespace WpfApp1
 
                     dl.Pstart = px;
                     dl.Pend = px;
-
-                    string col = cboColors.SelectedValue as string;
                     dl.color = conv.ConvertFromString(col) as Brush;
-                    
 
                     line = dl.Draw();
                     canDrawing.Children.Add(line);
@@ -254,10 +234,9 @@ namespace WpfApp1
                 case ftype.station:
 
                     ds.Pstart = px;
-                    ds.color = Brushes.Black;
+                    ds.color = conv.ConvertFromString(col) as Brush;
 
                     ellipse = ds.Draw();
-
                     canDrawing.Children.Add(ellipse);
                     break;
 
@@ -265,13 +244,18 @@ namespace WpfApp1
                 case ftype.ellipse:
 
                     de.Pstart = px;
-                    de.color = Brushes.Black;
-
+                    de.color = conv.ConvertFromString(col) as Brush;
                     de.Pend = e.GetPosition(canDrawing);
+
                     ellipse = de.Draw();
                     canDrawing.Children.Add(ellipse);
                     break;
             }
+        }
+
+        private void cboColors_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            col = cboColors.SelectedValue as string;
         }
     }
 }

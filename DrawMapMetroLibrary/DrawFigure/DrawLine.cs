@@ -29,7 +29,6 @@ namespace EditorSubwayMap.Model
             can = canvas;
             Pstart1 = new Point(0, 0);
             Pend1 = new Point(0, 0);
-            color1 = Brushes.Black;
         }
 
         /// <summary>

@@ -47,6 +47,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Atributs\EllipseWay.cs" />
+    <Compile Include="Atributs\LineWay.cs" />
+    <Compile Include="Atributs\Station.cs" />
     <Compile Include="DrawFigure\DrawEllipse.cs" />
     <Compile Include="DrawFigure\DrawLine.cs" />
     <Compile Include="DrawFigure\DrawStation.cs" />
