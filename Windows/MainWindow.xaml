@@ -61,25 +61,30 @@
         <Canvas Grid.Column="0" Grid.Row="0" 
                 Grid.RowSpan="3" Background="Black" Grid.ColumnSpan="2">
 
-            <Grid Background="#FF3E867F" Canvas.Left="10" Canvas.Top="324" 
-                  HorizontalAlignment="Center" x:Name="AtrStation"
+            <Grid x:Name="AtrSt_grid"
+                 Background="#FF3E867F" Canvas.Left="10" Canvas.Top="324" 
+                  HorizontalAlignment="Center"
                   Height="349" VerticalAlignment="Top" Width="240"
                   Visibility="Visible">
 
-                <TextBox x:Name="AtrSt_NextSt" Text="Введите имя станции" HorizontalAlignment="Center" 
+                <TextBox x:Name="AtrSt_NextSt" Text="Введите имя станции"
+                         HorizontalAlignment="Center" 
                  VerticalAlignment="Top" Width="220" 
                  Canvas.Left="9" Canvas.Top="11" Height="34" 
-                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                 FontSize="14" BorderBrush="Black" Margin="0,20,0,0"/>
+                 HorizontalContentAlignment="Center" 
+                         VerticalContentAlignment="Center" 
+                 FontSize="14" BorderBrush="Black" 
+                         Margin="0,20,0,0" Mouse.MouseDown="AtrSt_NextSt_MouseDown"/>
 
-                <TextBox x:Name="AtrSt_BackSt" Text="1" Width="80" 
+                <TextBox x:Name="AtrSt_NextWay" Text="1" Width="80" 
             Canvas.Left="79" Canvas.Top="185" HorizontalAlignment="Left" 
                          VerticalAlignment="Top"
                  FontSize="14" Height="30" VerticalContentAlignment="Center"
                  HorizontalContentAlignment="Center" BorderBrush="Black" 
-                 Margin="10,199,0,0" d:LayoutOverrides="HorizontalAlignment"/>
+                 Margin="10,199,0,0" d:LayoutOverrides="HorizontalAlignment"
+                         Mouse.MouseDown="AtrSt_BackSt_MouseDown"/>
 
-                <TextBox x:Name="AtrSt_NextWay" Text="1" 
+                <TextBox x:Name="AtrSt_BackWay" Text="1" 
             Canvas.Left="79" Canvas.Top="110" HorizontalAlignment="Left" 
                  VerticalAlignment="Top"
                  FontSize="14" Height="30" VerticalContentAlignment="Center" 
@@ -106,18 +111,20 @@
                 VerticalAlignment="Top" FontSize="10" BorderThickness="1.4"
                 BorderBrush="Black"
                 Content="Добавить станцию" FontWeight="Bold" 
-                        Margin="0,309,0,0" Width="146"/>
+                        Margin="0,309,0,0" Width="146"
+                        Mouse.MouseUp="BtnAddStation_MouseUp"/>
 
                 <ComboBox x:Name="AtrSt_NameWay" Text="Ветка" Width="220" 
             Canvas.Left="9" Canvas.Top="60"
             FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Top"
                  Height="34" VerticalContentAlignment="Center" 
-                 HorizontalContentAlignment="Center" BorderBrush="Black" Margin="0,75,0,0" />
+                 HorizontalContentAlignment="Center" BorderBrush="Black" 
+                          Margin="0,75,0,0" />
 
             </Grid>
 
             <ComboBox Name="cboColors" SelectionChanged="cboColors_SelectionChanged"
-          SelectedValuePath="Name" Height="30" Width="224" Canvas.Left="18" Canvas.Top="276" HorizontalAlignment="Center" VerticalAlignment="Top">
+          SelectedValuePath="Name" Height="30" Width="224" Canvas.Left="18" Canvas.Top="276" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="Cyan">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" Height="18" Margin="0,0,0,2">
@@ -153,7 +160,7 @@
                     Height="50" Width="50" 
                     Focusable="False"
                     Cursor="Hand"
-                    Click="btnPath_Click">
+                    Click="btnPath_Click" BorderBrush="Cyan">
 
                 <Button.Background>
                     <ImageBrush 
@@ -167,7 +174,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center" 
                     Canvas.Left="90" Cursor="Hand"
-                    Click="btnEllipse_Click">
+                    Click="btnEllipse_Click" BorderBrush="Cyan">
 
                 <Button.Background>
                     <ImageBrush 
@@ -182,7 +189,7 @@
                 Canvas.Left="175"
                     Click="btnStation_Click" 
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Center" BorderBrush="Cyan">
 
                 <Button.Background>
                     <ImageBrush 
@@ -197,7 +204,7 @@
                     Width="50" Height="50" 
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
-                    Click="btnCursor_Click">
+                    Click="btnCursor_Click" BorderBrush="Cyan">
                 <Button.Background>
                     <ImageBrush 
                         ImageSource="/icons/cursor.png" 
@@ -217,8 +224,8 @@
                 BorderBrush="#FF006A67" 
                 BorderThickness="1,1,1,1"
                 Canvas.Left="10" Canvas.Bottom="45" 
-                   HorizontalAlignment="Left" 
-                   VerticalAlignment="Center" Canvas.Top="921"/>
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center"/>
 
             <!--Open the map button-->
             <Button x:Name="btnOpenMap"
@@ -226,12 +233,11 @@
                     Content="Открыть схему"
                     Canvas.Bottom="15" 
                     Canvas.Left="140"
-                    HorizontalAlignment="Left" 
+                    HorizontalAlignment="Center" 
                     FontSize="14"
                     Background="#FF006A67" 
                     VerticalAlignment="Center"
-                    Width="110" Click="btnOpenMap_Click" 
-                    Canvas.Top="955" />
+                    Width="110" Click="btnOpenMap_Click" BorderBrush="Cyan" />
 
             <!--Save the map button-->
             <Button x:Name="btnSave"
@@ -239,11 +245,11 @@
                     Content="Сохранить схему"
                     Canvas.Bottom="15" 
                     Canvas.Left="10"
-                    HorizontalAlignment="Left" 
+                    HorizontalAlignment="Center" 
                     FontSize="14"
                     Background="#FF006A67" 
                     VerticalAlignment="Center"
-                    Width="120" Click="btnSave_Click" Canvas.Top="955"/>
+                    Width="120" Click="btnSave_Click" BorderBrush="Cyan" />
 
             <!--Label text of Select btn Pen-->
             <Label Content="Маршрут" 
@@ -310,7 +316,7 @@
                 Canvas.Top="160" 
                 Canvas.Left="152"
                 Width="50" Height="50"
-                Click="BtnCursorMove_Click" HorizontalAlignment="Center" VerticalAlignment="Top">
+                Click="BtnCursorMove_Click" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="Cyan">
                 <Button.Background>
                     <ImageBrush 
                         ImageSource="/icons/cursor-move.png" TileMode="None" Stretch="Fill"/>
@@ -333,32 +339,35 @@
             <Button x:Name="btnRemoveAll"
                 Cursor="Hand"
                 Content="Удалить всё"
-                Canvas.Bottom="15" 
-                Canvas.Left="75" 
+                Canvas.Bottom="80" 
+                Canvas.Left="70" 
                 FontSize="14"
                 Background="#FF006A67"
-                Width="120" Click="btnRemoveAll_Click" 
-                    Canvas.Top="893" HorizontalAlignment="Left" 
-                    VerticalAlignment="Center" FontFamily="Calisto MT"/>
-            
+                Width="134" Click="btnRemoveAll_Click" 
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top" FontFamily="Calisto MT" Height="31" BorderBrush="Aqua"/>
+
             <Grid Background="#FF22847B" Canvas.Left="10" Canvas.Top="324" 
-                x:Name="AtrStation_Copy"
+                x:Name="AtrWay_grid"
                 Height="143" Width="240"
                 Visibility="Hidden" HorizontalAlignment="Center"
                   VerticalAlignment="Top">
 
-                <TextBox x:Name="AWay_Name" Text="Введите имя ветки" HorizontalAlignment="Center" 
+                <TextBox x:Name="AWay_Name" Text="Введите имя ветки" 
+                         HorizontalAlignment="Center" 
                     VerticalAlignment="Top" Width="220" 
                     Canvas.Left="9" Canvas.Top="11" Height="34" 
                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                    FontSize="14" BorderBrush="Black" Margin="0,21,0,0"/>
+                    FontSize="14" BorderBrush="Black" 
+                         Margin="0,21,0,0" Mouse.MouseDown="AWay_Name_MouseDown"/>
 
                 <Button Background="#FF77FFF2" Height="32"
                         x:Name="btnAddWay"
                     Canvas.Left="10" Canvas.Top="257" HorizontalAlignment="Center" 
                     VerticalAlignment="Top" FontSize="10" BorderThickness="1.4"
                     BorderBrush="Black" Content="Добавить ветку" 
-                        FontWeight="Bold" Margin="0,88,0,0" Width="146"/>
+                        FontWeight="Bold" Margin="0,88,0,0" Width="146"
+                        Mouse.MouseUp="BtnAddWay_MouseUp"/>
 
             </Grid>
         </Canvas>

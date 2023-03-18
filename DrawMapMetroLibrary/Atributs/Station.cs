@@ -21,7 +21,8 @@ namespace DrawMapMetroLibrary.Atributs
         internal Brush Color { get; set; } = Brushes.Black;
         internal Point Position { get; set; } = new Point(1, 1);
 
-        internal Station(string nameStation, int nextWay, int backWay, string NameWay, Brush brush, Point point)
+        internal Station(string nameStation, int nextWay,
+            int backWay, string NameWay, Brush brush, Point point)
         {
             NameStation = nameStation;
             NextWay = nextWay;

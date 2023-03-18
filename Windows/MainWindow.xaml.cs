@@ -2,30 +2,15 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 using DrawMapMetroLibrary.Saving;
-using EditorSubwayMap.Atributs;
 using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
-using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Xml.Serialization;
-using static System.Net.Mime.MediaTypeNames;
-using Path = System.IO.Path;
 
 namespace WpfApp1
 {
@@ -41,28 +26,30 @@ namespace WpfApp1
             ellipse,
             station
         }
-
-        Point px = new Point();
-
         ftype f;
 
         DrawEllipse de;
         DrawStation ds;
         DrawLine dl;
 
+        SaveStation station;
+        SaveLineWay lineWay;
+        SaveEllipseWay ellipseWay;
+
         Line line;
         Ellipse ellipse;
 
+        Brush brush;
         BrushConverter conv;
         string col;
 
+        Point px = new Point();
         bool paint = false;
-
 
         public MainWindow()
         {
             InitializeComponent();
-
+            
             conv = new BrushConverter(); 
             var values = typeof(Brushes).GetProperties().
                 Select(p => new { Name = p.Name, Brush = p.GetValue(null) as Brush }).
@@ -71,13 +58,16 @@ namespace WpfApp1
             cboColors.SelectedIndex= 7;
             col = cboColors.SelectedValue as string;
 
-
             de = new DrawEllipse(canDrawing);
             ds = new DrawStation(canDrawing);
             dl = new DrawLine(canDrawing);
 
             labelY.Content = "Y: 0";
             labelX.Content = "X: 0";
+
+            station = new SaveStation();
+            lineWay = new SaveLineWay();
+            ellipseWay = new SaveEllipseWay();
         }
 
         // BUTTONS
@@ -152,7 +142,40 @@ namespace WpfApp1
             canDrawing.Children.RemoveRange(0, canDrawing.Children.Count);
         }
 
+        private void cboColors_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            col = cboColors.SelectedValue as string;
+            brush = conv.ConvertFromString(col) as Brush;
+        }
 
+        private void AtrSt_NextSt_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+            text.Text = null;
+        }
+
+        private void AtrSt_BackSt_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+            text.Text = null;
+        }
+
+        private void BtnAddStation_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            station.AddStation(AtrSt_NextSt.Text, Convert.ToInt32(AtrSt_BackWay.Text),
+                Convert.ToInt32(AtrSt_NextWay.Text), AtrSt_NameWay.Text, brush, ds.Pstart);
+        }
+
+        private void AWay_Name_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+            text.Text = null;
+        }
+
+        private void BtnAddWay_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
         // CANVAS MOUSE EVENTS
 
         private void canDrawing_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
@@ -200,20 +223,35 @@ namespace WpfApp1
                 //  LINE 
                 case ftype.line:
 
+                    if (AtrSt_grid.IsVisible)
+                    {
+                        AtrSt_grid.Visibility = Visibility.Hidden;
+                    }
+                    AtrWay_grid.Visibility = Visibility.Visible;
                     break;
 
                 //  STATION
                 case ftype.station:
-
+                    if (AtrWay_grid.IsVisible)
+                    {
+                        AtrWay_grid.Visibility = Visibility.Hidden;
+                    }
+                    AtrSt_grid.Visibility = Visibility.Visible;
                     break;
 
                 //  ELLIPSE
                 case ftype.ellipse:
+
+                    if (AtrSt_grid.IsVisible)
+                    {
+                        AtrSt_grid.Visibility = Visibility.Hidden;
+                    }
+                    AtrWay_grid.Visibility = Visibility.Visible;
                     break;
             }
         }
 
-        private void canDrawing_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void canDrawing_MouseDown(object sender, MouseButtonEventArgs e)
         {
             paint = true;
             px = e.GetPosition(canDrawing);
@@ -257,9 +295,6 @@ namespace WpfApp1
             }
         }
 
-        private void cboColors_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            col = cboColors.SelectedValue as string;
-        }
+
     }
 }
