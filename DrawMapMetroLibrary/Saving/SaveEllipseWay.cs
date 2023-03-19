@@ -1,10 +1,6 @@
 ﻿using DrawMapMetroLibrary.Atributs;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows;
 using System.Xml.Serialization;
@@ -13,47 +9,42 @@ namespace DrawMapMetroLibrary.Saving
 {
     public class SaveEllipseWay
     {
-        EllipseWay[] ways = new EllipseWay[] { };
-
-        int idx = 0;
+        List<EllipseWay> ways = new List<EllipseWay>();
 
         public SaveEllipseWay() { }
 
-        public void AddWay(string NameWay, Point Position, Brush brush, double Height, double Width)
+        public void AddWay(string NameWay, Point Position, 
+            Brush brush, double Height, double Width)
         {
-            while (ways[idx] != null)
-            {
-                idx++;
-            }
-            ways[idx] = new EllipseWay(NameWay, Position, brush, Height, Width);
-            idx++;
+            ways.Add(new EllipseWay(NameWay, Position, brush, Height, Width));
         }
 
         public void RemoveWay(string nameWay)
         {
-            int id = 0;
+            int id = -1;
             foreach (EllipseWay i in ways)
             {
+                id++;
                 if (i.NameWay == nameWay)
                 {
-                    ways[id] = null;
+                    ways.RemoveAt(id);
                     return;
                 }
-                id++;
             }
         }
 
-        public void UpdateWay(string NameWay, Point Position, Brush brush, double Height, double Width)
+        public void UpdateWay(string NameWay, Point Position, 
+            Brush brush, double Height, double Width)
         {
-            int id = 0;
+            int id = -1;
             foreach (EllipseWay i in ways)
             {
+                id++;
                 if (i.NameWay == NameWay)
                 {
-                    ways[id] = null;
+                    ways[id] = new EllipseWay(NameWay, Position, brush, Height, Width);
                     return;
                 }
-                id++;
             }
         }
 

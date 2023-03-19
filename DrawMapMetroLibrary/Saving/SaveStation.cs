@@ -13,33 +13,27 @@ namespace DrawMapMetroLibrary.Saving
 {
     public class SaveStation
     {
-        Station[] stations = new Station[] { };
-
-        int idx = 0;
+        List<Station> stations = new List<Station>();
 
         public SaveStation() { }
 
-        public void AddStation(string nameStation, int nextWay, int backWay, string NameWay, Brush brush, Point Position) 
+        public void AddStation(string nameStation, int nextWay, 
+            int backWay, string NameWay, Brush brush, Point Position) 
         {
-            while (stations[idx] != null)
-            {
-                idx++;
-            }
-            stations[idx] = new Station(nameStation, nextWay, backWay, NameWay, brush, Position);
-            idx++;
+            stations.Add(new Station(nameStation, nextWay, backWay, NameWay, brush, Position));
         }
 
         public void RemoveStation(string nameStation, string NameWay) 
         {
-            int id = 0;
+            int id = -1;
             foreach(Station i in stations)
             {
+                id++;
                 if (i.NameStation == nameStation && i.NameWay == NameWay)
                 {
-                    stations[id] = null;
+                    stations.RemoveAt(id);
                     return;
                 }
-                id++;
             }
         }
 
@@ -47,16 +41,16 @@ namespace DrawMapMetroLibrary.Saving
             string NEWnameStation, int NEWnextWay, int NEWbackWay,
             string NEWNameWay, Brush NEWbrush, Point Position)
         {
-            int id = 0;
+            int id = -1;
             foreach (Station i in stations)
             {
+                id++;
                 if (i.NameStation == nameStation && i.NameWay == NameWay)
                 {
                     stations[id] = new Station(NEWnameStation, NEWnextWay,
                         NEWbackWay, NEWNameWay, NEWbrush, Position);
                     return;
                 }
-                id++;
             }
         }
 

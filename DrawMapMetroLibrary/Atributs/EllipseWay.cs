@@ -19,7 +19,8 @@ namespace DrawMapMetroLibrary.Atributs
         double Height { get; set; } = 20;
         double Width { get; set; } = 20;
 
-        internal EllipseWay(string NameWay, Point Position, Brush brush, double Height, double Width)
+        internal EllipseWay(string NameWay, Point Position, 
+            Brush brush, double Height, double Width)
         {
             this.NameWay = NameWay;
             this.Position = Position;

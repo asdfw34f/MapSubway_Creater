@@ -1,31 +1,14 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
-using DrawMapMetroLibrary.Saving;
-using EditorSubwayMap.Atributs;
 using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
-using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Xml.Serialization;
-using static System.Net.Mime.MediaTypeNames;
-using Path = System.IO.Path;
 
 namespace WpfApp1
 {
@@ -41,10 +24,9 @@ namespace WpfApp1
             ellipse,
             station
         }
+        ftype f;
 
         Point px = new Point();
-
-        ftype f;
 
         DrawEllipse de;
         DrawStation ds;
@@ -58,7 +40,6 @@ namespace WpfApp1
 
         bool paint = false;
 
-
         public MainWindow()
         {
             InitializeComponent();
@@ -70,7 +51,6 @@ namespace WpfApp1
             cboColors.ItemsSource = values;
             cboColors.SelectedIndex= 7;
             col = cboColors.SelectedValue as string;
-
 
             de = new DrawEllipse(canDrawing);
             ds = new DrawStation(canDrawing);
@@ -139,7 +119,6 @@ namespace WpfApp1
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             
-         
         }
 
         private void btnOpenMap_Click(object sender, RoutedEventArgs e)
@@ -152,6 +131,10 @@ namespace WpfApp1
             canDrawing.Children.RemoveRange(0, canDrawing.Children.Count);
         }
 
+        private void cboColors_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            col = cboColors.SelectedValue as string;
+        }
 
         // CANVAS MOUSE EVENTS
 
@@ -257,9 +240,6 @@ namespace WpfApp1
             }
         }
 
-        private void cboColors_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            col = cboColors.SelectedValue as string;
-        }
+
     }
 }

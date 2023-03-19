@@ -14,47 +14,40 @@ namespace DrawMapMetroLibrary.Saving
 {
     public class SaveLineWay
     {
-        LineWay[] ways = new LineWay[] { };
-
-        int idx = 0;
+        List<LineWay> ways = new List<LineWay>();
 
         public SaveLineWay() { }
 
         public void AddWay(string NameWay, Point Start, Point End, Brush brush) 
         {
-            while (ways[idx] != null)
-            {
-                idx++;
-            }
-            ways[idx] = new LineWay(NameWay, Start, End, brush);
-            idx++;
+            ways.Add(new LineWay(NameWay, Start, End, brush));
         }
 
         public void RemoveWay(string nameWay) 
         {
-            int id = 0;
+            int id = -1;
             foreach(LineWay i in ways)
             {
+                id++;
                 if (i.NameWay == nameWay)
                 {
-                    ways[id] = null;
+                    ways.RemoveAt(id);
                     return;
                 }
-                id++;
             }
         }
 
         public void UpdateWay(string NameWay, Point Start, Point End, Brush brush)
         {
-            int id = 0;
+            int id = -1;
             foreach (LineWay i in ways)
             {
+                id++;
                 if (i.NameWay == NameWay)
                 {
-                    ways[id] = null;
+                    ways[id] = new LineWay(NameWay, Start, End, brush);
                     return;
                 }
-                id++;
             }
         }
 
