@@ -1,13 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
-using EditorSubwayMap.Atributs;
+using DrawMapMetroLibrary.Saving;
 using EditorSubwayMap.DrawFigure;
-using Microsoft.Win32;
+using EditorSubwayMap.Model;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,16 +22,11 @@ namespace WpfApp1
     {
         enum ftype
         {
-        ftype f;
-
-        ftype f;
-
-        Point px = new Point();
-
+            N, station, ellipse, line
         }
 
         Point px = new Point();
-
+        bool paint = false;
         ftype f;
 
         DrawEllipse de;
@@ -51,8 +44,7 @@ namespace WpfApp1
         BrushConverter conv;
         string col;
 
-        Point px = new Point();
-        bool paint = false;
+        List<string> WayNames = new List<string>();
 
         public MainWindow()
         {
@@ -76,6 +68,9 @@ namespace WpfApp1
             station = new SaveStation();
             lineWay = new SaveLineWay();
             ellipseWay = new SaveEllipseWay();
+
+            AtrSt_NameWay.ItemsSource = WayNames;
+            AtrSt_NameWay.SelectedIndex = 0;
         }
 
         // BUTTONS
@@ -143,20 +138,11 @@ namespace WpfApp1
         {
 
         }
-        private void cboColors_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            col = cboColors.SelectedValue as string;
-            brush = conv.ConvertFromString(col) as Brush;
-        }
 
-        private void AtrSt_NextSt_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            TextBox text = sender as TextBox;
-            text.Text = null;
-        }
         private void cboColors_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             col = cboColors.SelectedValue as string;
+            brush = conv.ConvertFromString(cboColors.SelectedValue.ToString()) as Brush;
         }
 
         private void btnRemoveAll_Click(object sender, RoutedEventArgs e)
@@ -164,6 +150,11 @@ namespace WpfApp1
             canDrawing.Children.RemoveRange(0, canDrawing.Children.Count);
         }
 
+        private void AtrSt_NextSt_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            TextBox text = sender as TextBox;
+            text.Text = null;
+        }
 
         private void AtrSt_BackSt_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -171,7 +162,7 @@ namespace WpfApp1
             text.Text = null;
         }
 
-        private void BtnAddStation_MouseUp(object sender, MouseButtonEventArgs e)
+        private void BtnAddStation_MouseUp(object sender, RoutedEventArgs e)
         {
             station.AddStation(AtrSt_NextSt.Text, Convert.ToInt32(AtrSt_BackWay.Text),
                 Convert.ToInt32(AtrSt_NextWay.Text), AtrSt_NameWay.Text, brush, ds.Pstart);
@@ -183,10 +174,13 @@ namespace WpfApp1
             text.Text = null;
         }
 
-        private void BtnAddWay_MouseUp(object sender, MouseButtonEventArgs e)
+        private void BtnAddWay_MouseUp(object sender, RoutedEventArgs e)
         {
-
+            WayNames.Add(AWay_Name.Text);
+            AtrSt_NameWay.ItemsSource= WayNames;
+            Suc_AddWay.Visibility = Visibility.Visible;
         }
+
         // CANVAS MOUSE EVENTS
 
         private void canDrawing_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
@@ -303,6 +297,15 @@ namespace WpfApp1
                     ellipse = de.Draw();
                     canDrawing.Children.Add(ellipse);
                     break;
+            }
+        }
+
+        private void AtrWay_grid_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            Grid grid = sender as Grid;
+            if (grid.Visibility == Visibility.Hidden)
+            {
+                Suc_AddWay.Visibility = Visibility.Hidden;
             }
         }
 

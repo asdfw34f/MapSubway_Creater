@@ -65,7 +65,7 @@
                  Background="#FF3E867F" Canvas.Left="10" Canvas.Top="324" 
                   HorizontalAlignment="Center"
                   Height="349" VerticalAlignment="Top" Width="240"
-                  Visibility="Visible">
+                  Visibility="Hidden">
 
                 <TextBox x:Name="AtrSt_NextSt" Text="Введите имя станции"
                          HorizontalAlignment="Center" 
@@ -112,7 +112,7 @@
                 BorderBrush="Black"
                 Content="Добавить станцию" FontWeight="Bold" 
                         Margin="0,309,0,0" Width="146"
-                        Mouse.MouseUp="BtnAddStation_MouseUp"/>
+                        Click="BtnAddStation_MouseUp"/>
 
                 <ComboBox x:Name="AtrSt_NameWay" Text="Ветка" Width="220" 
             Canvas.Left="9" Canvas.Top="60"
@@ -350,7 +350,8 @@
             <Grid Background="#FF22847B" Canvas.Left="10" Canvas.Top="324" 
                 x:Name="AtrWay_grid"
                 Height="143" Width="240"
-                Visibility="Hidden" HorizontalAlignment="Center"
+                Visibility="Visible" HorizontalAlignment="Center"
+                  IsVisibleChanged="AtrWay_grid_IsVisibleChanged"
                   VerticalAlignment="Top">
 
                 <TextBox x:Name="AWay_Name" Text="Введите имя ветки" 
@@ -367,7 +368,12 @@
                     VerticalAlignment="Top" FontSize="10" BorderThickness="1.4"
                     BorderBrush="Black" Content="Добавить ветку" 
                         FontWeight="Bold" Margin="0,88,0,0" Width="146"
-                        Mouse.MouseUp="BtnAddWay_MouseUp"/>
+                        Click="BtnAddWay_MouseUp"/>
+                <Label x:Name="Suc_AddWay" Content="Ветка добавлена" HorizontalAlignment="Center" 
+                       Margin="0,58,0,59" Visibility="Hidden"
+                       d:LayoutOverrides="Height, LeftPosition, RightPosition" 
+                       FontSize="14" FontFamily="Algerian" 
+                       FontWeight="Bold" Background="Transparent" Foreground="#FF00FFB3"/>
 
             </Grid>
         </Canvas>

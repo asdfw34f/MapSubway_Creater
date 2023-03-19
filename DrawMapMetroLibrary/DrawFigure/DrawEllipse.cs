@@ -1,22 +1,11 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
-using System.Xaml;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows;
 using System.Windows.Shapes;
 using System.Windows.Controls;
-using EditorSubwayMap.DrawFigure;
-using EditorSubwayMap.Model;
-using System.Diagnostics;
-using System.Net;
 using System.Windows.Input;
-using System.Windows.Media.Animation;
 
 namespace EditorSubwayMap.DrawFigure
 {
