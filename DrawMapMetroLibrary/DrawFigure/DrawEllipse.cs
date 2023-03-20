@@ -63,7 +63,7 @@ namespace EditorSubwayMap.DrawFigure
         ///      Возвращает текущие конечную позицию круговой 
         ///      ветки метро по канвасу (изначально равен 0; 0).
         /// </returns>
-        public Point Pend
+        public Point currentP
         {
             get => currentPoint;
             set => currentPoint = value;

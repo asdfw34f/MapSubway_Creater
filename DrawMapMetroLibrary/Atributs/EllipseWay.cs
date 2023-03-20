@@ -6,22 +6,16 @@ using System.Windows;
 
 namespace DrawMapMetroLibrary.Atributs
 {
-    internal class EllipseWay
+    public class EllipseWay
     {
-        internal string NameWay { get; set; } = "Undefined";
-        internal Point Position { get; set; } = new Point(1, 1);
-        internal Brush Color { get; set; } = Brushes.Black;
-        double Height { get; set; } = 20;
-        double Width { get; set; } = 20;
+        public string NameWay { get; set; } = "Undefined";
+        public Point Position { get; set; } = new Point(1, 1);
+        public Brush Color { get; set; } = Brushes.Black;
+        public double Height { get; set; } = 20;
+        public double Width { get; set; } = 20;
 
-        internal EllipseWay(string NameWay, Point Position, 
-            Brush brush, double Height, double Width)
+        public EllipseWay()
         {
-            this.NameWay = NameWay;
-            this.Position = Position;
-            Color = brush;
-            this.Height = Height;
-            this.Width = Width;
         }
     }
 }

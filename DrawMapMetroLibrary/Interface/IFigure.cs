@@ -15,7 +15,6 @@ namespace EditorSubwayMap
     internal interface IFigure
     {
         Point Pstart  { get; set; }
-        Point Pend { get; set; }
         Brush color { get; set; }
     }
 }

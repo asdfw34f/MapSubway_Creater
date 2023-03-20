@@ -131,7 +131,9 @@ namespace WpfApp1
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            
+           // station.Save();
+           // lineWay.Save();
+            ellipseWay.Save();
         }
 
         private void btnOpenMap_Click(object sender, RoutedEventArgs e)
@@ -178,6 +180,8 @@ namespace WpfApp1
         {
             WayNames.Add(AWay_Name.Text);
             AtrSt_NameWay.ItemsSource= WayNames;
+            ellipseWay.AddWay(AWay_Name.Text, new Point(Canvas.GetLeft(ellipse), Canvas.GetTop(ellipse)), brush,
+                ellipse.Height, ellipse.Width);
             Suc_AddWay.Visibility = Visibility.Visible;
         }
 
@@ -206,7 +210,7 @@ namespace WpfApp1
                     //  DRAW ELLIPSE
                     case ftype.ellipse:
 
-                        de.Pend = e.GetPosition(canDrawing);
+                        de.currentP = e.GetPosition(canDrawing);
                         ellipse = de.EditSize(ellipse);
                         break;
                 }
@@ -222,6 +226,7 @@ namespace WpfApp1
 
             switch (f)
             {
+                
                 case ftype.N:
                     break;
 
@@ -292,7 +297,7 @@ namespace WpfApp1
 
                     de.Pstart = px;
                     de.color = conv.ConvertFromString(col) as Brush;
-                    de.Pend = e.GetPosition(canDrawing);
+                    de.currentP = e.GetPosition(canDrawing);
 
                     ellipse = de.Draw();
                     canDrawing.Children.Add(ellipse);
@@ -308,7 +313,5 @@ namespace WpfApp1
                 Suc_AddWay.Visibility = Visibility.Hidden;
             }
         }
-
-
     }
 }

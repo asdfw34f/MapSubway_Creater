@@ -54,22 +54,6 @@ namespace EditorSubwayMap.DrawFigure
 
         /// <summary>
         /// Сводка:
-        ///      Не играет роли для отрисовки станции на канвасе.
-        /// </summary>
-        /// <returns>
-        ///      Возвращает исключение.
-        /// </returns>
-        public Point Pend
-        {
-            get 
-            {
-                return new Point(0, 0); 
-            }
-            set => throw new Exception("Не нуждается в установке");
-        }
-
-        /// <summary>
-        /// Сводка:
         ///      Устанавливает цвет станции.
         /// </summary>
         /// <returns>

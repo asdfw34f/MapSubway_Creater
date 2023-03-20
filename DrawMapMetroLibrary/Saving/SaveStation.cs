@@ -52,8 +52,8 @@ namespace DrawMapMetroLibrary.Saving
 
         public void Save() 
         {
-            XmlSerializer formatter = new XmlSerializer(typeof(Station[]));
-
+            XmlSerializer formatter = new XmlSerializer(typeof(List<Station>));
+            
             using (FileStream fs = new FileStream("Stations.xml", FileMode.OpenOrCreate))
             {
                 formatter.Serialize(fs, stations);
