@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов для изменения сведений,
 // связанные со сборкой.
-[assembly: AssemblyTitle("DrawMapSubwayLibrary")]
+[assembly: AssemblyTitle("AtributsSubwayLibrary")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DrawMapSubwayLibrary")]
+[assembly: AssemblyProduct("AtributsSubwayLibrary")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
-[assembly: Guid("34c816a0-c125-49fa-9ae5-313b3c2ff862")]
+[assembly: Guid("862f8f57-e9b8-4ffb-b9d9-30f89ac986bc")]
 
 // Сведения о версии сборки состоят из указанных ниже четырех значений:
 //

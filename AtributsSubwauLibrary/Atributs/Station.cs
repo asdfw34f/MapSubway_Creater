@@ -6,24 +6,17 @@ using System.Windows.Media;
 
 namespace DrawMapMetroLibrary.Atributs
 {
-    internal class Station
+    public class Station
     {
         internal string NameStation { get; set; } = "Undefined";
         internal int NextWay { get; set; } = 1;
         internal int BackWay { get; set; } = 1;
         internal string NameWay { get; set; } = "Undefined";
-        internal Brush Color { get; set; } = Brushes.Black;
+        internal string Color { get; set; } = "#FF000000";
         internal Point Position { get; set; } = new Point(1, 1);
 
-        internal Station(string nameStation, int nextWay, 
-            int backWay, string NameWay, Brush brush, Point point)
+        public Station()
         {
-            NameStation = nameStation;
-            NextWay = nextWay;
-            BackWay = backWay;
-            this.NameWay = NameWay;
-            Color = brush;
-            Position = point;
         }
     }
 }

@@ -6,19 +6,15 @@ using System.Windows.Media;
 
 namespace DrawMapMetroLibrary.Atributs
 {
-    internal class LineWay
+    public class LineWay
     {
         internal string NameWay { get; set; } = "Undefined";
         internal Point Start { get; set; } = new Point(1, 1);
         internal Point End { get; set; } = new Point(1, 1);
-        internal Brush Color { get; set; } = Brushes.Black;
+        internal string Color { get; set; } = "#FF000000";
 
-        internal LineWay(string NameWay, Point Start, Point End, Brush brush)
+        public LineWay()
         {
-            this.NameWay = NameWay;
-            this.Start = Start;
-            this.End = End;
-            Color = brush;
         }
     }
 }

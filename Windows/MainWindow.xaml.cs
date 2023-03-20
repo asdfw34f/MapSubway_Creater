@@ -41,6 +41,7 @@ namespace WpfApp1
         Ellipse ellipse;
 
         Brush brush;
+        string _sBrush;
         BrushConverter conv;
         string col;
 
@@ -64,7 +65,7 @@ namespace WpfApp1
 
             labelY.Content = "Y: 0";
             labelX.Content = "X: 0";
-
+            
             station = new SaveStation();
             lineWay = new SaveLineWay();
             ellipseWay = new SaveEllipseWay();
@@ -131,8 +132,8 @@ namespace WpfApp1
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-           // station.Save();
-           // lineWay.Save();
+            station.Save();
+            lineWay.Save();
             ellipseWay.Save();
         }
 
@@ -166,8 +167,13 @@ namespace WpfApp1
 
         private void BtnAddStation_MouseUp(object sender, RoutedEventArgs e)
         {
-            station.AddStation(AtrSt_NextSt.Text, Convert.ToInt32(AtrSt_BackWay.Text),
-                Convert.ToInt32(AtrSt_NextWay.Text), AtrSt_NameWay.Text, brush, ds.Pstart);
+            station.AddStation(
+                AtrSt_NextSt.Text, 
+                Convert.ToInt32(AtrSt_BackWay.Text),
+                Convert.ToInt32(AtrSt_NextWay.Text), 
+                AtrSt_NameWay.Text, 
+                conv.ConvertToString(brush), 
+                ds.Pstart);
         }
 
         private void AWay_Name_MouseDown(object sender, MouseButtonEventArgs e)
@@ -179,10 +185,13 @@ namespace WpfApp1
         private void BtnAddWay_MouseUp(object sender, RoutedEventArgs e)
         {
             WayNames.Add(AWay_Name.Text);
-            AtrSt_NameWay.ItemsSource= WayNames;
-            ellipseWay.AddWay(AWay_Name.Text, new Point(Canvas.GetLeft(ellipse), Canvas.GetTop(ellipse)), brush,
-                ellipse.Height, ellipse.Width);
-            Suc_AddWay.Visibility = Visibility.Visible;
+            _sBrush = conv.ConvertToString(brush);
+            
+            ellipseWay.AddWay(AWay_Name.Text,
+                new Point(Canvas.GetLeft(ellipse), Canvas.GetTop(ellipse)),
+                _sBrush, ellipse.Height, ellipse.Width);
+
+            AWay_Name.Text = "Ветка добавлена";
         }
 
         // CANVAS MOUSE EVENTS
@@ -226,19 +235,7 @@ namespace WpfApp1
 
             switch (f)
             {
-                
-                case ftype.N:
-                    break;
-
-                //  LINE 
-                case ftype.line:
-
-                    if (AtrSt_grid.IsVisible)
-                    {
-                        AtrSt_grid.Visibility = Visibility.Hidden;
-                    }
-                    AtrWay_grid.Visibility = Visibility.Visible;
-                    break;
+                case ftype.N: break;
 
                 //  STATION
                 case ftype.station:
@@ -247,6 +244,16 @@ namespace WpfApp1
                         AtrWay_grid.Visibility = Visibility.Hidden;
                     }
                     AtrSt_grid.Visibility = Visibility.Visible;
+                    break;
+
+                //  LINE 
+                case ftype.line:                    
+
+                    if (AtrSt_grid.IsVisible)
+                    {
+                        AtrSt_grid.Visibility = Visibility.Hidden;
+                    }
+                    AtrWay_grid.Visibility = Visibility.Visible;
                     break;
 
                 //  ELLIPSE
@@ -307,11 +314,7 @@ namespace WpfApp1
 
         private void AtrWay_grid_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            Grid grid = sender as Grid;
-            if (grid.Visibility == Visibility.Hidden)
-            {
-                Suc_AddWay.Visibility = Visibility.Hidden;
-            }
+
         }
     }
 }

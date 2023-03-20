@@ -9,7 +9,7 @@ using System.Windows.Shapes;
 
 namespace EditorSubwayMap.Model
 {
-    public class DrawLine : IFigure
+    public class DrawLine
     {
         private Point Pstart1;
         private Point Pend1;

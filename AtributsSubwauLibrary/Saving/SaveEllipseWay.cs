@@ -4,24 +4,24 @@ using System.IO;
 using System.Windows.Media;
 using System.Windows;
 using System.Xml.Serialization;
-using System;
-using System.Linq;
-using System.Xml;
 
 namespace DrawMapMetroLibrary.Saving
 {
     public class SaveEllipseWay
     {
-        EllipseWay[] ways = new EllipseWay[] { };
-
+        List<EllipseWay> ways = new List<EllipseWay>();
         public SaveEllipseWay() { }
 
-        public void AddWay(string NameWay, Point Position, 
-            Brush brush, double Height, double Width)
+        public void AddWay(string NameWay, Point Position, string brush, double Height, double Width)
         {
-            ways.Append(new EllipseWay() { Color = brush, 
-                Height = Height, Width = Width, 
-                Position = Position, NameWay = NameWay});
+            ways.Add(new EllipseWay()
+            {
+                Color = brush,
+                Height = Height,
+                Width = Width,
+                Position = Position,
+                NameWay = NameWay
+            });
         }
 
         public void RemoveWay(string nameWay)
@@ -32,14 +32,14 @@ namespace DrawMapMetroLibrary.Saving
                 id++;
                 if (i.NameWay == nameWay)
                 {
-             //       ways.RemoveAt(id);
+                    ways.RemoveAt(id);
                     return;
                 }
             }
         }
 
-        public void UpdateWay(string NameWay, Point Position, 
-            Brush brush, double Height, double Width)
+        public void UpdateWay(string NameWay, Point Position,
+            string brush, double Height, double Width)
         {
             int id = -1;
             foreach (EllipseWay i in ways)
@@ -60,15 +60,13 @@ namespace DrawMapMetroLibrary.Saving
 
         public void Save()
         {
-            XmlSerializer formatter = new XmlSerializer(typeof(EllipseWay[]));
-            //int i = 0;
+            XmlSerializer formatter = new XmlSerializer(typeof(List<EllipseWay>));
 
-            //while (i < ways.Count)
-            //{
-            TextWriter writer = new StreamWriter("C:\\Users\\Daniil\\Desktop\\EllipseWays.xml");
-            formatter.Serialize(writer, ways);
-            //    i++;
-            //}
+            using (FileStream fs = new FileStream(
+                "C:\\Users\\Daniil\\Desktop\\EllipseWays.xml", FileMode.OpenOrCreate))
+            {
+                formatter.Serialize(fs, ways);
+            }
         }
     }
 }

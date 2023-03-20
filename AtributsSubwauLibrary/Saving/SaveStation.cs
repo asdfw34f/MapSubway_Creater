@@ -13,10 +13,10 @@ namespace DrawMapMetroLibrary.Saving
 
         public SaveStation() { }
 
-        public void AddStation(string nameStation, int nextWay, 
-            int backWay, string NameWay, Brush brush, Point Position) 
+        public void AddStation
+            (string nameStation, int nextWay, int backWay, string NameWay, string brush, Point Position) 
         {
-            stations.Add(new Station(nameStation, nextWay, backWay, NameWay, brush, Position));
+            stations.Add(new Station());
         }
 
         public void RemoveStation(string nameStation, string NameWay) 
@@ -35,7 +35,7 @@ namespace DrawMapMetroLibrary.Saving
 
         public void UpdateStatin(string nameStation, string NameWay, 
             string NEWnameStation, int NEWnextWay, int NEWbackWay,
-            string NEWNameWay, Brush NEWbrush, Point Position)
+            string NEWNameWay, string NEWbrush, Point Position)
         {
             int id = -1;
             foreach (Station i in stations)
@@ -43,8 +43,15 @@ namespace DrawMapMetroLibrary.Saving
                 id++;
                 if (i.NameStation == nameStation && i.NameWay == NameWay)
                 {
-                    stations[id] = new Station(NEWnameStation, NEWnextWay,
-                        NEWbackWay, NEWNameWay, NEWbrush, Position);
+                    stations[id] = new Station()
+                    { 
+                        NameStation = NEWnameStation,
+                        NameWay = NEWNameWay, 
+                        Color = NEWbrush, 
+                        BackWay = NEWbackWay,
+                        NextWay = NEWnextWay, 
+                        Position = Position 
+                    };
                     return;
                 }
             }

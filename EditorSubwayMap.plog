@@ -37,7 +37,7 @@
                 <xs:element name="AnalyzedSourceFiles" type="xs:string" minOccurs="0" msdata:Ordinal="17" />
                 <xs:element name="CWECode" type="xs:string" minOccurs="0" msdata:Ordinal="18" />
                 <xs:element name="SAST" type="xs:string" minOccurs="0" msdata:Ordinal="19" />
-                <xs:element name="Positions" msdata:DataType="ProgramVerificationSystems.PVSStudio.CommonTypes.SourceFilePositions, PVS-Studio_Cmd, Version=0.0.0.0, Culture=neutral, PublicKeyToken=0bdd5054f5d6a4a5" type="xs:anyType" minOccurs="0" msdata:Ordinal="20" />
+                <xs:element name="Positions" msdata:DataType="ProgramVerificationSystems.PVSStudio.CommonTypes.SourceFilePositions, PVS-Studio-vs2022, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" type="xs:anyType" minOccurs="0" msdata:Ordinal="20" />
                 <xs:element name="MISRA" type="xs:string" minOccurs="0" msdata:Ordinal="21" />
               </xs:sequence>
               <xs:attribute name="ErrorCodeNumeric" msdata:ReadOnly="true" msdata:Expression="IIF(LEN(ErrorCode) &lt; 2 OR (SUBSTRING(ErrorCode, 1, 1) &lt;&gt; 'V'), 0, CONVERT(SUBSTRING(ErrorCode, 2, LEN(ErrorCode) - 1), 'System.UInt32'))" type="xs:unsignedInt" use="prohibited" />
@@ -56,10 +56,10 @@
     </xs:element>
   </xs:schema>
   <Solution_Path>
-    <SolutionPath>C:\Users\Daniil\source\repos\K\EditorSubwayMap.sln</SolutionPath>
+    <SolutionPath>D:\ПРОЕКТЫ\MapSubway_Creater\EditorSubwayMap.sln</SolutionPath>
     <SolutionVersion>17.0</SolutionVersion>
     <PlogVersion>7</PlogVersion>
-    <ModificationDate>2023-02-18T19:24:28.8648634Z</ModificationDate>
+    <ModificationDate>2023-03-20T17:51:35.0523322Z</ModificationDate>
   </Solution_Path>
   <PVS-Studio_Analysis_Log>
     <FavIcon>false</FavIcon>
@@ -71,7 +71,7 @@
     <ShortFile>AssemblyInfo.cs</ShortFile>
     <Line>1</Line>
     <FalseAlarm>false</FalseAlarm>
-    <File>C:\Users\Daniil\source\repos\K\Properties\AssemblyInfo.cs</File>
+    <File>D:\ПРОЕКТЫ\MapSubway_Creater\Properties\AssemblyInfo.cs</File>
     <CodePrev>0</CodePrev>
     <CodeCurrent>397230707</CodeCurrent>
     <CodeNext>198617233</CodeNext>
@@ -82,125 +82,24 @@
   </PVS-Studio_Analysis_Log>
   <PVS-Studio_Analysis_Log>
     <FavIcon>false</FavIcon>
-    <Level>0</Level>
+    <Level>2</Level>
     <DefaultOrder>2</DefaultOrder>
-    <ErrorCode>V009</ErrorCode>
-    <Message>To use free version of PVS-Studio, source code files are required to start with a special comment.</Message>
+    <ErrorCode>V3139</ErrorCode>
+    <Message>Two or more case-branches perform the same actions.</Message>
     <Project>EditorSubwayMap</Project>
-    <ShortFile>.NETFramework,Version=v4.8.AssemblyAttributes.cs</ShortFile>
-    <Line>1</Line>
+    <ShortFile>MainWindow.xaml.cs</ShortFile>
+    <Line>252</Line>
     <FalseAlarm>false</FalseAlarm>
-    <File>C:\Users\Daniil\source\repos\K\obj\Debug\.NETFramework,Version=v4.8.AssemblyAttributes.cs</File>
+    <File>D:\ПРОЕКТЫ\MapSubway_Creater\Windows\MainWindow.xaml.cs</File>
     <CodePrev>0</CodePrev>
-    <CodeCurrent>8177592</CodeCurrent>
-    <CodeNext>193925</CodeNext>
-    <TrialMessage>false</TrialMessage>
-    <Analyzer>0</Analyzer>
-    <Retired>false</Retired>
-    <AnalyzedSourceFiles />
-  </PVS-Studio_Analysis_Log>
-  <PVS-Studio_Analysis_Log>
-    <FavIcon>false</FavIcon>
-    <Level>3</Level>
-    <DefaultOrder>3</DefaultOrder>
-    <ErrorCode>V3008</ErrorCode>
-    <Message>The 'px' variable is assigned values twice successively. Perhaps this is a mistake. Check lines: 77, 74.</Message>
-    <Project>EditorSubwayMap</Project>
-    <ShortFile>DrawStation.cs</ShortFile>
-    <Line>77</Line>
-    <FalseAlarm>false</FalseAlarm>
-    <File>C:\Users\Daniil\source\repos\K\DrawFigure\DrawStation.cs</File>
-    <CodePrev>0</CodePrev>
-    <CodeCurrent>38323</CodeCurrent>
-    <CodeNext>2430419</CodeNext>
+    <CodeCurrent>781701875</CodeCurrent>
+    <CodeNext>123</CodeNext>
     <TrialMessage>false</TrialMessage>
     <Analyzer>4</Analyzer>
     <Retired>false</Retired>
     <AnalyzedSourceFiles />
-    <CWECode>CWE-563</CWECode>
     <Positions>
-      <Position lines="77,74">C:\Users\Daniil\source\repos\K\DrawFigure\DrawStation.cs</Position>
+      <Position lines="252,262">D:\ПРОЕКТЫ\MapSubway_Creater\Windows\MainWindow.xaml.cs</Position>
     </Positions>
-  </PVS-Studio_Analysis_Log>
-  <PVS-Studio_Analysis_Log>
-    <FavIcon>false</FavIcon>
-    <Level>3</Level>
-    <DefaultOrder>4</DefaultOrder>
-    <ErrorCode>V3008</ErrorCode>
-    <Message>The 'py' variable is assigned values twice successively. Perhaps this is a mistake. Check lines: 78, 75.</Message>
-    <Project>EditorSubwayMap</Project>
-    <ShortFile>DrawStation.cs</ShortFile>
-    <Line>78</Line>
-    <FalseAlarm>false</FalseAlarm>
-    <File>C:\Users\Daniil\source\repos\K\DrawFigure\DrawStation.cs</File>
-    <CodePrev>38323</CodePrev>
-    <CodeCurrent>2430419</CodeCurrent>
-    <CodeNext>0</CodeNext>
-    <TrialMessage>false</TrialMessage>
-    <Analyzer>4</Analyzer>
-    <Retired>false</Retired>
-    <AnalyzedSourceFiles />
-    <CWECode>CWE-563</CWECode>
-    <Positions>
-      <Position lines="78,75">C:\Users\Daniil\source\repos\K\DrawFigure\DrawStation.cs</Position>
-    </Positions>
-  </PVS-Studio_Analysis_Log>
-  <PVS-Studio_Analysis_Log>
-    <FavIcon>false</FavIcon>
-    <Level>2</Level>
-    <DefaultOrder>5</DefaultOrder>
-    <ErrorCode>V3002</ErrorCode>
-    <Message>The switch statement does not cover all values of the 'ftype' enum: ellipse.</Message>
-    <Project>EditorSubwayMap</Project>
-    <ShortFile>MainWindow.xaml.cs</ShortFile>
-    <Line>69</Line>
-    <FalseAlarm>false</FalseAlarm>
-    <File>C:\Users\Daniil\source\repos\K\MainWindow.xaml.cs</File>
-    <CodePrev>1936745302</CodePrev>
-    <CodeCurrent>22901</CodeCurrent>
-    <CodeNext>123</CodeNext>
-    <TrialMessage>false</TrialMessage>
-    <Analyzer>4</Analyzer>
-    <Retired>false</Retired>
-    <AnalyzedSourceFiles />
-  </PVS-Studio_Analysis_Log>
-  <PVS-Studio_Analysis_Log>
-    <FavIcon>false</FavIcon>
-    <Level>1</Level>
-    <DefaultOrder>6</DefaultOrder>
-    <ErrorCode>V3022</ErrorCode>
-    <Message>Expression 'paint == true' is always true.</Message>
-    <Project>EditorSubwayMap</Project>
-    <ShortFile>MainWindow.xaml.cs</ShortFile>
-    <Line>95</Line>
-    <FalseAlarm>false</FalseAlarm>
-    <File>C:\Users\Daniil\source\repos\K\MainWindow.xaml.cs</File>
-    <CodePrev>82773</CodePrev>
-    <CodeCurrent>1478407</CodeCurrent>
-    <CodeNext>123</CodeNext>
-    <TrialMessage>false</TrialMessage>
-    <Analyzer>4</Analyzer>
-    <Retired>false</Retired>
-    <AnalyzedSourceFiles />
-    <CWECode>CWE-571</CWECode>
-  </PVS-Studio_Analysis_Log>
-  <PVS-Studio_Analysis_Log>
-    <FavIcon>false</FavIcon>
-    <Level>2</Level>
-    <DefaultOrder>7</DefaultOrder>
-    <ErrorCode>V3002</ErrorCode>
-    <Message>The switch statement does not cover all values of the 'ftype' enum: ellipse.</Message>
-    <Project>EditorSubwayMap</Project>
-    <ShortFile>MainWindow.xaml.cs</ShortFile>
-    <Line>99</Line>
-    <FalseAlarm>false</FalseAlarm>
-    <File>C:\Users\Daniil\source\repos\K\MainWindow.xaml.cs</File>
-    <CodePrev>0</CodePrev>
-    <CodeCurrent>22901</CodeCurrent>
-    <CodeNext>123</CodeNext>
-    <TrialMessage>false</TrialMessage>
-    <Analyzer>4</Analyzer>
-    <Retired>false</Retired>
-    <AnalyzedSourceFiles />
   </PVS-Studio_Analysis_Log>
 </NewDataSet>

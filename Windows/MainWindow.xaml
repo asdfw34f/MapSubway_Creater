@@ -369,12 +369,7 @@
                     BorderBrush="Black" Content="Добавить ветку" 
                         FontWeight="Bold" Margin="0,88,0,0" Width="146"
                         Click="BtnAddWay_MouseUp"/>
-                <Label x:Name="Suc_AddWay" Content="Ветка добавлена" HorizontalAlignment="Center" 
-                       Margin="0,58,0,59" Visibility="Hidden"
-                       d:LayoutOverrides="Height, LeftPosition, RightPosition" 
-                       FontSize="14" FontFamily="Algerian" 
-                       FontWeight="Bold" Background="Transparent" Foreground="#FF00FFB3"/>
-
+                
             </Grid>
         </Canvas>
 

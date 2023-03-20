@@ -117,9 +117,13 @@
     <Resource Include="XMLFile1.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="DrawMapMetroLibrary\DrawMapMetroLibrary.csproj">
+    <ProjectReference Include="AtributsSubwauLibrary\AtributsSubwayLibrary.csproj">
+      <Project>{862f8f57-e9b8-4ffb-b9d9-30f89ac986bc}</Project>
+      <Name>AtributsSubwayLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="DrawMapMetroLibrary\DrawMapSubwayLibrary.csproj">
       <Project>{34c816a0-c125-49fa-9ae5-313b3c2ff862}</Project>
-      <Name>DrawMapMetroLibrary</Name>
+      <Name>DrawMapSubwayLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

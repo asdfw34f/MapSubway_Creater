@@ -10,7 +10,7 @@ using System.Windows.Controls;
 
 namespace EditorSubwayMap.DrawFigure
 {
-    public class DrawStation : IFigure
+    public class DrawStation
     {
         private Point pStart;
         private Brush color1;

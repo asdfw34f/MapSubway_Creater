@@ -5,7 +5,9 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorSubwayMap", "EditorSubwayMap.csproj", "{4D19F37D-884F-43F7-B800-44528D8B390D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawMapMetroLibrary", "DrawMapMetroLibrary\DrawMapMetroLibrary.csproj", "{34C816A0-C125-49FA-9AE5-313B3C2FF862}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawMapSubwayLibrary", "DrawMapMetroLibrary\DrawMapSubwayLibrary.csproj", "{34C816A0-C125-49FA-9AE5-313B3C2FF862}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtributsSubwayLibrary", "AtributsSubwauLibrary\AtributsSubwayLibrary.csproj", "{862F8F57-E9B8-4FFB-B9D9-30F89AC986BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{34C816A0-C125-49FA-9AE5-313B3C2FF862}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34C816A0-C125-49FA-9AE5-313B3C2FF862}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34C816A0-C125-49FA-9AE5-313B3C2FF862}.Release|Any CPU.Build.0 = Release|Any CPU
+		{862F8F57-E9B8-4FFB-B9D9-30F89AC986BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{862F8F57-E9B8-4FFB-B9D9-30F89AC986BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{862F8F57-E9B8-4FFB-B9D9-30F89AC986BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{862F8F57-E9B8-4FFB-B9D9-30F89AC986BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

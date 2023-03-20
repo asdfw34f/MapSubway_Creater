@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace EditorSubwayMap.DrawFigure
 {
-    public class DrawEllipse : IFigure
+    public class DrawEllipse
     {
         private Point pStart;
         private Point currentPoint;
