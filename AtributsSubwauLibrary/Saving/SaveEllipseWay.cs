@@ -1,7 +1,6 @@
 ﻿using DrawMapMetroLibrary.Atributs;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Media;
 using System.Windows;
 using System.Xml.Serialization;
 
@@ -58,12 +57,12 @@ namespace DrawMapMetroLibrary.Saving
             }
         }
 
-        public void Save()
+        public void Save(string folder)
         {
             XmlSerializer formatter = new XmlSerializer(typeof(List<EllipseWay>));
 
             using (FileStream fs = new FileStream(
-                "C:\\Users\\Daniil\\Desktop\\EllipseWays.xml", FileMode.OpenOrCreate))
+                folder + "\\EllipseWays.xml", FileMode.OpenOrCreate))
             {
                 formatter.Serialize(fs, ways);
             }

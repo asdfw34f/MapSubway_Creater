@@ -17,7 +17,7 @@ namespace EditorSubwayMap.DrawFigure
         private Canvas can;
         private bool isMouseDown = false;
         private bool editLocation = false;
-
+        
         public DrawStation(Canvas canvas)
         {
             can = canvas;
@@ -83,11 +83,17 @@ namespace EditorSubwayMap.DrawFigure
                 Cursor = Cursors.Hand,
                 StrokeThickness = 5,
                 Margin = new Thickness(0)
+                
             };
 
             Canvas.SetLeft(newSt, Pstart.X);
             Canvas.SetTop(newSt, Pstart.Y);
+            newSt.Loaded += (sender, args) =>
+            {
+                Ellipse st = sender as Ellipse;
+                Point p = new Point(Canvas.GetLeft(st), Canvas.GetTop(st));
 
+            };
             newSt.MouseLeftButtonDown += station_MouseLeftButtonDown;
             newSt.MouseMove += station_MouseMove;
             newSt.MouseLeftButtonUp += station_MouseLeftButtonUp;

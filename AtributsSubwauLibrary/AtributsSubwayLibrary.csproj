@@ -31,7 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Win32.Registry, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows" />
@@ -49,10 +51,19 @@
     <Compile Include="Atributs\EllipseWay.cs" />
     <Compile Include="Atributs\LineWay.cs" />
     <Compile Include="Atributs\Station.cs" />
+    <Compile Include="Import\ImportEllipseWay.cs" />
+    <Compile Include="Import\ImportLineWay.cs" />
+    <Compile Include="Import\ImportStation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Saving\SaveEllipseWay.cs" />
     <Compile Include="Saving\SaveLineWay.cs" />
     <Compile Include="Saving\SaveStation.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DrawMapMetroLibrary\DrawMapSubwayLibrary.csproj">
+      <Project>{34C816A0-C125-49FA-9AE5-313B3C2FF862}</Project>
+      <Name>DrawMapSubwayLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

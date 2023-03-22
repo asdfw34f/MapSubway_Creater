@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
-using System.Windows.Media;
 using System.Xml.Serialization;
 
 namespace DrawMapMetroLibrary.Saving
@@ -14,9 +13,18 @@ namespace DrawMapMetroLibrary.Saving
         public SaveStation() { }
 
         public void AddStation
-            (string nameStation, int nextWay, int backWay, string NameWay, string brush, Point Position) 
+            (string nameStation, double nextWay, double backWay, 
+            string NameWay, string brush, Point Position) 
         {
-            stations.Add(new Station());
+            stations.Add(new Station()
+            {
+                NameStation= nameStation,
+                NextWay= nextWay,
+                BackWay= backWay,
+                NameWay= NameWay,
+                Color = brush,
+                Position= Position
+            });
         }
 
         public void RemoveStation(string nameStation, string NameWay) 
@@ -57,11 +65,12 @@ namespace DrawMapMetroLibrary.Saving
             }
         }
 
-        public void Save() 
+        public void Save(string folder) 
         {
             XmlSerializer formatter = new XmlSerializer(typeof(List<Station>));
-            
-            using (FileStream fs = new FileStream("Stations.xml", FileMode.OpenOrCreate))
+            Station station = stations[0];
+            using (FileStream fs = new FileStream(
+                folder + "\\Stations.xml", FileMode.OpenOrCreate))
             {
                 formatter.Serialize(fs, stations);
             }

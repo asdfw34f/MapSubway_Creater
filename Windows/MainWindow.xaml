@@ -8,7 +8,8 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         WindowState="Maximized"
         Icon="/icons/icon-map.png"
-        Title="MainWindow" Height="1027" Width="1628">
+        Title="MainWindow" Height="1027" Width="1628"
+        Closing="Window_Closing">
 
     <Window.Resources>
 
@@ -65,7 +66,7 @@
                  Background="#FF3E867F" Canvas.Left="10" Canvas.Top="324" 
                   HorizontalAlignment="Center"
                   Height="349" VerticalAlignment="Top" Width="240"
-                  Visibility="Hidden">
+                  Visibility="Hidden" IsVisibleChanged="AtrSt_grid_IsVisibleChanged">
 
                 <TextBox x:Name="AtrSt_NextSt" Text="Введите имя станции"
                          HorizontalAlignment="Center" 
@@ -347,10 +348,11 @@
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top" FontFamily="Calisto MT" Height="31" BorderBrush="Aqua"/>
 
-            <Grid Background="#FF22847B" Canvas.Left="10" Canvas.Top="324" 
+            <Grid Background="#FF22847B" 
+                  Canvas.Left="10" Canvas.Top="324" 
                 x:Name="AtrWay_grid"
                 Height="143" Width="240"
-                Visibility="Visible" HorizontalAlignment="Center"
+                Visibility="Hidden" HorizontalAlignment="Center"
                   IsVisibleChanged="AtrWay_grid_IsVisibleChanged"
                   VerticalAlignment="Top">
 
@@ -358,7 +360,8 @@
                          HorizontalAlignment="Center" 
                     VerticalAlignment="Top" Width="220" 
                     Canvas.Left="9" Canvas.Top="11" Height="34" 
-                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                    HorizontalContentAlignment="Center" 
+                         VerticalContentAlignment="Center" 
                     FontSize="14" BorderBrush="Black" 
                          Margin="0,21,0,0" Mouse.MouseDown="AWay_Name_MouseDown"/>
 

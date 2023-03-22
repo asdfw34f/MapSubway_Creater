@@ -57,11 +57,12 @@ namespace DrawMapMetroLibrary.Saving
             }
         }
 
-        public void Save() 
+        public void Save(string folder) 
         {
             XmlSerializer formatter = new XmlSerializer(typeof(List<LineWay>));
 
-            using (FileStream fs = new FileStream("LineWays.xml", FileMode.OpenOrCreate))
+            using (FileStream fs = new FileStream(
+                folder + "\\LineWays.xml", FileMode.OpenOrCreate))
             {
                 formatter.Serialize(fs, ways);
             }

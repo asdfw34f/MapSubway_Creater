@@ -17,6 +17,8 @@ namespace EditorSubwayMap.DrawFigure
         private Canvas can;
         private bool isMouseDown = false;
         private bool editLocation = false;
+        private double Height1 = 20;
+        private double Width1 = 20;
 
         public DrawEllipse(Canvas canvas)
         {
@@ -38,6 +40,9 @@ namespace EditorSubwayMap.DrawFigure
             get => editLocation;
             set => editLocation = value; 
         }
+
+        public double Height { get => Height1; set => Height1 = value; }
+        public double Width { get => Width1; set => Width1 = value; }
 
         /// <summary>
         /// Сводка:
@@ -94,8 +99,8 @@ namespace EditorSubwayMap.DrawFigure
             Ellipse newEl = new Ellipse()
             {
                 Stroke = color1,
-                Width = 20,
-                Height = 20,
+                Width = Width1,
+                Height = Height1,
                 Margin = new Thickness(0),
                 StrokeThickness = 5,
                 Cursor= Cursors.Hand,
@@ -150,7 +155,7 @@ namespace EditorSubwayMap.DrawFigure
             Canvas.SetTop(ellipse, Pstart.Y);
 
             ellipse.Height = ellipse.Width;
-
+            
             return ellipse;
         }
 
