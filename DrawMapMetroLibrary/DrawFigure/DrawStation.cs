@@ -72,10 +72,16 @@ namespace EditorSubwayMap.DrawFigure
         /// <returns>
         ///      Возвращает готовую станцию.
         /// </returns>
-        public Ellipse Draw()
+        public EllipseGeometry Draw()
         {
-            Ellipse newSt = new Ellipse()
+            EllipseGeometry newSt = new EllipseGeometry()
             {
+                RadiusX = 20,
+                RadiusY = 20,
+                Center = new Point(pStart.X + 20, pStart.Y + 20),
+
+            };
+            /*
                 Fill = Brushes.White,
                 Stroke = color1,
                 Height = 20,
@@ -83,8 +89,7 @@ namespace EditorSubwayMap.DrawFigure
                 Cursor = Cursors.Hand,
                 StrokeThickness = 5,
                 Margin = new Thickness(0)
-                
-            };
+             */
 
             Canvas.SetLeft(newSt, Pstart.X);
             Canvas.SetTop(newSt, Pstart.Y);
@@ -94,6 +99,7 @@ namespace EditorSubwayMap.DrawFigure
                 Point p = new Point(Canvas.GetLeft(st), Canvas.GetTop(st));
 
             };
+
             newSt.MouseLeftButtonDown += station_MouseLeftButtonDown;
             newSt.MouseMove += station_MouseMove;
             newSt.MouseLeftButtonUp += station_MouseLeftButtonUp;
@@ -101,7 +107,7 @@ namespace EditorSubwayMap.DrawFigure
 
             return newSt;
         }
-
+        /*
         private void station_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (!editLocation)
@@ -136,6 +142,6 @@ namespace EditorSubwayMap.DrawFigure
             b.ReleaseMouseCapture();
             isMouseDown = false;
             editLocation = false;
-        }
+        }*/
     }
 }
