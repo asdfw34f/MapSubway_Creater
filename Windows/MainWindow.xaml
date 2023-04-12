@@ -66,9 +66,9 @@
                  Background="#FF3E867F" Canvas.Left="10" Canvas.Top="324" 
                   HorizontalAlignment="Center"
                   Height="349" VerticalAlignment="Top" Width="240"
-                  Visibility="Hidden" IsVisibleChanged="AtrSt_grid_IsVisibleChanged">
+                  Visibility="Visible" IsVisibleChanged="AtrSt_grid_IsVisibleChanged">
 
-                <TextBox x:Name="AtrSt_NextSt" Text="Введите имя станции"
+                <TextBox x:Name="AtrSt_NameSt" Text="Введите имя станции"
                          HorizontalAlignment="Center" 
                  VerticalAlignment="Top" Width="220" 
                  Canvas.Left="9" Canvas.Top="11" Height="34" 
@@ -372,7 +372,7 @@
                     BorderBrush="Black" Content="Добавить ветку" 
                         FontWeight="Bold" Margin="0,88,0,0" Width="146"
                         Click="BtnAddWay_MouseUp"/>
-                
+
             </Grid>
         </Canvas>
 
@@ -404,20 +404,20 @@
 
             <Label x:Name="labelX" Content="Label" 
                    Canvas.Left="0" Canvas.Bottom="0" 
-                   Height="28" Width="71" 
-                   HorizontalAlignment="Left" 
+                   Height="39" Width="101" 
+                   HorizontalAlignment="Center" 
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
-                   VerticalAlignment="Top"/>
+                   VerticalAlignment="Top" Canvas.Top="972" FontSize="18" FontWeight="Bold"/>
 
 
             <Label x:Name="labelY" Content="Label" 
-                   Canvas.Left="84" Canvas.Bottom="0" 
-                   Height="28" Width="71" 
+                   Canvas.Left="106" Canvas.Bottom="0" 
+                   Height="40" Width="80" 
                    HorizontalAlignment="Left" 
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
-                   VerticalAlignment="Top"/>
+                   VerticalAlignment="Top" Canvas.Top="971" FontSize="18" FontWeight="Bold"/>
         </Canvas>
     </Grid>
 </Window>

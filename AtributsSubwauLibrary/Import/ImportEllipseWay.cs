@@ -11,11 +11,12 @@ namespace AtributsSubwauLibrary.Import
 {
     public class ImportEllipseWay
     {
-        Canvas canvas { get; set; } = null;
+        List<EllipseWay> elWays = new List<EllipseWay>();
 
-        public ImportEllipseWay(Canvas can)
+        Canvas can;
+        public ImportEllipseWay(Canvas canvas)
         {
-            canvas = can;
+            can = canvas;
         }
 
         private List<EllipseWay> Deserialize(Stream stream)
@@ -40,7 +41,7 @@ namespace AtributsSubwauLibrary.Import
             foreach (EllipseWay way in ways)
             {
                 BrushConverter _conv = new BrushConverter();
-                DrawEllipse de = new DrawEllipse(canvas)
+                DrawEllipse de = new DrawEllipse(can)
                 {
                     Pstart = way.Position,
                     Height = way.Height,
@@ -52,20 +53,29 @@ namespace AtributsSubwauLibrary.Import
             return newWay;
         }
 
+
         public List<Ellipse> Import(string Folder)
         {
-            List<EllipseWay> ways = new List<EllipseWay>();
+            List<Ellipse> ways = new List<Ellipse>();
 
             using (FileStream file = new FileStream(Folder + "\\LineWays.xml", FileMode.Open))
             {
-                ways = Deserialize(file);
-                if (ways != null)
+                elWays = Deserialize(file);
+                if (elWays != null)
                 {
-                    List<Ellipse> way = Drawing(ways);
-                    return way;
+                    foreach(EllipseWay way in elWays)
+                    {
+                        
+                    }
+                    return ways;
                 }
             }
             return null;
+        }
+
+        public List<EllipseWay> GetEllipseWays() 
+        {
+            return elWays;
         }
     }
 }

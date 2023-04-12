@@ -109,7 +109,7 @@ namespace EditorSubwayMap.DrawFigure
 
             Canvas.SetLeft(newEl, Pstart.X);
             Canvas.SetTop(newEl, Pstart.Y);
-            
+
             newEl.MouseLeftButtonDown += ellipse_MouseLeftButtonDown;
             newEl.MouseMove += ellipse_MouseMove;
             newEl.MouseLeftButtonUp += ellipse_MouseLeftButtonUp;

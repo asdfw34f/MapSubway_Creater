@@ -1,9 +1,7 @@
 ﻿using DrawMapMetroLibrary.Atributs;
-using EditorSubwayMap.DrawFigure;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
 
@@ -11,11 +9,10 @@ namespace AtributsSubwauLibrary.Import
 {
     public class ImportStation
     {
-        Canvas canvas { get; set; } = null;
+        List<Station> elSt = new List<Station>();
 
-        public ImportStation(Canvas can) 
+        public ImportStation() 
         {
-            canvas = can;
         }
 
         private List<Station> Deserialize(Stream stream)
@@ -25,45 +22,34 @@ namespace AtributsSubwauLibrary.Import
 
             if (stations != null)
             {
-                foreach (Station person in stations)
+                foreach (Station st in stations)
                 {
-                    stations.Add(person);
+                    stations.Add(st);
                 }
                 return stations;
             }
             return null;
         }
 
-        private List<Ellipse> Drawing(List<Station> stations)
-        {
-            List<Ellipse> newSt = new List<Ellipse>();
-            foreach (Station st in stations)
-            {
-                BrushConverter _conv= new BrushConverter();
-                DrawStation ds = new DrawStation(canvas)
-                {
-                    Pstart = st.Position,
-                    color = _conv.ConvertFromString(st.Color) as Brush,
-                };
-                newSt.Add(ds.Draw());
-            }
-            return newSt;
-        }
-
         public List<Ellipse> Import(string Folder)
         {
-            List<Station> stations = new List<Station>();
-
+            List<Ellipse> stations = new List<Ellipse>();
             using (FileStream file = new FileStream(Folder + "\\Stations.xml", FileMode.Open))
             {
-                stations = Deserialize(file);
-                if (stations != null)
+                elSt = Deserialize(file);
+                if (elSt != null)
                 {
-                    List<Ellipse> st = Drawing(stations);
-                    return st;
+                    foreach (Station st in elSt)
+                    {
+                    }
                 }
             }
             return null;
+        }
+
+        public List<Station> GetStations() 
+        {
+            return elSt;
         }
     }
 }

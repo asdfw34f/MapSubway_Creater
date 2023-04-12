@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using System.Windows.Shapes;
 using System.Xml.Serialization;
 
 namespace DrawMapMetroLibrary.Saving
@@ -13,24 +14,24 @@ namespace DrawMapMetroLibrary.Saving
         public SaveStation() { }
 
         public void AddStation
-            (string nameStation, double nextWay, double backWay, 
-            string NameWay, string brush, Point Position) 
+            (string nameStation, string nameWay,
+            int back, int go, Point position, string color)
         {
             stations.Add(new Station()
             {
-                NameStation= nameStation,
-                NextWay= nextWay,
-                BackWay= backWay,
-                NameWay= NameWay,
-                Color = brush,
-                Position= Position
+                NameWay = nameWay,
+                NameStation = nameStation,
+                Back= back,
+                Go=go,
+                Position = position,
+                Color = color
             });
         }
 
-        public void RemoveStation(string nameStation, string NameWay) 
+        public void RemoveStation(string nameStation, string NameWay)
         {
             int id = -1;
-            foreach(Station i in stations)
+            foreach (Station i in stations)
             {
                 id++;
                 if (i.NameStation == nameStation && i.NameWay == NameWay)
@@ -41,9 +42,8 @@ namespace DrawMapMetroLibrary.Saving
             }
         }
 
-        public void UpdateStatin(string nameStation, string NameWay, 
-            string NEWnameStation, int NEWnextWay, int NEWbackWay,
-            string NEWNameWay, string NEWbrush, Point Position)
+        public bool UpdateStatin(string nameStation, string NameWay,
+            string NEWnameStation, Ellipse newSt, string NEWNameWay, int newBack, int newGo)
         {
             int id = -1;
             foreach (Station i in stations)
@@ -52,23 +52,21 @@ namespace DrawMapMetroLibrary.Saving
                 if (i.NameStation == nameStation && i.NameWay == NameWay)
                 {
                     stations[id] = new Station()
-                    { 
+                    {
                         NameStation = NEWnameStation,
-                        NameWay = NEWNameWay, 
-                        Color = NEWbrush, 
-                        BackWay = NEWbackWay,
-                        NextWay = NEWnextWay, 
-                        Position = Position 
+                        NameWay = NEWNameWay,
+                        Back= newBack,
+                        Go= newGo
                     };
-                    return;
+                    return true;
                 }
             }
+            return false;
         }
 
-        public void Save(string folder) 
+        public void Save(string folder)
         {
             XmlSerializer formatter = new XmlSerializer(typeof(List<Station>));
-            Station station = stations[0];
             using (FileStream fs = new FileStream(
                 folder + "\\Stations.xml", FileMode.OpenOrCreate))
             {

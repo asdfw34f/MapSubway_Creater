@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using System.Windows.Shapes;
 using System.Xml.Serialization;
 
 namespace DrawMapMetroLibrary.Saving
@@ -11,15 +12,17 @@ namespace DrawMapMetroLibrary.Saving
         List<EllipseWay> ways = new List<EllipseWay>();
         public SaveEllipseWay() { }
 
-        public void AddWay(string NameWay, Point Position, string brush, double Height, double Width)
+        public void AddWay(
+            string NameWay, Point position, string color, 
+            double height, double width)
         {
             ways.Add(new EllipseWay()
             {
-                Color = brush,
-                Height = Height,
-                Width = Width,
-                Position = Position,
-                NameWay = NameWay
+                NameWay = NameWay,
+                Position = position,
+                Color = color,
+                Height = height,
+                Width = width
             });
         }
 
@@ -37,8 +40,7 @@ namespace DrawMapMetroLibrary.Saving
             }
         }
 
-        public void UpdateWay(string NameWay, Point Position,
-            string brush, double Height, double Width)
+        public void UpdateWay(string NameWay, Ellipse ellipse)
         {
             int id = -1;
             foreach (EllipseWay i in ways)
@@ -47,10 +49,6 @@ namespace DrawMapMetroLibrary.Saving
                 if (i.NameWay == NameWay)
                 {
                     ways[id].NameWay = NameWay;
-                    ways[id].Position = Position;
-                    ways[id].Color = brush;
-                    ways[id].Width = Width;
-                    ways[id].Height = Height;
 
                     return;
                 }

@@ -25,13 +25,10 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        enum ftype
-        {
-            N, station, ellipse, line
-        }
+        enum ftype { N, station, ellipse, line }
+        ftype f;
 
         bool paint = false;
-        ftype f;
 
         DrawEllipse de;
         DrawStation ds;
@@ -44,13 +41,14 @@ namespace WpfApp1
         Line line;
         Ellipse ellipse;
 
-        Brush brush;
-        string _sBrush;
+        List<Ellipse> sts;
+        List<Ellipse> elWays;
+        List<Line> lineWays;
+
         BrushConverter conv;
         string col;
-
         List<string> WayNames = new List<string>();
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -133,11 +131,12 @@ namespace WpfApp1
             f = ftype.N;
             Cursor = Cursors.SizeAll;
         }
+
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             var folder = new FolderBrowserDialog();
             folder.ShowDialog();
-
+            
             lineWay.Save(folder.SelectedPath);
             ellipseWay.Save(folder.SelectedPath);
             station.Save(folder.SelectedPath); 
@@ -148,20 +147,31 @@ namespace WpfApp1
             var folder = new FolderBrowserDialog();
             folder.ShowDialog();
 
-            ImportStation importSt = new ImportStation(canDrawing);
-            importSt.Import(folder.SelectedPath);
+            ImportStation importSt = new ImportStation();
+            sts = importSt.Import(folder.SelectedPath);
+            foreach (Ellipse st in sts)
+            {
+                canDrawing.Children.Add(st);
+            }
 
             ImportEllipseWay importEl = new ImportEllipseWay(canDrawing);
-            importEl.Import(folder.SelectedPath);
+            elWays = importEl.Import(folder.SelectedPath);
+            foreach (Ellipse way in elWays)
+            {
+                canDrawing.Children.Add(way);
+            }
 
-            ImportLineWay importLn = new ImportLineWay(canDrawing);
-            importLn.Import(folder.SelectedPath);
+            ImportLineWay importLn = new ImportLineWay();
+            lineWays = importLn.Import(folder.SelectedPath);
+            foreach (Line way in lineWays)
+            {
+                canDrawing.Children.Add(way);
+            }
         }
 
         private void cboColors_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             col = cboColors.SelectedValue as string;
-            brush = conv.ConvertFromString(cboColors.SelectedValue.ToString()) as Brush;
         }
 
         private void btnRemoveAll_Click(object sender, RoutedEventArgs e)
@@ -181,21 +191,22 @@ namespace WpfApp1
             text.Text = null;
         }
 
-        private void BtnAddStation_MouseUp(object sender, RoutedEventArgs e)
-        {
-            station.AddStation(
-                AtrSt_NextSt.Text.ToString(), 
-                Convert.ToDouble(AtrSt_BackWay.Text),
-                Convert.ToDouble(AtrSt_NextWay.Text), 
-                AtrSt_NameWay.Text.ToString(), 
-                conv.ConvertToString(brush), 
-                ds.Pstart);
-        }
-
         private void AWay_Name_MouseDown(object sender, MouseButtonEventArgs e)
         {
             TextBox text = sender as TextBox;
             text.Text = null;
+        }
+
+        private void BtnAddStation_MouseUp(object sender, RoutedEventArgs e)
+        {
+            station.AddStation(
+                AtrSt_NameSt.Text.ToString(), AtrSt_NameWay.Text.ToString(),
+                Convert.ToInt16(AtrSt_BackWay.Text.ToString()), 
+                Convert.ToInt16(AtrSt_NextWay.Text.ToString()),
+                new Point(Canvas.GetLeft(ellipse), Canvas.GetTop(ellipse)),
+                cboColors.SelectedValue.ToString());
+
+            sts.Add(ellipse);
         }
 
         private void BtnAddWay_MouseUp(object sender, RoutedEventArgs e)
@@ -208,42 +219,30 @@ namespace WpfApp1
                 //  DRAW LINE 
                 case ftype.line:
                     WayNames.Add(AWay_Name.Text);
-                    _sBrush = conv.ConvertToString(brush);
-
-                    lineWay.AddWay(AWay_Name.Text,
-                        new Point(line.X1, line.Y1),
-                        new Point(line.X2, line.Y2),
-                        _sBrush);
+                    lineWay.AddWay(AWay_Name.Text, new Point(line.X1, line.Y1),
+                        new Point(line.X1, line.Y2), cboColors.SelectedValue.ToString());
+                    lineWays.Add(line);
                     AWay_Name.Text = "Ветка добавлена";
                     break;
 
                 //  DRAW ELLIPSE
                 case ftype.ellipse:
                     WayNames.Add(AWay_Name.Text);
-                    _sBrush = conv.ConvertToString(brush);
-
-                    ellipseWay.AddWay(AWay_Name.Text,
-                        new Point(Canvas.GetLeft(ellipse), Canvas.GetTop(ellipse)),
-                        _sBrush, 
-                        ellipse.Height, 
-                        ellipse.Width);
-
+                    ellipseWay.AddWay(AWay_Name.Text, new Point(Canvas.GetLeft(ellipse), Canvas.GetTop(ellipse)),
+                        cboColors.SelectedValue.ToString(), ellipse.Height, ellipse.Width);
+                    
+                    elWays.Add(ellipse);
                     AWay_Name.Text = "Ветка добавлена";
                     break;
             }
         }
 
         // CANVAS MOUSE EVENTS
-
         private void canDrawing_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed && paint == true)
                 switch (f)
                 {
-                    case ftype.N: break;
-                    //  DRAW STATION
-                    case ftype.station: break;
-
                     //  DRAW LINE 
                     case ftype.line:
 
@@ -257,16 +256,16 @@ namespace WpfApp1
                         de.currentP = e.GetPosition(canDrawing);
                         ellipse = de.EditSize(ellipse);
                         break;
-                }
 
+                    default: break;
+                }
             labelX.Content = "X: " + e.GetPosition(canDrawing).X;
             labelY.Content = "Y: " + e.GetPosition(canDrawing).Y;
         }
 
-        private void canDrawing_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
+       private void canDrawing_MouseUp(object sender, MouseButtonEventArgs e)
+       {
             paint = false;
-
             switch (f)
             {
                 case ftype.N: break;
@@ -286,35 +285,30 @@ namespace WpfApp1
                         AtrWay_grid.Visibility = Visibility.Hidden;
                     }
                     AtrSt_grid.Visibility = Visibility.Visible;
+                break;
 
-                    break;
-
-                //  LINE 
-                case ftype.line:                    
-
-                    if (AtrSt_grid.IsVisible)
-                    {
-                        AtrSt_grid.Visibility = Visibility.Hidden;
-                    }
-                    AtrWay_grid.Visibility = Visibility.Visible;
-                    break;
-
-                //  ELLIPSE
                 case ftype.ellipse:
-
                     if (AtrSt_grid.IsVisible)
                     {
                         AtrSt_grid.Visibility = Visibility.Hidden;
                     }
                     AtrWay_grid.Visibility = Visibility.Visible;
                     break;
+
+                case ftype.line:
+                    if (AtrSt_grid.IsVisible)
+                    {
+                        AtrSt_grid.Visibility = Visibility.Hidden;
+                    }
+                    AtrWay_grid.Visibility = Visibility.Visible;
+                    break;
+                default: break;
             }
-        }
+       }
 
         private void canDrawing_MouseDown(object sender, MouseButtonEventArgs e)
         {
             paint = true;
-
             switch (f)
             {
                 case ftype.N:
@@ -326,7 +320,6 @@ namespace WpfApp1
                     AWay_Name.Text = "Название ветки: ";
                     dl.Pstart = e.GetPosition(canDrawing);
                     dl.Pend = e.GetPosition(canDrawing);
-
                     dl.color = conv.ConvertFromString(col) as Brush;
 
                     line = dl.Draw();
@@ -363,6 +356,7 @@ namespace WpfApp1
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+
         }
     }
 }

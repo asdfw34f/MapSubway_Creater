@@ -10,7 +10,7 @@ using System.Windows.Controls;
 
 namespace EditorSubwayMap.DrawFigure
 {
-    public class DrawStation
+    public class DrawStation 
     {
         private Point pStart;
         private Brush color1;
@@ -72,16 +72,10 @@ namespace EditorSubwayMap.DrawFigure
         /// <returns>
         ///      Возвращает готовую станцию.
         /// </returns>
-        public EllipseGeometry Draw()
+        public Ellipse Draw()
         {
-            EllipseGeometry newSt = new EllipseGeometry()
+            Ellipse newSt = new Ellipse()
             {
-                RadiusX = 20,
-                RadiusY = 20,
-                Center = new Point(pStart.X + 20, pStart.Y + 20),
-
-            };
-            /*
                 Fill = Brushes.White,
                 Stroke = color1,
                 Height = 20,
@@ -89,7 +83,8 @@ namespace EditorSubwayMap.DrawFigure
                 Cursor = Cursors.Hand,
                 StrokeThickness = 5,
                 Margin = new Thickness(0)
-             */
+
+            };
 
             Canvas.SetLeft(newSt, Pstart.X);
             Canvas.SetTop(newSt, Pstart.Y);
@@ -107,7 +102,7 @@ namespace EditorSubwayMap.DrawFigure
 
             return newSt;
         }
-        /*
+        
         private void station_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (!editLocation)
@@ -142,6 +137,6 @@ namespace EditorSubwayMap.DrawFigure
             b.ReleaseMouseCapture();
             isMouseDown = false;
             editLocation = false;
-        }*/
+        }
     }
 }

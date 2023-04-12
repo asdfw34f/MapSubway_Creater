@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using System.Windows.Shapes;
 using System.Xml.Serialization;
 
 namespace DrawMapMetroLibrary.Saving
@@ -12,14 +13,15 @@ namespace DrawMapMetroLibrary.Saving
 
         public SaveLineWay() { }
 
-        public void AddWay(string NameWay, Point Start, Point End, string brush) 
+        public void AddWay
+            (string NameWay, Point start, Point end, string color) 
         {
             ways.Add(new LineWay() 
-            { 
-                Color = brush,
-                End = End, 
-                Start = Start, 
-                NameWay = NameWay
+            {
+                NameWay = NameWay,
+                Start = start,
+                End = end,
+                Color = color
             });
         }
 
@@ -37,7 +39,7 @@ namespace DrawMapMetroLibrary.Saving
             }
         }
 
-        public void UpdateWay(string NameWay, Point Start, Point End, string brush)
+        public void UpdateWay(string NameWay)
         {
             int id = -1;
             foreach (LineWay i in ways)
@@ -47,9 +49,6 @@ namespace DrawMapMetroLibrary.Saving
                 {
                     ways[id] = new LineWay()
                     { 
-                        Color = brush, 
-                        End = End, 
-                        Start = Start, 
                         NameWay = NameWay 
                     };
                     return;
