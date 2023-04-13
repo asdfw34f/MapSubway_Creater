@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
-using System.Windows.Shapes;
 using System.Xml.Serialization;
 
 namespace DrawMapMetroLibrary.Saving
 {
     public class SaveLineWay
     {
-        List<LineWay> ways = new List<LineWay>();
+        public List<LineWay> ways { get; set; } = new List<LineWay>();
 
         public SaveLineWay() { }
 
         public void AddWay
-            (string NameWay, Point start, Point end, string color) 
+            (string NameWay, Point start, Point end, string color)
         {
-            ways.Add(new LineWay() 
+            ways.Add(new LineWay()
             {
                 NameWay = NameWay,
                 Start = start,
@@ -25,10 +24,10 @@ namespace DrawMapMetroLibrary.Saving
             });
         }
 
-        public void RemoveWay(string nameWay) 
+        public void RemoveWay(string nameWay)
         {
             int id = -1;
-            foreach(LineWay i in ways)
+            foreach (LineWay i in ways)
             {
                 id++;
                 if (i.NameWay == nameWay)
@@ -48,23 +47,35 @@ namespace DrawMapMetroLibrary.Saving
                 if (i.NameWay == NameWay)
                 {
                     ways[id] = new LineWay()
-                    { 
-                        NameWay = NameWay 
+                    {
+                        NameWay = NameWay
                     };
                     return;
                 }
             }
         }
 
-        public void Save(string folder) 
+        public bool Save(string folder)
         {
             XmlSerializer formatter = new XmlSerializer(typeof(List<LineWay>));
-
-            using (FileStream fs = new FileStream(
-                folder + "\\LineWays.xml", FileMode.OpenOrCreate))
+            try
             {
-                formatter.Serialize(fs, ways);
+                using (FileStream fs = new FileStream
+                    (folder + "\\LineWays.xml", FileMode.OpenOrCreate))
+                {
+                    formatter.Serialize(fs, ways);
+
+                }
+                return true;
             }
+            catch (IOException e)
+            {
+                MessageBox.Show(
+                    e.Message,
+                    "Ошибка сохранения линии метро");
+                return false;
+            }
+
         }
     }
 }

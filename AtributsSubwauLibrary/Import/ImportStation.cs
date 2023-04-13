@@ -1,7 +1,9 @@
 ﻿using DrawMapMetroLibrary.Atributs;
+using EditorSubwayMap.DrawFigure;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
 
@@ -10,9 +12,10 @@ namespace AtributsSubwauLibrary.Import
     public class ImportStation
     {
         List<Station> elSt = new List<Station>();
-
-        public ImportStation() 
+        Canvas canvas= null;
+        public ImportStation(Canvas canvas) 
         {
+            this.canvas = canvas;
         }
 
         private List<Station> Deserialize(Stream stream)
@@ -20,15 +23,24 @@ namespace AtributsSubwauLibrary.Import
             XmlSerializer formatter = new XmlSerializer(typeof(List<Station>));
             List<Station> stations = formatter.Deserialize(stream) as List<Station>;
 
-            if (stations != null)
+            return stations;
+        }
+
+        public List<Ellipse> Drawing(List<Station> sts)
+        {
+            List<Ellipse> els = new List<Ellipse>();
+            BrushConverter brush = new BrushConverter();
+            foreach (Station stat in sts)
             {
-                foreach (Station st in stations)
+                DrawStation ds = new DrawStation(canvas)
                 {
-                    stations.Add(st);
-                }
-                return stations;
+                    color = brush.ConvertFromString(stat.Color.ToString()) as Brush,
+                    Pstart = stat.Position,
+                    iditLoc = false
+                };
+                els.Add(ds.Draw());
             }
-            return null;
+            return els;
         }
 
         public List<Ellipse> Import(string Folder)
@@ -39,17 +51,11 @@ namespace AtributsSubwauLibrary.Import
                 elSt = Deserialize(file);
                 if (elSt != null)
                 {
-                    foreach (Station st in elSt)
-                    {
-                    }
+                    stations = Drawing(elSt);
+                    return stations;
                 }
             }
             return null;
-        }
-
-        public List<Station> GetStations() 
-        {
-            return elSt;
         }
     }
 }

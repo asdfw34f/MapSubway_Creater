@@ -9,9 +9,9 @@ namespace DrawMapMetroLibrary.Saving
 {
     public class SaveEllipseWay
     {
-        List<EllipseWay> ways = new List<EllipseWay>();
+        public List<EllipseWay> ways { get; set; } = new List<EllipseWay>();
         public SaveEllipseWay() { }
-
+        /*
         public void AddWay(
             string NameWay, Point position, string color, 
             double height, double width)
@@ -24,7 +24,7 @@ namespace DrawMapMetroLibrary.Saving
                 Height = height,
                 Width = width
             });
-        }
+        }*/
 
         public void RemoveWay(string nameWay)
         {

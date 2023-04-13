@@ -21,18 +21,25 @@ namespace AtributsSubwauLibrary.Import
 
         private List<EllipseWay> Deserialize(Stream stream)
         {
-            XmlSerializer formatter = new XmlSerializer(typeof(List<EllipseWay>));
-            List<EllipseWay> ways = formatter.Deserialize(stream) as List<EllipseWay>;
-
-            if (ways != null)
+            try
             {
-                foreach (EllipseWay way in ways)
+                XmlSerializer formatter = new XmlSerializer(typeof(List<EllipseWay>));
+                List<EllipseWay> ways = formatter.Deserialize(stream) as List<EllipseWay>;
+
+                if (ways != null)
                 {
-                    ways.Add(way);
+                    foreach (EllipseWay way in ways)
+                    {
+                        ways.Add(way);
+                    }
+                    return ways;
                 }
-                return ways;
+                return null;
             }
-            return null;
+            catch
+            {
+                return null;
+            }
         }
 
         private List<Ellipse> Drawing(List<EllipseWay> ways)

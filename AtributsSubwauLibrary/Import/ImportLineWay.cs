@@ -1,6 +1,9 @@
 ﻿using DrawMapMetroLibrary.Atributs;
+using EditorSubwayMap.Model;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
 
@@ -9,25 +12,38 @@ namespace AtributsSubwauLibrary.Import
     public class ImportLineWay
     {
         List<LineWay> lWays = new List<LineWay>();
+        Canvas canvas= null;
 
-        public ImportLineWay()
+        public ImportLineWay(Canvas canvas)
         {
+            this.canvas = canvas;
         }
 
         private List<LineWay> Deserialize(Stream stream)
         {
             XmlSerializer formatter = new XmlSerializer(typeof(List<LineWay>));
             List<LineWay> ways = formatter.Deserialize(stream) as List<LineWay>;
+            return ways;
+        }
 
-            if (ways != null)
+        public List<Line> Drawing(List<LineWay> Ways)
+        {
+            List<Line> lines = new List<Line>();
+            BrushConverter brush= new BrushConverter();
+
+            foreach (LineWay way in Ways)
             {
-                foreach (LineWay way in ways)
+                DrawLine dl = new DrawLine(canvas)
                 {
-                    ways.Add(way);
-                }
-                return ways;
+                    Pend = way.End,
+                    Pstart = way.Start,
+                    color = brush.ConvertFromString(way.Color.ToString()) as Brush,
+                    iditLoc = false
+                };
+                
+                lines.Add(dl.Draw());
             }
-            return null;
+            return lines;
         }
 
         public List<Line> Import(string Folder)
@@ -36,20 +52,9 @@ namespace AtributsSubwauLibrary.Import
             using (FileStream file = new FileStream(Folder + "\\LineWays.xml", FileMode.Open))
             {
                 lWays = Deserialize(file);
-                if (lWays != null)
-                {
-                    foreach(LineWay way in lWays)
-                    {
-                    }
-                    return ways;
-                }
+                ways = Drawing(lWays);
             }
-            return null;
-        }
-
-        public List<LineWay> GetLineWays()
-        {
-            return lWays;
+            return ways;
         }
     }
 }

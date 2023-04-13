@@ -9,10 +9,10 @@ namespace DrawMapMetroLibrary.Saving
 {
     public class SaveStation
     {
-        List<Station> stations = new List<Station>();
+        public List<Station> stations { get; set; } = new List<Station>();
 
         public SaveStation() { }
-
+        /*
         public void AddStation
             (string nameStation, string nameWay,
             int back, int go, Point position, string color)
@@ -26,7 +26,7 @@ namespace DrawMapMetroLibrary.Saving
                 Position = position,
                 Color = color
             });
-        }
+        }*/
 
         public void RemoveStation(string nameStation, string NameWay)
         {

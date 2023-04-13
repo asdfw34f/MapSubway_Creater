@@ -2,6 +2,8 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 
+using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -106,9 +108,37 @@ namespace EditorSubwayMap.Model
             newLine.MouseLeftButtonDown += NewLine_MouseLeftDown;
             newLine.MouseLeftButtonUp += NewLine_MouseLeftUp;
             newLine.MouseMove += NewLine_MouseMove;
-
+            //newLine.Drop += NewLine_Drop;
             return newLine;
         }
+        /*
+        private void NewLine_Drop(object sender, DragEventArgs e)
+        {
+            Ellipse ellipse = e.Data.GetData(typeof(Ellipse)) as Ellipse;
+            Point position = e.GetPosition(sender as IInputElement);
+            double distance = double.MaxValue;
+            Point closestPoint = new Point();
+            Line line = sender as Line;
+            
+            // Ищем ближайшую точку на линии
+            List<Point> points = new List<Point>();
+            points.Add(new Point(line.X1, line.Y1));
+            points.Add(new Point(line.X2, line.Y2));
+
+            foreach (Point point in points)
+            {
+                double d = Math.Sqrt(Math.Pow(point.X - position.X, 2) + Math.Pow(point.Y - position.Y, 2));
+                if (d < distance)
+                {
+                    distance = d;
+                    closestPoint = point;
+                }
+            }
+
+            // Перемещаем эллипс к ближайшей точке
+            Canvas.SetLeft(ellipse, closestPoint.X - ellipse.Width / 2);
+            Canvas.SetTop(ellipse, closestPoint.Y - ellipse.Height / 2);
+        }*/
 
         private void NewLine_MouseMove(object sender, MouseEventArgs e)
         {
