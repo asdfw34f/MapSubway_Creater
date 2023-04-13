@@ -32,7 +32,7 @@ namespace AtributsSubwauLibrary.Import
             BrushConverter brush = new BrushConverter();
             foreach (Station stat in sts)
             {
-                DrawStation ds = new DrawStation(canvas)
+                DrawStation ds = new DrawStation()
                 {
                     color = brush.ConvertFromString(stat.Color.ToString()) as Brush,
                     Pstart = stat.Position,

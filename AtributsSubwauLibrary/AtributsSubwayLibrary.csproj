@@ -50,14 +50,17 @@
   <ItemGroup>
     <Compile Include="Atributs\EllipseWay.cs" />
     <Compile Include="Atributs\LineWay.cs" />
+    <Compile Include="Atributs\AllMap.cs" />
     <Compile Include="Atributs\Station.cs" />
     <Compile Include="Import\ImportEllipseWay.cs" />
     <Compile Include="Import\ImportLineWay.cs" />
+    <Compile Include="Import\ImportMap.cs" />
     <Compile Include="Import\ImportStation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Saving\SaveEllipseWay.cs" />
     <Compile Include="Saving\SaveLineWay.cs" />
     <Compile Include="Saving\SaveStation.cs" />
+    <Compile Include="Saving\Split.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DrawMapMetroLibrary\DrawMapSubwayLibrary.csproj">

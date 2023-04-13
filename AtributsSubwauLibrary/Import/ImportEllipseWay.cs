@@ -48,7 +48,7 @@ namespace AtributsSubwauLibrary.Import
             foreach (EllipseWay way in ways)
             {
                 BrushConverter _conv = new BrushConverter();
-                DrawEllipse de = new DrawEllipse(can)
+                DrawEllipse de = new DrawEllipse()
                 {
                     Pstart = way.Position,
                     Height = way.Height,

@@ -18,9 +18,8 @@ namespace EditorSubwayMap.DrawFigure
         private bool isMouseDown = false;
         private bool editLocation = false;
         
-        public DrawStation(Canvas canvas)
+        public DrawStation()
         {
-            can = canvas;
             pStart = new Point(0, 0);
         }
 

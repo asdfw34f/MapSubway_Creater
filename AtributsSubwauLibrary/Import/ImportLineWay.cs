@@ -33,7 +33,7 @@ namespace AtributsSubwauLibrary.Import
 
             foreach (LineWay way in Ways)
             {
-                DrawLine dl = new DrawLine(canvas)
+                DrawLine dl = new DrawLine()
                 {
                     Pend = way.End,
                     Pstart = way.Start,

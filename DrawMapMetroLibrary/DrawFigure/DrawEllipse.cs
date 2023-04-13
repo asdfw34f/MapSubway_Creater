@@ -14,15 +14,13 @@ namespace EditorSubwayMap.DrawFigure
         private Point pStart;
         private Point currentPoint;
         private Brush color1;
-        private Canvas can;
         private bool isMouseDown = false;
         private bool editLocation = false;
         private double Height1 = 20;
         private double Width1 = 20;
 
-        public DrawEllipse(Canvas canvas)
+        public DrawEllipse()
         {
-            can = canvas;
             pStart = new Point(0, 0);
             currentPoint = new Point(0, 0);
         }
@@ -166,8 +164,8 @@ namespace EditorSubwayMap.DrawFigure
 
             Ellipse b = sender as Ellipse;
 
-            Canvas.SetLeft(b, e.GetPosition(can).X);
-            Canvas.SetTop(b, e.GetPosition(can).Y);
+            Canvas.SetLeft(b, e.GetPosition(new Canvas()).X);
+            Canvas.SetTop(b, e.GetPosition(new Canvas()).Y);
 
             isMouseDown = true;
             b.CaptureMouse();
@@ -179,8 +177,8 @@ namespace EditorSubwayMap.DrawFigure
             {
                 Ellipse b = sender as Ellipse;
 
-                Canvas.SetLeft(b, Mouse.GetPosition(can).X);
-                Canvas.SetTop(b, Mouse.GetPosition(can).Y);
+                Canvas.SetLeft(b, Mouse.GetPosition(new Canvas()).X);
+                Canvas.SetTop(b, Mouse.GetPosition(new Canvas()).Y);
             }
         }
 

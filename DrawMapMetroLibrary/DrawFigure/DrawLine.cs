@@ -19,11 +19,9 @@ namespace EditorSubwayMap.Model
         private Brush color1;
         private bool isMouseDown = false;
         private bool editLocation;
-        private Canvas can;
 
-        public DrawLine(Canvas canvas) 
+        public DrawLine() 
         {
-            can = canvas;
             Pstart1 = new Point(0, 0);
             Pend1 = new Point(0, 0);
         }
@@ -146,8 +144,8 @@ namespace EditorSubwayMap.Model
             {
                 Line line = sender as Line;
 
-                Canvas.SetLeft(line, e.GetPosition(can).X - line.X1);
-                Canvas.SetTop(line, e.GetPosition(can).Y - line.Y1);
+                Canvas.SetLeft(line, e.GetPosition(new Canvas()).X - line.X1);
+                Canvas.SetTop(line, e.GetPosition(new Canvas()).Y - line.Y1);
             }
         }
 
