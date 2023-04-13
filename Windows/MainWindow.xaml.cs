@@ -11,7 +11,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using DrawMapMetroLibrary.Saving;
 using System.Windows.Forms;
 using Cursors = System.Windows.Input.Cursors;
 using TextBox = System.Windows.Controls.TextBox;
@@ -35,10 +34,6 @@ namespace WpfApp1
         DrawEllipse de;
         DrawStation ds;
         DrawLine dl;
-
-        SaveStation station;
-        SaveLineWay lineWay;
-        SaveEllipseWay ellipseWay;
 
         Line line;
         Ellipse ellipse;
@@ -69,10 +64,6 @@ namespace WpfApp1
 
             labelY.Content = "Y: 0";
             labelX.Content = "X: 0";
-
-            station = new SaveStation();
-            lineWay = new SaveLineWay();
-            ellipseWay = new SaveEllipseWay();
 
             AtrSt_NameWay.ItemsSource = WayNames;
             AtrSt_NameWay.SelectedIndex = 0;
@@ -140,25 +131,11 @@ namespace WpfApp1
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-           /* if (canDrawing.Children.Count == 0)
-            {
-                return;
-            }*/
-
             var folder = new FolderBrowserDialog();
             folder.ShowDialog();
 
-            Split split = new Split(sts, elWays, lineWays);
+            SaveMap split = new SaveMap(sts, elWays, lineWays);
             split.Save(folder.SelectedPath);
-            /*
-            station.stations = sts;
-            ellipseWay.ways = elWays;
-            lineWay.ways = lineWays;
-            
-
-            lineWay.Save(folder.SelectedPath);
-            ellipseWay.Save(folder.SelectedPath);
-            station.Save(folder.SelectedPath);*/
         }
 
         private void btnOpenMap_Click(object sender, RoutedEventArgs e)
@@ -198,41 +175,6 @@ namespace WpfApp1
                 }
                 lines.Clear();
             }
-
-            /*
-            ImportStation importSt = new ImportStation(canDrawing);
-            List<Ellipse> ellipses = importSt.Import(folder.SelectedPath);
-            if (ellipses != null)
-            {
-                foreach (Ellipse ellipse in ellipses)
-                {
-                    canDrawing.Children.Add(ellipse);
-                }
-            }
-
-
-            ellipses.Clear();
-            ellipse = null;
-
-            ImportEllipseWay importEl = new ImportEllipseWay(canDrawing);
-            ellipses = importEl.Import(folder.SelectedPath);
-            if (ellipses != null)
-            {
-                foreach (Ellipse way in ellipses)
-                {
-                    canDrawing.Children.Add(way);
-                }
-            }
-
-            ImportLineWay importLn = new ImportLineWay(canDrawing);
-            List<Line> lines = importLn.Import(folder.SelectedPath);
-            if (lines != null)
-            {
-                foreach (Line way in lines)
-                {
-                    canDrawing.Children.Add(way);
-                }
-            }*/
         }
 
         private void cboColors_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -368,8 +310,6 @@ namespace WpfApp1
                         Canvas.GetTop(ellipse) - 0.5 * ellipse.Height);
 
                     DragDrop.DoDragDrop(ellipse, ellipse, System.Windows.DragDropEffects.Link);*/
-
-                   
 
                     if (AtrWay_grid.IsVisible)
                     {

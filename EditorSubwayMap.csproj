@@ -115,9 +115,6 @@
     <Resource Include="icons\icon-map.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="XMLFile1.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="AtributsSubwauLibrary\AtributsSubwayLibrary.csproj">
       <Project>{862F8F57-E9B8-4FFB-B9D9-30F89AC986BC}</Project>
       <Name>AtributsSubwayLibrary</Name>

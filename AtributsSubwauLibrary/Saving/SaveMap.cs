@@ -11,11 +11,11 @@ using System.Xml.Serialization;
 
 namespace AtributsSubwauLibrary.Saving
 {
-    public class Split
+    public class SaveMap
     {
         AllMap map;
 
-        public Split(List<Station> stations, List<EllipseWay> eways, List<LineWay> lways ) 
+        public SaveMap(List<Station> stations, List<EllipseWay> eways, List<LineWay> lways ) 
         {
             map= new AllMap()
             {
@@ -29,7 +29,7 @@ namespace AtributsSubwauLibrary.Saving
         {
             XmlSerializer formatter = new XmlSerializer(typeof(AllMap));
             using (FileStream fs = new FileStream(
-                folder + "\\MapMetro.xml", FileMode.OpenOrCreate))
+                folder + "\\MapMetro.xml", FileMode.Create))
             {
                 formatter.Serialize(fs, map);
             }
