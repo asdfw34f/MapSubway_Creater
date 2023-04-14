@@ -50,6 +50,7 @@
     <Compile Include="DrawFigure\DrawEllipse.cs" />
     <Compile Include="DrawFigure\DrawLine.cs" />
     <Compile Include="DrawFigure\DrawStation.cs" />
+    <Compile Include="MyEll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

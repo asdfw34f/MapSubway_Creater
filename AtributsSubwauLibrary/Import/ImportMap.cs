@@ -2,14 +2,9 @@
 using DrawMapMetroLibrary.Atributs;
 using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
@@ -23,10 +18,43 @@ namespace AtributsSubwauLibrary.Import
         public List<Line> lines { get; set; } = new List<Line>();
         public List<Ellipse> ellipses { get; set; } = new List<Ellipse>();
         public List<Ellipse> stations { get; set; } = new List<Ellipse>();
+        public AllMap map { get; set; } = new AllMap();
+
+        private bool CheckWay()
+        {
+            bool isTrue = false;
+            foreach (Station st in map.stations)
+            {
+                foreach (EllipseWay way in map.eways)
+                {
+                    if (st.NameWay == way.NameWay)
+                    {
+                        isTrue = true;
+                        break;
+                    }
+                    else
+                        continue;
+                }
+                if (!isTrue)
+                {
+                    foreach (LineWay way1 in map.lways)
+                    {
+                        if (st.NameWay == way1.NameWay)
+                        {
+                            isTrue = true;
+                        }
+                    }
+                    if (!isTrue)
+                    {
+                        return isTrue;
+                    }
+                }
+            }
+            return isTrue;
+        }
 
         public AllMap Import(string Folder)
         {
-            AllMap map = new AllMap();
             using (FileStream file = new FileStream(Folder + "\\MapMetro.xml", FileMode.Open))
             {
                 XmlSerializer formatter = new XmlSerializer(typeof(AllMap));
@@ -37,10 +65,23 @@ namespace AtributsSubwauLibrary.Import
                     lines = DrawingLine(map.lways);
                     ellipses = DrawingEllipse(map.eways);
                     stations = DrawingStation(map.stations);
-                    return map;
                 }
+                else
+                    goto exit;
             }
-            return null;
+
+            if (!CheckWay())
+            {
+                MessageBox.Show(
+                    "Одна или несколько станций не имеют привязки " +
+                    "к линии метро или такой линии не существует",
+                    "Ошибка при импорте схемы",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                return null;
+            }
+            exit:
+                return map;
         }
 
         public List<Ellipse> DrawingStation(List<Station> sts)

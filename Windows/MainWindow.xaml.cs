@@ -18,6 +18,8 @@ using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using AtributsSubwauLibrary.Import;
 using DrawMapMetroLibrary.Atributs;
 using AtributsSubwauLibrary.Saving;
+using System.Collections;
+using static System.Windows.Forms.AxHost;
 
 namespace WpfApp1
 {
@@ -28,6 +30,8 @@ namespace WpfApp1
     {
         enum ftype { N, station, ellipse, line }
         ftype f;
+
+        string code = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         bool paint = false;
 
@@ -42,9 +46,16 @@ namespace WpfApp1
         List<EllipseWay> elWays;
         List<LineWay> lineWays;
 
+        List<Ellipse> elsts;
+        List<Ellipse> eWays;
+        List<Line> lWays;
+
         BrushConverter conv;
         string col;
         List<string> WayNames = new List<string>();
+
+        int stID = 0;
+        int wayID = 0;
 
         public MainWindow()
         {
@@ -134,6 +145,58 @@ namespace WpfApp1
             var folder = new FolderBrowserDialog();
             folder.ShowDialog();
 
+            foreach (UIElement element in canDrawing.Children )
+            {
+                int id = 0;
+                if (element is Line)
+                {
+                    id = 0;
+                    lWays.Add(element as Line);
+                    foreach (LineWay lw in lineWays)
+                    {
+                        if (lw.WayID == (element as Line).Name)
+                        {
+                            lineWays[id].Start = new Point((element as Line).X1, (element as Line).Y1);
+                            lineWays[id].End = new Point((element as Line).X2, (element as Line).Y2);
+                            lineWays[id].Color = conv.ConvertToString((element as Line).Fill);
+                        }
+                        id++;
+                    }
+                }
+                else if (element is Ellipse && (element as Ellipse).Width == 20)
+                {
+                    id = 0;
+                    elsts.Add(element as Ellipse);
+                    foreach(Station st in sts)
+                    {
+                        if (st.StationID == (element as Ellipse).Name)
+                        {
+                            sts[id].Position = new Point(
+                                Canvas.GetLeft(element as Ellipse), 
+                                Canvas.GetTop(element as Ellipse));
+                            sts[id].Color = conv.ConvertToString((element as Ellipse).Fill);
+                        }
+                    }
+                }
+                else if (element is Ellipse)
+                {
+                    id = 0;
+                    eWays.Add(element as Ellipse);
+                    foreach (EllipseWay way in elWays)
+                    {
+                        if (way.WayID == (element as Ellipse).Name)
+                        {
+                            elWays[id].Position = new Point(
+                                Canvas.GetLeft(element as Ellipse), 
+                                Canvas.GetTop(element as Ellipse));
+                            elWays[id].Width = (element as Ellipse).Width;
+                            elWays[id].Height = (element as Ellipse).Height;
+                            elWays[id].Color = conv.ConvertToString((element as Ellipse).Fill);
+                        }
+                    }
+                }
+            }
+
             SaveMap split = new SaveMap(sts, elWays, lineWays);
             split.Save(folder.SelectedPath);
         }
@@ -210,6 +273,7 @@ namespace WpfApp1
             sts.Add(
                 new Station()
                 {
+                    StationID = code[stID].ToString() + code[stID++].ToString(),
                     NameStation = AtrSt_NameSt.Text.ToString(),
                     NameWay = AtrSt_NameWay.Text.ToString(),
                     Back = Convert.ToInt16(AtrSt_BackWay.Text.ToString()),
@@ -217,6 +281,9 @@ namespace WpfApp1
                     Position = new Point(Canvas.GetLeft(ellipse), Canvas.GetTop(ellipse)),
                     Color = cboColors.SelectedValue.ToString()
                 });
+            ellipse.Name = code[stID].ToString() + code[stID++].ToString();
+            ellipse.ToolTip = "Станция:    " + AtrSt_NameSt.Text;
+            stID++;
         }
 
         private void BtnAddWay_MouseUp(object sender, RoutedEventArgs e)
@@ -235,13 +302,16 @@ namespace WpfApp1
                     lineWays.Add(
                         new LineWay()
                         {
+                            WayID = code[wayID].ToString() + code[wayID++].ToString(),
                             NameWay = AWay_Name.Text,
                             Start = new Point(line.X1, line.Y1),
                             End = new Point(line.X2, line.Y2),
                             Color = cboColors.SelectedValue.ToString()
                         });
-
+                    line.ToolTip = "Ветка метро:    " + AWay_Name.Text;
+                    line.Name = code[wayID].ToString() + code[wayID++].ToString();
                     AWay_Name.Text = "Ветка добавлена";
+                    wayID++;
                     break;
 
                 //  DRAW ELLIPSE
@@ -251,14 +321,17 @@ namespace WpfApp1
                     elWays.Add(
                         new EllipseWay()
                         {
+                            WayID = code[wayID].ToString() + code[wayID++].ToString(),
                             NameWay = AWay_Name.Text,
                             Position = new Point(Canvas.GetLeft(ellipse), Canvas.GetTop(ellipse)),
                             Color = cboColors.SelectedValue.ToString(),
                             Width = ellipse.Width,
                             Height = ellipse.Height
                         });
-
+                    ellipse.Name = code[wayID].ToString() + code[wayID++].ToString();
+                    ellipse.ToolTip = "Ветка метро:    " + AWay_Name.Text;
                     AWay_Name.Text = "Ветка добавлена";
+                    wayID++;
                     break;
             }
         }

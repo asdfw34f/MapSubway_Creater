@@ -3,14 +3,13 @@
 
 using System;
 using System.Windows;
-using System.Windows.Shapes;
-using System.Xml.Serialization;
 
 namespace DrawMapMetroLibrary.Atributs
 {
     [Serializable()]
     public class Station
     {
+        public string StationID { get; set; } = "A";
         public string NameStation { get; set; } = "Undefined";
         public string NameWay { get; set; } = "Undefined";
         public int Back { get; set; } = 0;

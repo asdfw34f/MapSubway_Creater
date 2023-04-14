@@ -363,7 +363,7 @@
                     HorizontalContentAlignment="Center" 
                          VerticalContentAlignment="Center" 
                     FontSize="14" BorderBrush="Black" 
-                         Margin="0,21,0,0" Mouse.MouseDown="AWay_Name_MouseDown"/>
+                         Margin="0,21,0,0" Mouse.MouseEnter="AWay_Name_MouseDown"/>
 
                 <Button Background="#FF77FFF2" Height="32"
                         x:Name="btnAddWay"

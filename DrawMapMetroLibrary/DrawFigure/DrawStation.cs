@@ -1,7 +1,6 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
-using System;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows;
@@ -14,7 +13,7 @@ namespace EditorSubwayMap.DrawFigure
     {
         private Point pStart;
         private Brush color1;
-        private Canvas can;
+        private Canvas can = new Canvas();
         private bool isMouseDown = false;
         private bool editLocation = false;
         
