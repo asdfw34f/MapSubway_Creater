@@ -15,7 +15,7 @@ namespace EditorSubwayMap.DrawFigure
         private Point currentPoint;
         private Brush color1;
         private bool isMouseDown = false;
-        private bool editLocation = false;
+        //private bool editLocation = false;
         private double Height1 = 20;
         private double Width1 = 20;
 
@@ -33,11 +33,11 @@ namespace EditorSubwayMap.DrawFigure
         /// <returns>
         ///      Возвращает текущее состаяние (изначально ложь).
         /// </returns>
-        public bool iditLoc
+        /*public bool iditLoc
         {
             get => editLocation;
             set => editLocation = value; 
-        }
+        }*/
 
         public double Height { get => Height1; set => Height1 = value; }
         public double Width { get => Width1; set => Width1 = value; }
@@ -159,8 +159,8 @@ namespace EditorSubwayMap.DrawFigure
 
         private void ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (!editLocation)
-                return;
+            //if (!editLocation)
+             //   return;
 
             Ellipse b = sender as Ellipse;
 
@@ -184,13 +184,9 @@ namespace EditorSubwayMap.DrawFigure
 
         private void ellipse_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (!editLocation)
-                return;
-
             Ellipse b = sender as Ellipse;
             b.ReleaseMouseCapture();
             isMouseDown = false;
-            editLocation = false;
         }
     }
 }
