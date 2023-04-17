@@ -94,7 +94,6 @@ namespace AtributsSubwauLibrary.Import
                 {
                     color = brush.ConvertFromString(stat.Color.ToString()) as Brush,
                     Pstart = stat.Position,
-                    iditLoc = false
                 };
                 els.Add(ds.Draw());
             }
@@ -113,7 +112,6 @@ namespace AtributsSubwauLibrary.Import
                     Pend = way.End,
                     Pstart = way.Start,
                     color = brush.ConvertFromString(way.Color.ToString()) as Brush,
-                    iditLoc = false
                 };
 
                 lines.Add(dl.Draw());

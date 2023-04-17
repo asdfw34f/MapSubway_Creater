@@ -14,10 +14,11 @@ namespace EditorSubwayMap.DrawFigure
         private Point pStart;
         private Point currentPoint;
         private Brush color1;
-        private bool isMouseDown = false;
-        //private bool editLocation = false;
         private double Height1 = 20;
         private double Width1 = 20;
+
+        private bool _isDragging;
+        private Point _lastPosition;
 
         public DrawEllipse()
         {
@@ -25,19 +26,7 @@ namespace EditorSubwayMap.DrawFigure
             currentPoint = new Point(0, 0);
         }
 
-        /// <summary>
-        /// Сводка:
-        ///      Устанавливает истина или ложь для изменения 
-        ///      локации круговой ветки метро.
-        /// </summary>
-        /// <returns>
-        ///      Возвращает текущее состаяние (изначально ложь).
-        /// </returns>
-        /*public bool iditLoc
-        {
-            get => editLocation;
-            set => editLocation = value; 
-        }*/
+        public Canvas canvas { get;set; }
 
         public double Height { get => Height1; set => Height1 = value; }
         public double Width { get => Width1; set => Width1 = value; }
@@ -159,34 +148,88 @@ namespace EditorSubwayMap.DrawFigure
 
         private void ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            //if (!editLocation)
-             //   return;
-
-            Ellipse b = sender as Ellipse;
-
-            Canvas.SetLeft(b, e.GetPosition(new Canvas()).X);
-            Canvas.SetTop(b, e.GetPosition(new Canvas()).Y);
-
-            isMouseDown = true;
-            b.CaptureMouse();
+            _isDragging = true;
+            _lastPosition = e.GetPosition(canvas);
+            Mouse.Capture((Ellipse)sender);
         }
 
         private void ellipse_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isMouseDown)
-            {
-                Ellipse b = sender as Ellipse;
 
-                Canvas.SetLeft(b, Mouse.GetPosition(new Canvas()).X);
-                Canvas.SetTop(b, Mouse.GetPosition(new Canvas()).Y);
+
+            if (_isDragging)
+            {
+                // Вычисляем новые координаты эллипса
+                Point currentPosition = e.GetPosition(canvas);
+                double dx = currentPosition.X - _lastPosition.X;
+                double dy = currentPosition.Y - _lastPosition.Y;
+                double newLeft = Canvas.GetLeft((Ellipse)sender) + dx;
+                double newTop = Canvas.GetTop((Ellipse)sender) + dy;
+
+                // Поддерживаем эллипс внутри Canvas
+                if (newLeft < 0)
+                    newLeft = 0;
+                if (newTop < 0)
+                    newTop = 0;
+                if (newLeft > canvas.ActualWidth)
+                    newLeft =canvas.ActualWidth;
+                if (newTop > canvas.ActualHeight)
+                    newTop = canvas.ActualHeight;
+
+                // Устанавливаем новые координаты эллипса
+                Canvas.SetLeft((Ellipse)sender, newLeft);
+                Canvas.SetTop((Ellipse)sender, newTop);
+                _lastPosition = currentPosition;
             }
         }
 
         private void ellipse_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Ellipse b = sender as Ellipse;
-            b.ReleaseMouseCapture();
-            isMouseDown = false;
+
+            _isDragging = false;
+            Mouse.Capture(null);
         }
     }
 }
+
+/*
+ private bool isDragging;
+private Point lastPosition;
+
+private void Ellipse_MouseDown(object sender, MouseButtonEventArgs e)
+{
+    isDragging = true;
+    lastPosition = e.GetPosition(Canvas);
+    Mouse.Capture((Ellipse)sender);
+}
+
+private void Ellipse_MouseMove(object sender, MouseEventArgs e)
+{
+    if (isDragging)
+    {
+        // Вычисляем новые координаты эллипса
+        Point currentPosition = e.GetPosition(Canvas);
+        double dx = currentPosition.X - lastPosition.X;
+        double dy = currentPosition.Y - lastPosition.Y;
+        double newLeft = Canvas.GetLeft((Ellipse)sender) + dx;
+        double newTop = Canvas.GetTop((Ellipse)sender) + dy;
+
+        // Поддерживаем эллипс внутри Canvas
+        if (newLeft < 0) newLeft = 0;
+        if (newTop < 0) newTop = 0;
+        if (newLeft > Canvas.ActualWidth) newLeft = Canvas.ActualWidth;
+        if (newTop > Canvas.ActualHeight) newTop = Canvas.ActualHeight;
+
+        // Устанавливаем новые координаты эллипса
+        Canvas.SetLeft((Ellipse)sender, newLeft);
+        Canvas.SetTop((Ellipse)sender, newTop);
+        lastPosition = currentPosition;
+    }
+}
+
+private void Ellipse_MouseUp(object sender, MouseButtonEventArgs e)
+{
+    isDragging = false;
+    Mouse.Capture(null);
+}
+ */

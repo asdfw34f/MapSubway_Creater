@@ -1,6 +1,9 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
+using AtributsSubwauLibrary.Import;
+using AtributsSubwauLibrary.Saving;
+using DrawMapMetroLibrary.Atributs;
 using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
 using System;
@@ -8,16 +11,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Windows.Forms;
 using Cursors = System.Windows.Input.Cursors;
-using TextBox = System.Windows.Controls.TextBox;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
-using AtributsSubwauLibrary.Import;
-using DrawMapMetroLibrary.Atributs;
-using AtributsSubwauLibrary.Saving;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace WpfApp1
 {
@@ -50,10 +50,16 @@ namespace WpfApp1
         string col;
         List<string> WayNames = new List<string>();
 
+        double OriginalCanvasWidth;
+        double OriginalCanvasHeight;
+
         public MainWindow()
         {
             InitializeComponent();
 
+            OriginalCanvasWidth = canDrawing.Width; 
+            OriginalCanvasHeight = canDrawing.Height;
+            
             conv = new BrushConverter();
             var values = typeof(Brushes).GetProperties().
                 Select(p => new { Name = p.Name, Brush = p.GetValue(null) as Brush }).
@@ -65,57 +71,88 @@ namespace WpfApp1
             labelY.Content = "Y: 0";
             labelX.Content = "X: 0";
 
+            drawStation.canvas = canDrawing;
+            drawEllipse.canvas = canDrawing;
+            drawLine.canvas = canDrawing;
+
+            //slider.SelectionStart = 0;
+            //slider.SelectionEnd = 0.5;
+
             AtrSt_NameWay.ItemsSource = WayNames;
             AtrSt_NameWay.SelectedIndex = 0;
+            canDrawing.MouseWheel += canvas_MouseWheel;
         }
+        private void canvas_MouseWheel(object sender, MouseWheelEventArgs e)
+        {/*
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+            {
+                // Получаем коэффициент масштабирования
+                double scale = e.Delta > 0 ? 1.1 : 0.9;
+
+                // Ограничиваем масштабирование
+                if ((canDrawing.ActualWidth * scale >= 4 && canDrawing.ActualHeight * scale >= 4 &&
+                    canDrawing.ActualWidth * scale <= canDrawing.ActualWidth * 4 &&
+                    canDrawing.ActualHeight * scale <= canDrawing.ActualHeight * 4))
+                {
+                    // Масштабируем Canvas
+                    canDrawing.LayoutTransform = new ScaleTransform(
+                        canDrawing.LayoutTransform.Value.M11 * scale,
+                        canDrawing.LayoutTransform.Value.M22 * scale);
+
+                    // Обновляем размеры Canvas
+                    canDrawing.Width *= scale;
+                    canDrawing.Height *= scale;
+
+                    // Обновляем положение элементов на Canvas
+                    foreach (UIElement element in canDrawing.Children)
+                    {
+                        if (!(element is System.Windows.Controls.Label))
+                        {
+                            element.RenderTransformOrigin = new Point(0.5, 0.5);
+                            ScaleTransform scaleTransform =
+                                    new ScaleTransform(element.RenderTransform.Value.M11 * scale,
+                                    element.RenderTransform.Value.M22 * scale);
+                            element.RenderTransform = scaleTransform;
+                        }
+                    }
+                }
+
+            }*/
+        }
+    
 
         // BUTTONS
 
         private void btnPath_Click(object sender, RoutedEventArgs e)
         {
-            drawLine.iditLoc = false;
-            drawStation.iditLoc = false;
             paint = true;
-
             f = ftype.line;
             Cursor = Cursors.Arrow;
         }
 
         private void btnEllipse_Click(object sender, RoutedEventArgs e)
         {
-            drawLine.iditLoc = false;
-            drawStation.iditLoc = false;
             paint = true;
-
             f = ftype.ellipse;
             Cursor = Cursors.Arrow;
         }
 
         private void btnCursor_Click(object sender, RoutedEventArgs e)
         {
-            drawLine.iditLoc = false;
-            drawStation.iditLoc = false;
             paint = false;
-
             f = ftype.N;
             Cursor = Cursors.Arrow;
         }
 
         private void btnStation_Click(object sender, RoutedEventArgs e)
         {
-            drawLine.iditLoc = false;
-            drawStation.iditLoc = false;
             paint = true;
-
             f = ftype.station;
             Cursor = Cursors.Arrow;
         }
 
         private void BtnCursorMove_Click(object sender, RoutedEventArgs e)
         {
-            drawLine.iditLoc = true;
-            drawStation.iditLoc = true;
-
             f = ftype.N;
             Cursor = Cursors.SizeAll;
         }
@@ -234,6 +271,7 @@ namespace WpfApp1
                 });
             ellipse.Name = AtrSt_NameWay.Text.ToString() + AtrSt_NameSt.Text.ToString();
             ellipse.ToolTip = "Станция: " + AtrSt_NameSt.Text;
+            success.Visibility = Visibility.Visible;
         }
 
         private void BtnAddWay_MouseUp(object sender, RoutedEventArgs e)
@@ -311,7 +349,6 @@ namespace WpfApp1
                     AtrSt_grid.Visibility = Visibility.Hidden;
                 }
                 AtrWay_grid.Visibility = Visibility.Visible;
-
             }
             else if (f == ftype.station)
             {
@@ -319,12 +356,6 @@ namespace WpfApp1
                 drawStation.color = conv.ConvertFromString(col) as Brush;
                 ellipse = drawStation.Draw();
                 canDrawing.Children.Add(ellipse);
-                /*
-                Point cent = new Point(
-                    Canvas.GetLeft(ellipse) - 0.5 * ellipse.Width,
-                    Canvas.GetTop(ellipse) - 0.5 * ellipse.Height);
-
-                DragDrop.DoDragDrop(ellipse, ellipse, System.Windows.DragDropEffects.Link);*/
 
                 if (AtrWay_grid.IsVisible)
                 {
@@ -333,7 +364,7 @@ namespace WpfApp1
                 AtrSt_grid.Visibility = Visibility.Visible;
             }
         }
-        
+
         private void canDrawing_MouseDown(object sender, MouseButtonEventArgs e)
         {
             paint = true;
@@ -463,6 +494,5 @@ namespace WpfApp1
         {
 
         }
-
     }
 }

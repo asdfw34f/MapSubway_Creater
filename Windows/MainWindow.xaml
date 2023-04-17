@@ -38,10 +38,10 @@
                 Grid.RowSpan="3" Background="Black" Grid.ColumnSpan="2">
 
             <Grid x:Name="AtrSt_grid"
-                 Background="#FF3E867F" Canvas.Left="10" Canvas.Top="324" 
+                 Background="#FF43A49A" Canvas.Left="10" Canvas.Top="203" 
                   HorizontalAlignment="Center"
                   Height="336" VerticalAlignment="Top" Width="240"
-                  Visibility="Hidden" IsVisibleChanged="AtrSt_grid_IsVisibleChanged">
+                  Visibility="Visible" IsVisibleChanged="AtrSt_grid_IsVisibleChanged">
 
                 <TextBox x:Name="AtrSt_NameSt" Text="Название станции:"
                          HorizontalAlignment="Center" 
@@ -55,28 +55,40 @@
                          Mouse.MouseLeave="AtrSt_NameSt_MouseLeave" 
                          TextChanged="AtrSt_NameSt_TextChanged"/>
 
-                <TextBox x:Name="AtrSt_NextWay" Text="1" Width="80" 
+                <TextBox x:Name="AtrSt_NextWay" Text="0" Width="80" 
             Canvas.Left="79" Canvas.Top="185" HorizontalAlignment="Left" 
                          VerticalAlignment="Top"
                  FontSize="14" Height="30" VerticalContentAlignment="Center"
                  HorizontalContentAlignment="Center" BorderBrush="Black" 
-                 Margin="10,124,0,0" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment"
+                 Margin="145,113,0,0"
                          Mouse.MouseEnter="AtrSt_NextSt_MouseEnter"
-                         Mouse.MouseLeave="AtrSt_NextWay_MouseLeave"/>
+                         Mouse.MouseLeave="AtrSt_NextWay_MouseLeave" d:LayoutOverrides="VerticalAlignment" Background="#FF32C8BE"/>
 
                 <Label x:Name="lBackWay" FontSize="11" Canvas.Left="8"
                Canvas.Top="152" HorizontalAlignment="Left"
-               VerticalAlignment="Top" Height="28"
+               VerticalAlignment="Top"
                FontWeight="Bold" HorizontalContentAlignment="Center"
                VerticalContentAlignment="Center" 
-               Background="#FF32B7AE" Margin="10,159,0,0">Расстояние до предыдущей станции</Label>
+               Background="{x:Null}" Margin="10,104,0,0" Width="130">
+                    <TextBlock>
+                        <Run Text="Расстояние до"/>
+                        <LineBreak/>
+                        <Run Text="предыдущей станции:"/>
+                    </TextBlock>
+                </Label>
 
                 <Label x:Name="lBackWay_Copy" Canvas.Left="9"
-            Canvas.Top="225" Height="27" 
-               Content="Расстояние до следующей станции" HorizontalAlignment="Left" 
-               VerticalAlignment="Top" FontWeight="Bold"
+            Canvas.Top="225" Height="40" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Center" FontWeight="Bold"
                HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-               FontSize="11" Background="#FF32B7AE" Margin="10,227,0,0" Width="208"/>
+               FontSize="11" Background="{x:Null}" Margin="10,0,0,0" Width="130">
+                    <TextBlock>
+                        <Run Text="Расстояние до "/>
+                        <LineBreak/>
+                        <Run Text="Следующей станции:"/>
+                    </TextBlock>
+                </Label>
 
                 <Button Background="#FF77FFF2" Height="37"
                         x:Name="btnAddStation"
@@ -93,21 +105,25 @@
                  Height="34" VerticalContentAlignment="Center" 
                  HorizontalContentAlignment="Center" BorderBrush="Black" 
                           Margin="0,65,0,0" />
-                <TextBox x:Name="AtrSt_BackWay" Text="1" 
+                <TextBox x:Name="AtrSt_BackWay" Text="0" 
             Canvas.Left="79" Canvas.Top="110" HorizontalAlignment="Left" 
                  VerticalAlignment="Top"
-                 FontSize="14" Height="30" VerticalContentAlignment="Center" 
+                 FontSize="14" Height="31" VerticalContentAlignment="Center" 
                  HorizontalContentAlignment="Center" BorderBrush="Black" 
-                 Margin="10,192,0,0"
+                 Margin="145,157,0,0"
                          Mouse.MouseLeave="AtrSt_BackWay_MouseLeave" 
-                         Mouse.MouseEnter="AtrSt_BackSt_MouseEnter"
-                         d:LayoutOverrides="HorizontalAlignment" Width="80"/>
-
+                         Mouse.MouseEnter="AtrSt_BackSt_MouseEnter" Width="80" Background="#FF32C8BE"/>
+                <Label x:Name="success" Content="Станция добавлена!" 
+                       Canvas.Left="10" Canvas.Top="120" Height="40" Background="{x:Null}" 
+                       Margin="57,229,59,0" VerticalAlignment="Top" d:LayoutOverrides="Width, Height"
+                       FontStretch="Medium" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                       Foreground="Black"
+                       FontSize="12" Visibility="Hidden"/>
             </Grid>
 
             <ComboBox Name="cboColors" SelectionChanged="cboColors_SelectionChanged"
-          SelectedValuePath="Name" Height="30" Width="224" Canvas.Left="18" 
-                      Canvas.Top="276" HorizontalAlignment="Center" 
+          SelectedValuePath="Name" Height="30" Width="240" Canvas.Left="10" 
+                      Canvas.Top="144" HorizontalAlignment="Center" 
                       VerticalAlignment="Top" BorderBrush="Cyan">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -122,7 +138,7 @@
             </ComboBox>
 
             <Label Content="Выбор кисти" 
-                   Foreground="#FF006A67" 
+                   Foreground="#FF15E2DC" 
                    HorizontalAlignment="Center"
                    Height="29" 
                    VerticalAlignment="Top" 
@@ -137,10 +153,10 @@
 
             <!-- Select the pen Buttons-->
             <Button x:Name="btnPath"
-                    Canvas.Top="40" 
-                    Canvas.Left="28"
+                    Canvas.Top="39" 
+                    Canvas.Left="10"
                     HorizontalAlignment="Left" 
-                    VerticalAlignment="Center"
+                    VerticalAlignment="Top"
                     Height="50" Width="50" 
                     Focusable="False"
                     Cursor="Hand"
@@ -154,10 +170,10 @@
 
             <Button x:Name="btnEllipse"
                     Width="50" Height="50"
-                    Canvas.Top="40"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center" 
-                    Canvas.Left="90" Cursor="Hand"
+                    Canvas.Top="39"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top" 
+                    Canvas.Left="65" Cursor="Hand"
                     Click="btnEllipse_Click" BorderBrush="Cyan">
 
                 <Button.Background>
@@ -168,9 +184,9 @@
 
             <Button x:Name="btnStation" 
                     Cursor="Hand"
-                Canvas.Top="40" Width="50"
+                Canvas.Top="39" Width="50"
                     Height="50" 
-                Canvas.Left="175"
+                Canvas.Left="130"
                     Click="btnStation_Click" 
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center" BorderBrush="Cyan">
@@ -183,10 +199,10 @@
 
             <Button x:Name="btnCursor" 
                     Cursor="Hand"
-                    Canvas.Top="160" 
-                    Canvas.Left="36"
+                    Canvas.Top="39" 
+                    Canvas.Left="200"
                     Width="50" Height="50" 
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Click="btnCursor_Click" BorderBrush="Cyan">
                 <Button.Background>
@@ -197,7 +213,7 @@
             </Button>
 
             <Label Content="Файл" 
-                   Foreground="#FF006A67" 
+                   Foreground="#FF2DABA8" 
                 Height="27" 
                 FontSize="12" 
                 Width="240" 
@@ -205,7 +221,7 @@
                 HorizontalContentAlignment="Center" 
                 FontStyle="Italic" 
                    FontWeight="Medium"
-                BorderBrush="#FF006A67" 
+                BorderBrush="#FF09FFF8" 
                 BorderThickness="1,1,1,1"
                 Canvas.Left="10" Canvas.Bottom="45" 
                    HorizontalAlignment="Center" 
@@ -215,129 +231,95 @@
             <Button x:Name="btnOpenMap"
                     Cursor="Hand"
                     Content="Открыть схему"
-                    Canvas.Bottom="15" 
+                    Canvas.Bottom="5" 
                     Canvas.Left="140"
                     HorizontalAlignment="Center" 
                     FontSize="14"
-                    Background="#FF006A67" 
-                    VerticalAlignment="Center"
-                    Width="110" Click="btnOpenMap_Click" BorderBrush="Cyan" />
+                    Background="#FF129894" 
+                    VerticalAlignment="Top"
+                    Width="110" Click="btnOpenMap_Click" 
+                    BorderBrush="Cyan" 
+                    Foreground="Black" Height="33" 
+                    FontWeight="Bold" />
 
             <!--Save the map button-->
             <Button x:Name="btnSave"
                     Cursor="Hand"
                     Content="Сохранить схему"
-                    Canvas.Bottom="15" 
+                    Canvas.Bottom="5" 
                     Canvas.Left="10"
                     HorizontalAlignment="Center" 
                     FontSize="14"
-                    Background="#FF006A67" 
-                    VerticalAlignment="Center"
-                    Width="120" Click="btnSave_Click" BorderBrush="Cyan" />
+                    Background="#FF129894" 
+                    VerticalAlignment="Top"
+                    Width="120" Click="btnSave_Click" 
+                    BorderBrush="Cyan" 
+                    Foreground="Black" Height="33" 
+                    FontWeight="Bold" />
 
             <!--Label text of Select btn Pen-->
             <Label Content="Маршрут" 
-                   Foreground="#FF006A67" 
+                   Foreground="#FF15E2DC" 
                 Height="27" 
                 FontSize="9" 
-                Width="133" 
+                Width="115" 
                 VerticalContentAlignment="Center" 
                 HorizontalContentAlignment="Center" 
                 FontStyle="Italic" 
                    FontWeight="Medium"
                 BorderBrush="#FF006A67" 
                 BorderThickness="1,1,1,1"
-                Canvas.Left="17" Canvas.Top="95" 
+                Canvas.Left="5" Canvas.Top="94" 
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Center"/>
             <Label Content="Станция" 
-                   Foreground="#FF006A67" 
-                Height="27" 
+                   Foreground="#FF15E2DC" 
+                Height="26" 
                 FontSize="9" 
-                Width="80" 
+                Width="60" 
                 VerticalContentAlignment="Center" 
                 HorizontalContentAlignment="Center" 
                 FontStyle="Italic" 
                    FontWeight="Medium"
                 BorderBrush="#FF006A67" 
                 BorderThickness="1,1,1,1"
-                Canvas.Left="160" Canvas.Top="95" 
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Center"/>
+                Canvas.Left="125" Canvas.Top="94" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Top"/>
 
             <Label Content="Кликер"
-                   Foreground="#FF006A67" 
+                   Foreground="#FF15E2DC" 
                 Height="26" 
                 FontSize="9" 
-                Width="88" 
+                Width="59" 
                 VerticalContentAlignment="Center" 
                 HorizontalContentAlignment="Center" 
                 FontStyle="Italic" 
                    FontWeight="Medium"
                 BorderBrush="#FF006A67" 
                 BorderThickness="1,1,1,1"
-                Canvas.Left="17" Canvas.Top="215" 
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Top"/>
-
-            <Label Content="Выбор инструмента"
-                   Foreground="#FF006A67" 
-                Height="29" 
-                FontSize="12" 
-                Width="240" 
-                VerticalContentAlignment="Center" 
-                HorizontalContentAlignment="Center" 
-                FontStyle="Italic"
-                   FontWeight="Medium"
-                BorderBrush="#FF006A67" 
-                BorderThickness="1,1,1,1"
-                Canvas.Left="10" Canvas.Top="128"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Top"/>
-
-            <Button x:Name="btnCursorMove" 
-                Cursor="Hand"
-                Canvas.Top="160" 
-                Canvas.Left="152"
-                Width="50" Height="50"
-                Click="BtnCursorMove_Click" HorizontalAlignment="Center" 
-                    VerticalAlignment="Top" BorderBrush="Cyan">
-                <Button.Background>
-                    <ImageBrush 
-                        ImageSource="/icons/cursor-move.png" TileMode="None" Stretch="Fill"/>
-                </Button.Background>
-            </Button>
-            <Label Content="Перетаскивание"
-                Foreground="#FF006A67" 
-                Height="26" 
-                FontSize="9" 
-                Width="88" 
-                VerticalContentAlignment="Center" 
-                HorizontalContentAlignment="Center" 
-                FontStyle="Italic" 
-                FontWeight="Medium"
-                BorderBrush="#FF006A67" 
-                BorderThickness="1,1,1,1"
-                Canvas.Left="133" Canvas.Top="215" 
-                   HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                Canvas.Left="195" Canvas.Top="94" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Center"/>
 
             <Button x:Name="btnRemoveAll"
                 Cursor="Hand"
                 Content="Удалить всё"
                 Canvas.Bottom="80" 
-                Canvas.Left="70" 
+                Canvas.Left="10" 
                 FontSize="14"
-                Background="#FF006A67"
-                Width="134" Click="btnRemoveAll_Click" 
+                Background="#FF2FABA8"
+                Width="240" Click="btnRemoveAll_Click" 
                     HorizontalAlignment="Left" 
-                    VerticalAlignment="Top" FontFamily="Calisto MT"
-                    Height="31" BorderBrush="Aqua"/>
+                    VerticalAlignment="Center" FontFamily="Calisto MT"
+                    Height="31" BorderBrush="#FF00FFF9" 
+                    FontWeight="Medium"/>
 
             <Grid Background="#FF22847B" 
-                  Canvas.Left="10" Canvas.Top="324" 
+                  Canvas.Left="10" Canvas.Top="189" 
                 x:Name="AtrWay_grid"
                 Height="143" Width="240"
-                Visibility="Visible" HorizontalAlignment="Center"
+                Visibility="Hidden" HorizontalAlignment="Center"
                   IsVisibleChanged="AtrWay_grid_IsVisibleChanged"
                   VerticalAlignment="Top">
 
@@ -358,6 +340,49 @@
                          Margin="0,21,0,0" Mouse.MouseEnter="AWay_Name_MouseEnter"
                          Mouse.MouseLeave="AWay_Name_MouseLeave"/>
             </Grid>
+            <Label x:Name="labelX" Content="Label" 
+                   Canvas.Left="182" Canvas.Bottom="143" 
+                   Height="27" Width="68" 
+                   HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center"
+                   FontSize="14" 
+                   FontWeight="Bold" 
+                   Background="Black" 
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top" 
+                   Foreground="#FF13F7E8"/>
+
+            <Label x:Name="labelY" Content="Label" 
+                   Canvas.Right="10" Canvas.Bottom="115" 
+                   Height="28" Width="68" 
+                   HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center"
+                   FontSize="14" FontWeight="Bold" 
+                   Background="Black" 
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top" 
+                   Canvas.Left="182" 
+                   Foreground="#FF13F7E8"/>
+
+            <!--#region>
+
+            <Slider x:Name="slider" Canvas.Left="10"
+                    Width="100" Background="#FF05CABD" 
+                    BorderBrush="{x:Null}" Foreground="#FF100E0E" 
+                    Maximum="2"
+                    Minimum="0.45"
+                    IsMoveToPointEnabled="True"
+                    TickFrequency="2"
+                    TickPlacement="BottomRight"
+                    HorizontalAlignment="Center"
+                    SelectionStart="1"
+                    RenderTransformOrigin="0, 1"
+                    Ticks="0.45,0.60,0.75,1,1.15,1.30,1.45,1.60,1.75,2"
+                    Height="15"
+                    Margin="20"
+                    Canvas.Bottom="130"
+                    VerticalAlignment="Top"/>
+            <#endregion-->
         </Canvas>
 
         <Canvas x:Name="canDrawing"
@@ -366,12 +391,20 @@
                 Grid.ColumnSpan="2"
                 Mouse.MouseDown="canDrawing_MouseDown"
                 Mouse.MouseMove="canDrawing_MouseMove"
-                Mouse.MouseUp="canDrawing_MouseUp"
-                >
+                Mouse.MouseUp="canDrawing_MouseUp" 
+                ScrollViewer.CanContentScroll="True" 
+                ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <!--#region>
+            <Canvas.LayoutTransform>
+                <ScaleTransform ScaleX="{Binding ElementName=slider, Path=Value}"
+                                ScaleY="{Binding ElementName=slider, Path=Value}"/>
+            </Canvas.LayoutTransform>
+<#endregion-->
+            
             <Canvas.Background>
-                <DrawingBrush TileMode="Tile" 
+                <DrawingBrush TileMode="FlipXY" 
                               Viewport="-20,-10,20,20" 
-                              ViewportUnits="Absolute">
+                              ViewportUnits="Absolute" Stretch="UniformToFill">
                     <DrawingBrush.Drawing>
                         <GeometryDrawing>
                             <GeometryDrawing.Geometry>
@@ -385,22 +418,6 @@
                     </DrawingBrush.Drawing>
                 </DrawingBrush>
             </Canvas.Background>
-
-            <Label x:Name="labelX" Content="Label" 
-                   Canvas.Left="0" Canvas.Bottom="0" 
-                   Height="39" Width="101" 
-                   HorizontalAlignment="Center" 
-                   HorizontalContentAlignment="Center"
-                   VerticalContentAlignment="Center"
-                   VerticalAlignment="Top" Canvas.Top="972" FontSize="18" FontWeight="Bold"/>
-
-            <Label x:Name="labelY" Content="Label" 
-                   Canvas.Left="106" Canvas.Bottom="0" 
-                   Height="40" Width="80" 
-                   HorizontalAlignment="Left" 
-                   HorizontalContentAlignment="Center"
-                   VerticalContentAlignment="Center"
-                   VerticalAlignment="Top" Canvas.Top="971" FontSize="18" FontWeight="Bold"/>
         </Canvas>
     </Grid>
 </Window>
