@@ -5,6 +5,7 @@ using AtributsSubwauLibrary.Import;
 using AtributsSubwauLibrary.Saving;
 using DrawMapMetroLibrary.Atributs;
 using EditorSubwayMap.DrawFigure;
+using EditorSubwayMap.model;
 using EditorSubwayMap.Model;
 using System;
 using System.Collections.Generic;
@@ -57,9 +58,9 @@ namespace WpfApp1
         {
             InitializeComponent();
 
-            OriginalCanvasWidth = canDrawing.Width; 
+            OriginalCanvasWidth = canDrawing.Width;
             OriginalCanvasHeight = canDrawing.Height;
-            
+
             conv = new BrushConverter();
             var values = typeof(Brushes).GetProperties().
                 Select(p => new { Name = p.Name, Brush = p.GetValue(null) as Brush }).
@@ -75,51 +76,103 @@ namespace WpfApp1
             drawEllipse.canvas = canDrawing;
             drawLine.canvas = canDrawing;
 
-            //slider.SelectionStart = 0;
-            //slider.SelectionEnd = 0.5;
-
             AtrSt_NameWay.ItemsSource = WayNames;
             AtrSt_NameWay.SelectedIndex = 0;
             canDrawing.MouseWheel += canvas_MouseWheel;
         }
-        private void canvas_MouseWheel(object sender, MouseWheelEventArgs e)
-        {/*
-            if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
-            {
-                // Получаем коэффициент масштабирования
-                double scale = e.Delta > 0 ? 1.1 : 0.9;
 
-                // Ограничиваем масштабирование
-                if ((canDrawing.ActualWidth * scale >= 4 && canDrawing.ActualHeight * scale >= 4 &&
-                    canDrawing.ActualWidth * scale <= canDrawing.ActualWidth * 4 &&
-                    canDrawing.ActualHeight * scale <= canDrawing.ActualHeight * 4))
+        // CANVAS MOUSE EVENTS
+        private void canDrawing_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed && paint == true)
+                switch (f)
                 {
-                    // Масштабируем Canvas
-                    canDrawing.LayoutTransform = new ScaleTransform(
-                        canDrawing.LayoutTransform.Value.M11 * scale,
-                        canDrawing.LayoutTransform.Value.M22 * scale);
+                    //  DRAW LINE 
+                    case ftype.line:
+                        line.X2 = e.GetPosition(canDrawing).X;
+                        line.Y2 = e.GetPosition(canDrawing).Y;
+                        break;
 
-                    // Обновляем размеры Canvas
-                    canDrawing.Width *= scale;
-                    canDrawing.Height *= scale;
-
-                    // Обновляем положение элементов на Canvas
-                    foreach (UIElement element in canDrawing.Children)
-                    {
-                        if (!(element is System.Windows.Controls.Label))
-                        {
-                            element.RenderTransformOrigin = new Point(0.5, 0.5);
-                            ScaleTransform scaleTransform =
-                                    new ScaleTransform(element.RenderTransform.Value.M11 * scale,
-                                    element.RenderTransform.Value.M22 * scale);
-                            element.RenderTransform = scaleTransform;
-                        }
-                    }
+                    //  DRAW ELLIPSE
+                    case ftype.ellipse:
+                        drawEllipse.currentP = e.GetPosition(canDrawing);
+                        ellipse = drawEllipse.EditSize(ellipse);
+                        break;
                 }
-
-            }*/
+            labelX.Content = "X: " + e.GetPosition(canDrawing).X;
+            labelY.Content = "Y: " + e.GetPosition(canDrawing).Y;
         }
-    
+
+        private void canDrawing_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            paint = false;
+            if (f == ftype.N)
+                return;
+            if (f == ftype.line || f == ftype.ellipse)
+            {
+                if (AtrSt_grid.IsVisible)
+                {
+                    AtrSt_grid.Visibility = Visibility.Hidden;
+                }
+                AtrWay_grid.Visibility = Visibility.Visible;
+            }
+            else if (f == ftype.station)
+            {
+                drawStation.Pstart = e.GetPosition(canDrawing);
+                drawStation.color = conv.ConvertFromString(col) as Brush;
+                ellipse = drawStation.Draw();
+                canDrawing.Children.Add(ellipse);
+
+                if (AtrWay_grid.IsVisible)
+                {
+                    AtrWay_grid.Visibility = Visibility.Hidden;
+                }
+                AtrSt_grid.Visibility = Visibility.Visible;
+
+
+                line = drawLine.upLine;
+
+                modelStation ms = new modelStation();
+
+                ms.MoveEllipseToNearestLine(ellipse, lWays);
+            }
+        }
+
+        private void canDrawing_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            paint = true;
+            switch (f)
+            {
+                case ftype.N:
+                    break;
+
+                //  DRAW LINE 
+                case ftype.line:
+                    AWay_Name.Text = "Название ветки: ";
+                    drawLine.Pstart = e.GetPosition(canDrawing);
+                    drawLine.Pend = e.GetPosition(canDrawing);
+                    drawLine.color = conv.ConvertFromString(col) as Brush;
+
+                    line = drawLine.Draw();
+                    canDrawing.Children.Add(line);
+                    break;
+
+                //  DRAW STATION
+                case ftype.station:
+                    break;
+
+                //  DRAW ELLIPSE
+                case ftype.ellipse:
+                    AWay_Name.Text = "Название ветки: ";
+                    drawEllipse.Pstart = e.GetPosition(canDrawing);
+                    drawEllipse.color = conv.ConvertFromString(col) as Brush;
+                    drawEllipse.currentP = e.GetPosition(canDrawing);
+
+                    ellipse = drawEllipse.Draw();
+                    canDrawing.Children.Add(ellipse);
+                    break;
+            }
+        }
 
         // BUTTONS
 
@@ -294,6 +347,7 @@ namespace WpfApp1
                     line.ToolTip = "Ветка метро: " + AWay_Name.Text;
                     line.Name = AtrSt_NameWay.Text.ToString();
                     AWay_Name.Text = "Ветка добавлена";
+                    lWays.Add(line);
                     break;
 
                 //  DRAW ELLIPSE
@@ -317,88 +371,9 @@ namespace WpfApp1
             }
         }
 
-        // CANVAS MOUSE EVENTS
-        private void canDrawing_MouseMove(object sender, MouseEventArgs e)
+        private void canvas_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed && paint == true)
-                switch (f)
-                {
-                    //  DRAW LINE 
-                    case ftype.line:
-                        line.X2 = e.GetPosition(canDrawing).X;
-                        line.Y2 = e.GetPosition(canDrawing).Y;
-                        break;
 
-                    //  DRAW ELLIPSE
-                    case ftype.ellipse:
-                        drawEllipse.currentP = e.GetPosition(canDrawing);
-                        ellipse = drawEllipse.EditSize(ellipse);
-                        break;
-                }
-            labelX.Content = "X: " + e.GetPosition(canDrawing).X;
-            labelY.Content = "Y: " + e.GetPosition(canDrawing).Y;
-        }
-
-        private void canDrawing_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            paint = false;
-            if (f == ftype.line || f == ftype.ellipse)
-            {
-                if (AtrSt_grid.IsVisible)
-                {
-                    AtrSt_grid.Visibility = Visibility.Hidden;
-                }
-                AtrWay_grid.Visibility = Visibility.Visible;
-            }
-            else if (f == ftype.station)
-            {
-                drawStation.Pstart = e.GetPosition(canDrawing);
-                drawStation.color = conv.ConvertFromString(col) as Brush;
-                ellipse = drawStation.Draw();
-                canDrawing.Children.Add(ellipse);
-
-                if (AtrWay_grid.IsVisible)
-                {
-                    AtrWay_grid.Visibility = Visibility.Hidden;
-                }
-                AtrSt_grid.Visibility = Visibility.Visible;
-            }
-        }
-
-        private void canDrawing_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            paint = true;
-            switch (f)
-            {
-                case ftype.N:
-                    break;
-
-                //  DRAW LINE 
-                case ftype.line:
-                    AWay_Name.Text = "Название ветки: ";
-                    drawLine.Pstart = e.GetPosition(canDrawing);
-                    drawLine.Pend = e.GetPosition(canDrawing);
-                    drawLine.color = conv.ConvertFromString(col) as Brush;
-
-                    line = drawLine.Draw();
-                    canDrawing.Children.Add(line);
-                    break;
-
-                //  DRAW STATION
-                case ftype.station:
-                    break;
-
-                //  DRAW ELLIPSE
-                case ftype.ellipse:
-                    AWay_Name.Text = "Название ветки: ";
-                    drawEllipse.Pstart = e.GetPosition(canDrawing);
-                    drawEllipse.color = conv.ConvertFromString(col) as Brush;
-                    drawEllipse.currentP = e.GetPosition(canDrawing);
-
-                    ellipse = drawEllipse.Draw();
-                    canDrawing.Children.Add(ellipse);
-                    break;
-            }
         }
 
         private void cboColors_SelectionChanged(object sender, SelectionChangedEventArgs e)

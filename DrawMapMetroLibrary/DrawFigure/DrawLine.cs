@@ -16,7 +16,7 @@ namespace EditorSubwayMap.Model
         private Brush color1;
         private bool _isDragging;
         private Point _lastPosition;
-
+        public Line upLine;
         public DrawLine() 
         {
             Pstart1 = new Point(0, 0);
@@ -118,6 +118,8 @@ namespace EditorSubwayMap.Model
         {
             _isDragging = false;
             (sender as Line).ReleaseMouseCapture();
+
+            upLine = sender as Line;
         }
 
         private void NewLine_MouseLeftDown(object sender, MouseButtonEventArgs e)
