@@ -129,12 +129,7 @@ namespace WpfApp1
                 }
                 AtrSt_grid.Visibility = Visibility.Visible;
 
-
-                line = drawLine.upLine;
-
-                modelStation ms = new modelStation();
-
-                ms.MoveEllipseToNearestLine(ellipse, lWays);
+                modelStation ms = new modelStation(ellipse, lWays, eWays);
             }
         }
 
@@ -367,6 +362,7 @@ namespace WpfApp1
                     ellipse.Name = AtrSt_NameWay.Text.ToString();
                     ellipse.ToolTip = "Ветка метро: " + AWay_Name.Text;
                     AWay_Name.Text = "Ветка добавлена";
+                    eWays.Add(ellipse);
                     break;
             }
         }

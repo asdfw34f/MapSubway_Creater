@@ -11,11 +11,40 @@ namespace EditorSubwayMap.model
 {
     internal class modelStation
     {
-        internal void MoveEllipseToNearestLine(Ellipse ellipse, List<Line> lines)
-        {
-            double minDistance = double.MaxValue;
-            Point nearestPoint = new Point();
+        private double _disEll = double.MaxValue;
+        private double _disLine = double.MaxValue;
+        private Point _nearestPointEll;
+        private Point _nearestPointLine;
 
+        internal modelStation(Ellipse station, List<Line> lineways, List<Ellipse> ellipseways)
+        {
+            double disL = MoveEllipseToNearestLine(station, lineways);
+            double disE = MoveEllipseToNearestEllipse(station, ellipseways);
+            if (disL == double.MaxValue && disL == double.MaxValue)
+                return;
+            else 
+            {
+                if (_disLine < _disEll)
+                {
+                    // Перемещаем Ellipse в ближайшую точку на ближайшей Line
+                    Canvas.SetLeft(station, _nearestPointLine.X - station.ActualWidth / 2);
+                    Canvas.SetTop(station, _nearestPointLine.Y - station.ActualHeight / 2);
+                }
+                else
+                {
+                    // Перемещаем Ellipse в ближайшую точку на ближайшем контуре Ellipse
+                    Canvas.SetLeft(station, _nearestPointEll.X - station.ActualWidth / 2);
+                    Canvas.SetTop(station, _nearestPointEll.Y - station.ActualHeight / 2);
+                }
+            }
+        }
+
+        private double MoveEllipseToNearestLine(Ellipse ellipse, List<Line> lines)
+        {
+            if (lines == null)
+            {
+                return double.MaxValue;
+            }
             // Проходим по всем Line на Canvas
             foreach (Line line in lines)
             {
@@ -29,6 +58,7 @@ namespace EditorSubwayMap.model
 
                 double a2b2 = (lineX2 - lineX1) * (lineX2 - lineX1) + (lineY2 - lineY1) * (lineY2 - lineY1);
                 double r2 = ((ellipseX - lineX1) * (lineX2 - lineX1) + (ellipseY - lineY1) * (lineY2 - lineY1)) / a2b2;
+
                 double pointX, pointY;
                 if (r2 < 0)
                 {
@@ -47,20 +77,55 @@ namespace EditorSubwayMap.model
                 }
 
                 // Вычисляем расстояние между ближайшей точкой и Ellipse
-                double distance = Math.Sqrt((ellipseX - pointX) * (ellipseX - pointX) + (ellipseY - pointY) * (ellipseY - pointY));
+                double distance = Math.Sqrt((ellipseX - pointX) *
+                    (ellipseX - pointX) + (ellipseY - pointY) * (ellipseY - pointY));
 
                 // Если расстояние меньше текущего минимального расстояния,
                 // то запоминаем новое минимальное расстояние и ближайшую точку
-                if (distance < minDistance)
+                if (distance < _disLine)
                 {
-                    minDistance = distance;
-                    nearestPoint = new Point(pointX, pointY);
+                    _disLine = distance;
+                    _nearestPointLine = new Point(pointX, pointY);
                 }
             }
+            return _disLine;
+        }
 
-            // Перемещаем Ellipse в ближайшую точку на ближайшей Line
-            Canvas.SetLeft(ellipse, nearestPoint.X - ellipse.ActualWidth / 2);
-            Canvas.SetTop(ellipse, nearestPoint.Y - ellipse.ActualHeight / 2);
+        private double MoveEllipseToNearestEllipse(Ellipse ellipse, List<Ellipse> ellipses)
+        {
+            if (ellipses == null)
+            {
+                return double.MaxValue;
+            }
+
+            // Проходим по всем Ellipse на Canvas, за исключением текущей
+            foreach (Ellipse otherEllipse in ellipses)
+            {
+                // Получаем границы текущей и другой Ellipse
+                Rect ellipseBounds = ellipse.RenderTransform.TransformBounds(new Rect(ellipse.RenderSize));
+                Rect otherEllipseBounds = otherEllipse.RenderTransform.TransformBounds(new Rect(otherEllipse.RenderSize));
+
+                // Находим центр Ellipse и другой Ellipse
+                Point ellipseCenter = new Point(ellipseBounds.Left + ellipseBounds.Width / 2,
+                    ellipseBounds.Top + ellipseBounds.Height / 2);
+
+                Point otherEllipseCenter = new Point(otherEllipseBounds.Left + otherEllipseBounds.Width / 2,
+                    otherEllipseBounds.Top + otherEllipseBounds.Height / 2);
+
+                // Вычисляем расстояние между центром Ellipse и другой Ellipse
+                double distance = Math.Sqrt((ellipseCenter.X - otherEllipseCenter.X) *
+                    (ellipseCenter.X - otherEllipseCenter.X) + (ellipseCenter.Y - otherEllipseCenter.Y) *
+                    (ellipseCenter.Y - otherEllipseCenter.Y));
+
+                // Если расстояние меньше текущего минимального расстояния,
+                // то запоминаем новое минимальное расстояние и ближайшую точку
+                if (distance < _disEll)
+                {
+                    _disEll = distance;
+                    _nearestPointEll = otherEllipseCenter;
+                }
+            }
+            return _disEll;
         }
     }
 }

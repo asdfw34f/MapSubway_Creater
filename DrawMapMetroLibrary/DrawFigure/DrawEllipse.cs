@@ -91,7 +91,7 @@ namespace EditorSubwayMap.DrawFigure
                 Margin = new Thickness(0),
                 StrokeThickness = 5,
                 Cursor= Cursors.Hand,
-                Fill = Brushes.Transparent
+                Fill = null
             };
 
             Canvas.SetLeft(newEl, Pstart.X);
