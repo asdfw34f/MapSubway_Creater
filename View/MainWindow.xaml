@@ -8,68 +8,84 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         WindowState="Maximized"
         Icon="/assets/icon-map.png"
-        Title="MainWindow" Height="1027" Width="1628"
-        Closing="Window_Closing">
-
+        Title="MainWindow" 
+        Height="1027" 
+        Width="1628"
+        xmlns:cmdSelectDrawMode="clr-namespace:EditorSubwayMap.Infastructure.Commands.SelectDrawingModeCommands"
+        >
     <Window.Resources>
-
     </Window.Resources>
 
     <Grid Background="White" ShowGridLines="False">
         <Grid.RowDefinitions>
-
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-
             <ColumnDefinition>
                 <ColumnDefinition.Width>0</ColumnDefinition.Width>
             </ColumnDefinition>
             <ColumnDefinition Width="260"/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-
         </Grid.ColumnDefinitions>
 
-        <Canvas Grid.Column="0" Grid.Row="0" 
-                Grid.RowSpan="3" Background="Black" Grid.ColumnSpan="2">
+        <Canvas Grid.Column="0" 
+                Grid.Row="0" 
+                Grid.RowSpan="3" 
+                Background="Black" 
+                Grid.ColumnSpan="2">
 
             <Grid x:Name="AtrSt_grid"
-                 Background="#FF43A49A" Canvas.Left="10" Canvas.Top="203" 
+                  Background="#FF43A49A" 
+                  Canvas.Left="10" 
+                  Canvas.Top="203" 
                   HorizontalAlignment="Center"
-                  Height="336" VerticalAlignment="Top" Width="240"
-                  Visibility="Visible" IsVisibleChanged="AtrSt_grid_IsVisibleChanged">
+                  VerticalAlignment="Top" 
+                  Height="336" Width="240"
+                  Visibility="Visible">
 
-                <TextBox x:Name="AtrSt_NameSt" Text="Название станции:"
+                <TextBox x:Name="AtrSt_NameSt" 
+                         Text="Название станции:"
                          HorizontalAlignment="Center" 
-                 VerticalAlignment="Top" Width="220" 
-                 Canvas.Left="9" Canvas.Top="11" Height="34" 
-                 HorizontalContentAlignment="Center" 
+                         VerticalAlignment="Top" 
+                         Width="220" 
+                         Canvas.Left="9" 
+                         Canvas.Top="11" 
+                         Height="34" 
+                         HorizontalContentAlignment="Center" 
                          VerticalContentAlignment="Center" 
-                 FontSize="14" BorderBrush="Black" 
-                         Margin="0,13,0,0" 
-                         Mouse.MouseEnter="AtrSt_NameSt_MouseEnter"
-                         Mouse.MouseLeave="AtrSt_NameSt_MouseLeave" 
-                         TextChanged="AtrSt_NameSt_TextChanged"/>
+                         FontSize="14" BorderBrush="Black" 
+                         Margin="0,13,0,0"/>
 
-                <TextBox x:Name="AtrSt_NextWay" Text="0" Width="80" 
-            Canvas.Left="79" Canvas.Top="185" HorizontalAlignment="Left" 
+                <TextBox x:Name="AtrSt_NextWay" 
+                         Text="0" 
+                         Width="80" 
+                         Height="30" 
+                         Canvas.Left="79" 
+                         Canvas.Top="185" 
+                         HorizontalAlignment="Left" 
                          VerticalAlignment="Top"
-                 FontSize="14" Height="30" VerticalContentAlignment="Center"
-                 HorizontalContentAlignment="Center" BorderBrush="Black" 
-                 Margin="145,113,0,0"
-                         Mouse.MouseEnter="AtrSt_NextSt_MouseEnter"
-                         Mouse.MouseLeave="AtrSt_NextWay_MouseLeave" d:LayoutOverrides="VerticalAlignment" Background="#FF32C8BE"/>
+                         FontSize="14" 
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Center" 
+                         BorderBrush="Black" 
+                         Margin="145,113,0,0"
+                         d:LayoutOverrides="VerticalAlignment"
+                         Background="#FF32C8BE"/>
 
-                <Label x:Name="lBackWay" FontSize="11" Canvas.Left="8"
-               Canvas.Top="152" HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               FontWeight="Bold" HorizontalContentAlignment="Center"
-               VerticalContentAlignment="Center" 
-               Background="{x:Null}" Margin="10,104,0,0" Width="130">
+                <Label x:Name="lBackWay" 
+                       FontSize="11" 
+                       Canvas.Left="8"
+                       Canvas.Top="152" 
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       FontWeight="Bold" 
+                       HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center" 
+                       Background="{x:Null}" 
+                       Margin="10,104,0,0" Width="130">
                     <TextBlock>
                         <Run Text="Расстояние до"/>
                         <LineBreak/>
@@ -77,12 +93,20 @@
                     </TextBlock>
                 </Label>
 
-                <Label x:Name="lBackWay_Copy" Canvas.Left="9"
-            Canvas.Top="225" Height="40" 
-               HorizontalAlignment="Left" 
-               VerticalAlignment="Center" FontWeight="Bold"
-               HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-               FontSize="11" Background="{x:Null}" Margin="10,0,0,0" Width="130">
+                <Label x:Name="lBackWay_Copy" 
+                       Canvas.Left="9"
+                       Canvas.Top="225" 
+                       Height="40" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center" 
+                       FontWeight="Bold"
+                       HorizontalContentAlignment="Center" 
+                       VerticalContentAlignment="Center"
+                       FontSize="11" 
+                       Background="{x:Null}" 
+                       Margin="10,0,0,0" 
+                       Width="130">
+
                     <TextBlock>
                         <Run Text="Расстояние до "/>
                         <LineBreak/>
@@ -90,48 +114,93 @@
                     </TextBlock>
                 </Label>
 
-                <Button Background="#FF77FFF2" Height="37"
+                <Button Background="#FF77FFF2" 
+                        Height="37"
                         x:Name="btnAddStation"
-                Canvas.Left="10" Canvas.Top="257" HorizontalAlignment="Center" 
-                VerticalAlignment="Top" FontSize="10" BorderThickness="1.4"
-                BorderBrush="Black"
-                Content="Добавить станцию" FontWeight="Bold" 
+                        Canvas.Left="10" 
+                        Canvas.Top="257" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Top"
+                        FontSize="10"
+                        BorderThickness="1.4"
+                        BorderBrush="Black"
+                        Content="Добавить станцию" 
+                        FontWeight="Bold" 
                         Margin="0,285,0,0"
-                        Click="BtnAddStation_MouseUp" Width="140"/>
+                        Width="140"/>
 
-                <ComboBox x:Name="AtrSt_NameWay" Text="Ветка" Width="220" 
-            Canvas.Left="9" Canvas.Top="60"
-            FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Top"
-                 Height="34" VerticalContentAlignment="Center" 
-                 HorizontalContentAlignment="Center" BorderBrush="Black" 
+                <ComboBox x:Name="AtrSt_NameWay"
+                          Text="Ветка"
+                          Width="220" 
+                          Canvas.Left="9" 
+                          Canvas.Top="60"
+                          FontSize="14" 
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Top"
+                          Height="34" 
+                          VerticalContentAlignment="Center" 
+                          HorizontalContentAlignment="Center"
+                          BorderBrush="Black" 
                           Margin="0,65,0,0" />
-                <TextBox x:Name="AtrSt_BackWay" Text="0" 
-            Canvas.Left="79" Canvas.Top="110" HorizontalAlignment="Left" 
-                 VerticalAlignment="Top"
-                 FontSize="14" Height="31" VerticalContentAlignment="Center" 
-                 HorizontalContentAlignment="Center" BorderBrush="Black" 
-                 Margin="145,157,0,0"
-                         Mouse.MouseLeave="AtrSt_BackWay_MouseLeave" 
-                         Mouse.MouseEnter="AtrSt_BackSt_MouseEnter" Width="80" Background="#FF32C8BE"/>
-                <Label x:Name="success" Content="Станция добавлена!" 
-                       Canvas.Left="10" Canvas.Top="120" Height="40" Background="{x:Null}" 
-                       Margin="57,229,59,0" VerticalAlignment="Top" d:LayoutOverrides="Width, Height"
-                       FontStretch="Medium" FontWeight="Medium" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+
+                <TextBox x:Name="AtrSt_BackWay"
+                         Text="0" 
+                         Canvas.Left="79" 
+                         Canvas.Top="110"
+                         HorizontalAlignment="Left" 
+                         VerticalAlignment="Top"
+                         FontSize="14"
+                         Height="31"
+                         VerticalContentAlignment="Center" 
+                         HorizontalContentAlignment="Center"
+                         BorderBrush="Black" 
+                         Margin="145,157,0,0"
+                         Width="80" 
+                         Background="#FF32C8BE"/>
+                
+                <Label x:Name="success"
+                       Content="Станция добавлена!" 
+                       Canvas.Left="10" 
+                       Canvas.Top="120" 
+                       Height="40" 
+                       Background="{x:Null}" 
+                       Margin="57,229,59,0"
+                       VerticalAlignment="Top" 
+                       d:LayoutOverrides="Width, Height"
+                       FontStretch="Medium" 
+                       FontWeight="Medium" 
+                       HorizontalContentAlignment="Center" 
+                       VerticalContentAlignment="Center" 
                        Foreground="Black"
-                       FontSize="12" Visibility="Hidden"/>
+                       FontSize="12" 
+                       Visibility="Hidden"/>
             </Grid>
 
-            <ComboBox Name="cboColors" SelectionChanged="cboColors_SelectionChanged"
-          SelectedValuePath="Name" Height="30" Width="240" Canvas.Left="10" 
-                      Canvas.Top="144" HorizontalAlignment="Center" 
-                      VerticalAlignment="Top" BorderBrush="Cyan">
+            <ComboBox Name="cboColors" 
+                      SelectedValuePath="Name" 
+                      Height="30" 
+                      Width="240" 
+                      Canvas.Left="10" 
+                      Canvas.Top="144" 
+                      HorizontalAlignment="Center" 
+                      VerticalAlignment="Top" 
+                      BorderBrush="Cyan">
+                
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Height="18" Margin="0,0,0,2">
-                            <Border BorderThickness="1" CornerRadius="2" 
-                  BorderBrush="Black" Width="50" VerticalAlignment="Stretch"
-                  Background="{Binding Name}"/>
-                            <TextBlock Text="{Binding Name}" Margin="8,0,0,0"/>
+                        <StackPanel Orientation="Horizontal" 
+                                    Height="18" 
+                                    Margin="0,0,0,2">
+                            
+                            <Border BorderThickness="1" 
+                                    CornerRadius="2" 
+                                    BorderBrush="Black" 
+                                    Width="50" 
+                                    VerticalAlignment="Stretch"
+                                    Background="{Binding Name}"/>
+                            
+                            <TextBlock Text="{Binding Name}" 
+                                       Margin="8,0,0,0"/>
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
@@ -159,9 +228,12 @@
                     VerticalAlignment="Top"
                     Height="50" Width="50" 
                     Focusable="False"
-                    Cursor="Hand"
-                    Click="btnPath_Click" BorderBrush="Cyan" >
-
+                    Cursor="Hand" 
+                    BorderBrush="Cyan">
+                <Button.Command>
+                    <cmdSelectDrawMode:SelectLineMode/>
+                </Button.Command>
+                
                 <Button.Background>
                     <ImageBrush 
                         ImageSource="/assets/line.png"/>
@@ -173,9 +245,12 @@
                     Canvas.Top="39"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top" 
-                    Canvas.Left="65" Cursor="Hand"
-                    Click="btnEllipse_Click" BorderBrush="Cyan">
-
+                    Canvas.Left="65" Cursor="Hand" 
+                    BorderBrush="Cyan">
+                <Button.Command>
+                    <cmdSelectDrawMode:SelectCircleMode/>
+                </Button.Command>
+                
                 <Button.Background>
                     <ImageBrush 
                         ImageSource="/assets/ellipse.png"/>
@@ -184,13 +259,17 @@
 
             <Button x:Name="btnStation" 
                     Cursor="Hand"
-                Canvas.Top="39" Width="50"
+                    Canvas.Top="39"
+                    Width="50"
                     Height="50" 
-                Canvas.Left="130"
-                    Click="btnStation_Click" 
+                    Canvas.Left="130"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Center" BorderBrush="Cyan">
-
+                    VerticalAlignment="Center" 
+                    BorderBrush="Cyan">
+                <Button.Command>
+                    <cmdSelectDrawMode:SelectStationMode/>
+                </Button.Command>
+                
                 <Button.Background>
                     <ImageBrush 
                         ImageSource="/assets/station.png"/>
@@ -201,29 +280,32 @@
                     Cursor="Hand"
                     Canvas.Top="39" 
                     Canvas.Left="200"
-                    Width="50" Height="50" 
+                    Width="50" 
+                    Height="50" 
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Click="btnCursor_Click" BorderBrush="Cyan">
+                    BorderBrush="Cyan">
                 <Button.Background>
                     <ImageBrush 
                         ImageSource="/assets/cursor.png" 
-                        TileMode="FlipX" Stretch="Uniform"/>
+                        TileMode="FlipX" 
+                        Stretch="Uniform"/>
                 </Button.Background>
             </Button>
 
             <Label Content="Файл" 
                    Foreground="#FF2DABA8" 
-                Height="27" 
-                FontSize="12" 
-                Width="240" 
-                VerticalContentAlignment="Center" 
-                HorizontalContentAlignment="Center" 
-                FontStyle="Italic" 
+                   Height="27" 
+                   FontSize="12" 
+                   Width="240" 
+                   VerticalContentAlignment="Center" 
+                   HorizontalContentAlignment="Center" 
+                   FontStyle="Italic" 
                    FontWeight="Medium"
-                BorderBrush="#FF09FFF8" 
-                BorderThickness="1,1,1,1"
-                Canvas.Left="10" Canvas.Bottom="45" 
+                   BorderBrush="#FF09FFF8" 
+                   BorderThickness="1,1,1,1"
+                   Canvas.Left="10" 
+                   Canvas.Bottom="45" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center"/>
 
@@ -237,9 +319,10 @@
                     FontSize="14"
                     Background="#FF129894" 
                     VerticalAlignment="Top"
-                    Width="110" Click="btnOpenMap_Click" 
+                    Width="110" 
                     BorderBrush="Cyan" 
-                    Foreground="Black" Height="33" 
+                    Foreground="Black"
+                    Height="33" 
                     FontWeight="Bold" />
 
             <!--Save the map button-->
@@ -252,97 +335,121 @@
                     FontSize="14"
                     Background="#FF129894" 
                     VerticalAlignment="Top"
-                    Width="120" Click="btnSave_Click" 
+                    Width="120" 
                     BorderBrush="Cyan" 
-                    Foreground="Black" Height="33" 
+                    Foreground="Black" 
+                    Height="33" 
                     FontWeight="Bold" />
 
             <!--Label text of Select btn Pen-->
             <Label Content="Маршрут" 
                    Foreground="#FF15E2DC" 
-                Height="27" 
-                FontSize="9" 
-                Width="115" 
-                VerticalContentAlignment="Center" 
-                HorizontalContentAlignment="Center" 
-                FontStyle="Italic" 
+                   Height="27" 
+                   FontSize="9" 
+                   Width="115" 
+                   VerticalContentAlignment="Center" 
+                   HorizontalContentAlignment="Center" 
+                   FontStyle="Italic" 
                    FontWeight="Medium"
-                BorderBrush="#FF006A67" 
-                BorderThickness="1,1,1,1"
-                Canvas.Left="5" Canvas.Top="94" 
+                   BorderBrush="#FF006A67" 
+                   BorderThickness="1,1,1,1"
+                   Canvas.Left="5" 
+                   Canvas.Top="94" 
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Center"/>
+            
             <Label Content="Станция" 
                    Foreground="#FF15E2DC" 
-                Height="26" 
-                FontSize="9" 
-                Width="60" 
-                VerticalContentAlignment="Center" 
-                HorizontalContentAlignment="Center" 
-                FontStyle="Italic" 
+                   Height="26" 
+                   FontSize="9" 
+                   Width="60" 
+                   VerticalContentAlignment="Center" 
+                   HorizontalContentAlignment="Center" 
+                   FontStyle="Italic" 
                    FontWeight="Medium"
-                BorderBrush="#FF006A67" 
-                BorderThickness="1,1,1,1"
-                Canvas.Left="125" Canvas.Top="94" 
+                   BorderBrush="#FF006A67" 
+                   BorderThickness="1,1,1,1"
+                   Canvas.Left="125"
+                   Canvas.Top="94" 
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Top"/>
 
             <Label Content="Кликер"
                    Foreground="#FF15E2DC" 
-                Height="26" 
-                FontSize="9" 
-                Width="59" 
-                VerticalContentAlignment="Center" 
-                HorizontalContentAlignment="Center" 
-                FontStyle="Italic" 
+                   Height="26" 
+                   FontSize="9" 
+                   Width="59" 
+                   VerticalContentAlignment="Center" 
+                   HorizontalContentAlignment="Center" 
+                   FontStyle="Italic" 
                    FontWeight="Medium"
-                BorderBrush="#FF006A67" 
-                BorderThickness="1,1,1,1"
-                Canvas.Left="195" Canvas.Top="94" 
+                   BorderBrush="#FF006A67" 
+                   BorderThickness="1,1,1,1"
+                   Canvas.Left="195"
+                   Canvas.Top="94" 
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Center"/>
 
             <Button x:Name="btnRemoveAll"
-                Cursor="Hand"
-                Content="Удалить всё"
-                Canvas.Bottom="80" 
-                Canvas.Left="10" 
-                FontSize="14"
-                Background="#FF2FABA8"
-                Width="240" Click="btnRemoveAll_Click" 
+                    Cursor="Hand"
+                    Content="Удалить всё"
+                    Canvas.Bottom="80" 
+                    Canvas.Left="10" 
+                    FontSize="14"
+                    Background="#FF2FABA8"
+                    Width="240" 
                     HorizontalAlignment="Left" 
-                    VerticalAlignment="Center" FontFamily="Calisto MT"
-                    Height="31" BorderBrush="#FF00FFF9" 
+                    VerticalAlignment="Center" 
+                    FontFamily="Calisto MT"
+                    Height="31" 
+                    BorderBrush="#FF00FFF9" 
                     FontWeight="Medium"/>
 
             <Grid Background="#FF22847B" 
-                  Canvas.Left="10" Canvas.Top="189" 
-                x:Name="AtrWay_grid"
-                Height="143" Width="240"
-                Visibility="Hidden" HorizontalAlignment="Center"
-                  IsVisibleChanged="AtrWay_grid_IsVisibleChanged"
+                  Canvas.Left="10"
+                  Canvas.Top="189" 
+                  x:Name="AtrWay_grid"
+                  Height="143"
+                  Width="240"
+                  Visibility="Hidden"
+                  HorizontalAlignment="Center"
                   VerticalAlignment="Top">
 
-                <Button Background="#FF77FFF2" Height="32"
+                <Button Background="#FF77FFF2" 
+                        Height="32"
                         x:Name="btnAddWay"
-                    Canvas.Left="10" Canvas.Top="257" HorizontalAlignment="Center" 
-                    VerticalAlignment="Top" FontSize="10" BorderThickness="1.4"
-                    BorderBrush="Black" Content="Добавить ветку" 
-                        FontWeight="Bold" Margin="0,88,0,0" Width="146"
-                        Click="BtnAddWay_MouseUp"/>
-                <TextBox x:Name="AWay_Name" Text="Название ветки:" 
+                        Canvas.Left="10" 
+                        Canvas.Top="257"
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Top" 
+                        FontSize="10"
+                        BorderThickness="1.4"
+                        BorderBrush="Black" 
+                        Content="Добавить ветку" 
+                        FontWeight="Bold" 
+                        Margin="0,88,0,0"
+                        Width="146"/>
+
+                <TextBox x:Name="AWay_Name" 
+                         Text="Название ветки:" 
                          HorizontalAlignment="Center" 
-                    VerticalAlignment="Top" Width="220" 
-                    Canvas.Left="9" Canvas.Top="11" Height="34" 
-                    HorizontalContentAlignment="Center" 
+                         VerticalAlignment="Top" 
+                         Width="220" 
+                         Canvas.Left="9" 
+                         Canvas.Top="11"
+                         Height="34" 
+                         HorizontalContentAlignment="Center" 
                          VerticalContentAlignment="Center" 
-                    FontSize="14" BorderBrush="Black" 
-                         Margin="0,21,0,0" Mouse.MouseEnter="AWay_Name_MouseEnter"
-                         Mouse.MouseLeave="AWay_Name_MouseLeave"/>
+                         FontSize="14" 
+                         BorderBrush="Black" 
+                         Margin="0,21,0,0"/>
             </Grid>
-            <Label x:Name="labelX" Content="Label" 
-                   Canvas.Left="182" Canvas.Bottom="143" 
-                   Height="27" Width="68" 
+            <Label x:Name="labelX" 
+                   Content="Label" 
+                   Canvas.Left="182" 
+                   Canvas.Bottom="143" 
+                   Height="27" 
+                   Width="68" 
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
                    FontSize="14" 
@@ -352,59 +459,36 @@
                    VerticalAlignment="Top" 
                    Foreground="#FF13F7E8"/>
 
-            <Label x:Name="labelY" Content="Label" 
-                   Canvas.Right="10" Canvas.Bottom="115" 
-                   Height="28" Width="68" 
+            <Label x:Name="labelY" 
+                   Content="Label" 
+                   Canvas.Right="10" 
+                   Canvas.Bottom="115" 
+                   Height="28"
+                   Width="68" 
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
-                   FontSize="14" FontWeight="Bold" 
+                   FontSize="14" 
+                   FontWeight="Bold" 
                    Background="Black" 
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top" 
                    Canvas.Left="182" 
                    Foreground="#FF13F7E8"/>
-
-            <!--#region>
-
-            <Slider x:Name="slider" Canvas.Left="10"
-                    Width="100" Background="#FF05CABD" 
-                    BorderBrush="{x:Null}" Foreground="#FF100E0E" 
-                    Maximum="2"
-                    Minimum="0.45"
-                    IsMoveToPointEnabled="True"
-                    TickFrequency="2"
-                    TickPlacement="BottomRight"
-                    HorizontalAlignment="Center"
-                    SelectionStart="1"
-                    RenderTransformOrigin="0, 1"
-                    Ticks="0.45,0.60,0.75,1,1.15,1.30,1.45,1.60,1.75,2"
-                    Height="15"
-                    Margin="20"
-                    Canvas.Bottom="130"
-                    VerticalAlignment="Top"/>
-            <#endregion-->
         </Canvas>
 
         <Canvas x:Name="canDrawing"
-                Grid.Row="0" Grid.Column="2"
+                Grid.Row="0"
+                Grid.Column="2"
                 Grid.RowSpan="3" 
                 Grid.ColumnSpan="2"
-                Mouse.MouseDown="canDrawing_MouseDown"
-                Mouse.MouseMove="canDrawing_MouseMove"
-                Mouse.MouseUp="canDrawing_MouseUp" 
                 ScrollViewer.CanContentScroll="True" 
                 ScrollViewer.VerticalScrollBarVisibility="Visible">
-            <!--#region>
-            <Canvas.LayoutTransform>
-                <ScaleTransform ScaleX="{Binding ElementName=slider, Path=Value}"
-                                ScaleY="{Binding ElementName=slider, Path=Value}"/>
-            </Canvas.LayoutTransform>
-<#endregion-->
             
             <Canvas.Background>
                 <DrawingBrush TileMode="FlipXY" 
                               Viewport="-20,-10,20,20" 
-                              ViewportUnits="Absolute" Stretch="UniformToFill">
+                              ViewportUnits="Absolute" 
+                              Stretch="UniformToFill">
                     <DrawingBrush.Drawing>
                         <GeometryDrawing>
                             <GeometryDrawing.Geometry>

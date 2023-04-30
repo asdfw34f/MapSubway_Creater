@@ -1,6 +1,4 @@
-﻿using AtributsSubwauLibrary.Atributs;
-using DrawMapMetroLibrary.Atributs;
-using System.Collections.Generic;
+﻿using AtributsSubwauLibrary.Model;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -8,25 +6,20 @@ namespace AtributsSubwauLibrary.Saving
 {
     public class SaveMap
     {
-        AllMap map;
+        RouteSubway subway;
 
-        public SaveMap(List<Station> stations, List<EllipseWay> eways, List<LineWay> lways ) 
+        public SaveMap(RouteSubway subway) 
         {
-            map= new AllMap()
-            {
-                stations = stations,
-                lways = lways,
-                eways = eways
-            };
+            this.subway = subway;
         }
 
         public void Save(string folder)
         {
-            XmlSerializer formatter = new XmlSerializer(typeof(AllMap));
+            XmlSerializer formatter = new XmlSerializer(typeof(RouteSubway));
             using (FileStream fs = new FileStream(
                 folder + "\\MapMetro.xml", FileMode.Create))
             {
-                formatter.Serialize(fs, map);
+                formatter.Serialize(fs, subway);
             }
         }
     }

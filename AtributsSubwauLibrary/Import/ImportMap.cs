@@ -1,5 +1,4 @@
-﻿using AtributsSubwauLibrary.Atributs;
-using DrawMapMetroLibrary.Atributs;
+﻿using AtributsSubwauLibrary.Model;
 using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
 using System.Collections.Generic;
@@ -13,21 +12,21 @@ namespace AtributsSubwauLibrary.Import
 {
     public class ImportMap
     {
+        List<Line> lines = new List<Line>();
+        List<Ellipse> ellipses = new List<Ellipse>();
+        List<Ellipse> stations = new List<Ellipse>();
+        RouteSubway map;
+        
         public ImportMap() { }
-
-        public List<Line> lines { get; set; } = new List<Line>();
-        public List<Ellipse> ellipses { get; set; } = new List<Ellipse>();
-        public List<Ellipse> stations { get; set; } = new List<Ellipse>();
-        public AllMap map { get; set; } = new AllMap();
 
         public bool CheckWay()
         {
             bool isTrue = false;
             foreach (Station st in map.stations)
             {
-                foreach (EllipseWay way in map.eways)
+                foreach (CircleWay circleways in map.circleWays)
                 {
-                    if (st.NameWay == way.NameWay)
+                    if (st.NameWay == circleways.NameWay)
                     {
                         isTrue = true;
                         break;
@@ -37,9 +36,9 @@ namespace AtributsSubwauLibrary.Import
                 }
                 if (!isTrue)
                 {
-                    foreach (LineWay way1 in map.lways)
+                    foreach (LineWay lineways in map.lineWays)
                     {
-                        if (st.NameWay == way1.NameWay)
+                        if (st.NameWay == lineways.NameWay)
                         {
                             isTrue = true;
                         }
@@ -53,17 +52,17 @@ namespace AtributsSubwauLibrary.Import
             return isTrue;
         }
 
-        public AllMap Import(string Folder)
+        public RouteSubway Import(string Folder)
         {
             using (FileStream file = new FileStream(Folder + "\\MapMetro.xml", FileMode.Open))
             {
-                XmlSerializer formatter = new XmlSerializer(typeof(AllMap));
-                map = formatter.Deserialize(file) as AllMap;
+                XmlSerializer formatter = new XmlSerializer(typeof(RouteSubway));
+                map = formatter.Deserialize(file) as RouteSubway;
 
                 if (map != null)
                 {
-                    lines = DrawingLine(map.lways);
-                    ellipses = DrawingEllipse(map.eways);
+                    lines = DrawingLine(map.lineWays);
+                    ellipses = DrawingEllipse(map.circleWays);
                     stations = DrawingStation(map.stations);
                 }
                 else
@@ -109,20 +108,19 @@ namespace AtributsSubwauLibrary.Import
             {
                 DrawLine dl = new DrawLine()
                 {
-                    Pend = way.End,
-                    Pstart = way.Start,
+                    Pend = way.endPoint,
+                    Pstart = way.startPoint,
                     color = brush.ConvertFromString(way.Color.ToString()) as Brush,
                 };
-
                 lines.Add(dl.Draw());
             }
             return lines;
         }
 
-        public List<Ellipse> DrawingEllipse(List<EllipseWay> ways)
+        public List<Ellipse> DrawingEllipse(List<CircleWay> ways)
         {
             List<Ellipse> newWay = new List<Ellipse>();
-            foreach (EllipseWay way in ways)
+            foreach (CircleWay way in ways)
             {
                 BrushConverter _conv = new BrushConverter();
                 DrawEllipse de = new DrawEllipse()

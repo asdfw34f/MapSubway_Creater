@@ -69,12 +69,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="modelStation.cs" />
-    <Compile Include="Models\CanvasModel.cs" />
-    <Compile Include="Models\RouteModel.cs" />
-    <Compile Include="ViewModels\CanvasViewModel.cs" />
-    <Compile Include="ViewModels\RelayCommand.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Data\DrawingMode.cs" />
+    <Compile Include="Infastructure\Commands\Base\Command.cs" />
+    <Compile Include="Infastructure\Commands\LambdaCommand.cs" />
+    <Compile Include="Infastructure\Commands\SelectDrawingModeCommands\SelectCircleMode.cs" />
+    <Compile Include="Infastructure\Commands\SelectDrawingModeCommands\SelectLineMode.cs" />
+    <Compile Include="Infastructure\Commands\SelectDrawingModeCommands\SelectStationMode.cs" />
+    <Compile Include="Models\ElementsOfMap\CircleWay.cs" />
+    <Compile Include="Models\ElementsOfMap\LineWay.cs" />
+    <Compile Include="Models\ElementsOfMap\Station.cs" />
+    <Compile Include="Models\RouteSubway.cs" />
+    <Compile Include="ViewModels\Base\ViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
