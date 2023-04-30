@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         WindowState="Maximized"
-        Icon="/icons/icon-map.png"
+        Icon="/assets/icon-map.png"
         Title="MainWindow" Height="1027" Width="1628"
         Closing="Window_Closing">
 
@@ -164,7 +164,7 @@
 
                 <Button.Background>
                     <ImageBrush 
-                        ImageSource="/icons/line.png"/>
+                        ImageSource="/assets/line.png"/>
                 </Button.Background>
             </Button>
 
@@ -178,7 +178,7 @@
 
                 <Button.Background>
                     <ImageBrush 
-                        ImageSource="/icons/ellipse.png"/>
+                        ImageSource="/assets/ellipse.png"/>
                 </Button.Background>
             </Button>
 
@@ -193,7 +193,7 @@
 
                 <Button.Background>
                     <ImageBrush 
-                        ImageSource="/icons/station.png"/>
+                        ImageSource="/assets/station.png"/>
                 </Button.Background>
             </Button>
 
@@ -207,7 +207,7 @@
                     Click="btnCursor_Click" BorderBrush="Cyan">
                 <Button.Background>
                     <ImageBrush 
-                        ImageSource="/icons/cursor.png" 
+                        ImageSource="/assets/cursor.png" 
                         TileMode="FlipX" Stretch="Uniform"/>
                 </Button.Background>
             </Button>

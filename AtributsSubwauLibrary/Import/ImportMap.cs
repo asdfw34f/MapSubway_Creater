@@ -20,7 +20,7 @@ namespace AtributsSubwauLibrary.Import
         public List<Ellipse> stations { get; set; } = new List<Ellipse>();
         public AllMap map { get; set; } = new AllMap();
 
-        private bool CheckWay()
+        public bool CheckWay()
         {
             bool isTrue = false;
             foreach (Station st in map.stations)
@@ -119,7 +119,7 @@ namespace AtributsSubwauLibrary.Import
             return lines;
         }
 
-        private List<Ellipse> DrawingEllipse(List<EllipseWay> ways)
+        public List<Ellipse> DrawingEllipse(List<EllipseWay> ways)
         {
             List<Ellipse> newWay = new List<Ellipse>();
             foreach (EllipseWay way in ways)
