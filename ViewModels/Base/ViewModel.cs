@@ -25,6 +25,7 @@ namespace EditorSubwayMap.ViewModels.Base
         {
             Dispose(true);
         }
+
         private bool _Disposed;
         protected virtual void Dispose(bool Disposing) 
         {

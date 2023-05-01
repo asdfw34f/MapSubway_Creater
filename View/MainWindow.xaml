@@ -9,8 +9,14 @@
         Title="MainWindow" 
         Height="1027" 
         Width="1628"
-        xmlns:cmdSelectDrawMode="clr-namespace:EditorSubwayMap.Infastructure.Commands.SelectDrawingModeCommands"
+        xmlns:vm="clr-namespace:EditorSubwayMap.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:MouseEvents="clr-namespace:EditorSubwayMap.Infrastructure.MouseByhaviours"
         >
+
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
     <Window.Resources>
     </Window.Resources>
 
@@ -45,7 +51,7 @@
                   Visibility="Visible">
 
                 <TextBox x:Name="AtrSt_NameSt" 
-                         Text="Название станции:"
+                         Text="{Binding NameStation}"
                          HorizontalAlignment="Center" 
                          VerticalAlignment="Top" 
                          Width="220" 
@@ -55,10 +61,14 @@
                          HorizontalContentAlignment="Center" 
                          VerticalContentAlignment="Center" 
                          FontSize="14" BorderBrush="Black" 
-                         Margin="0,13,0,0"/>
+                         Margin="0,13,0,0"
+                         >
+
+                </TextBox>
+
 
                 <TextBox x:Name="AtrSt_NextWay" 
-                         Text="0" 
+                         Text="{Binding distanceNext}" 
                          Width="80" 
                          Height="30" 
                          Canvas.Left="79" 
@@ -69,8 +79,7 @@
                          VerticalContentAlignment="Center"
                          HorizontalContentAlignment="Center" 
                          BorderBrush="Black" 
-                         Margin="145,113,0,0"
-                         d:LayoutOverrides="VerticalAlignment"
+                         Margin="145,158,0,0"
                          Background="#FF32C8BE"/>
 
                 <Label x:Name="lBackWay" 
@@ -142,7 +151,7 @@
                           Margin="0,65,0,0" />
 
                 <TextBox x:Name="AtrSt_BackWay"
-                         Text="0" 
+                         Text="{Binding distanceBack}" 
                          Canvas.Left="79" 
                          Canvas.Top="110"
                          HorizontalAlignment="Left" 
@@ -152,10 +161,10 @@
                          VerticalContentAlignment="Center" 
                          HorizontalContentAlignment="Center"
                          BorderBrush="Black" 
-                         Margin="145,157,0,0"
+                         Margin="145,112,0,0"
                          Width="80" 
-                         Background="#FF32C8BE"/>
-                
+                         Background="#FF32C8BE" d:LayoutOverrides="VerticalAlignment"/>
+
                 <Label x:Name="success"
                        Content="Станция добавлена!" 
                        Canvas.Left="10" 
@@ -183,20 +192,20 @@
                       HorizontalAlignment="Center" 
                       VerticalAlignment="Top" 
                       BorderBrush="Cyan">
-                
+
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" 
                                     Height="18" 
                                     Margin="0,0,0,2">
-                            
+
                             <Border BorderThickness="1" 
                                     CornerRadius="2" 
                                     BorderBrush="Black" 
                                     Width="50" 
                                     VerticalAlignment="Stretch"
                                     Background="{Binding Name}"/>
-                            
+
                             <TextBlock Text="{Binding Name}" 
                                        Margin="8,0,0,0"/>
                         </StackPanel>
@@ -227,11 +236,9 @@
                     Height="50" Width="50" 
                     Focusable="False"
                     Cursor="Hand" 
-                    BorderBrush="Cyan">
-                <Button.Command>
-                    <cmdSelectDrawMode:SelectLineMode/>
-                </Button.Command>
-                
+                    BorderBrush="Cyan"
+                    Command="{Binding SelectDrawLineCommand}">
+
                 <Button.Background>
                     <ImageBrush 
                         ImageSource="/assets/line.png"/>
@@ -244,11 +251,9 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top" 
                     Canvas.Left="65" Cursor="Hand" 
-                    BorderBrush="Cyan">
-                <Button.Command>
-                    <cmdSelectDrawMode:SelectCircleMode/>
-                </Button.Command>
-                
+                    BorderBrush="Cyan"
+                    Command="{Binding SelectDrawCircleCommand}">
+
                 <Button.Background>
                     <ImageBrush 
                         ImageSource="/assets/ellipse.png"/>
@@ -263,11 +268,9 @@
                     Canvas.Left="130"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center" 
-                    BorderBrush="Cyan">
-                <Button.Command>
-                    <cmdSelectDrawMode:SelectStationMode/>
-                </Button.Command>
-                
+                    BorderBrush="Cyan"
+                    Command="{Binding SelectDrawStationCommand}">
+
                 <Button.Background>
                     <ImageBrush 
                         ImageSource="/assets/station.png"/>
@@ -282,7 +285,9 @@
                     Height="50" 
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    BorderBrush="Cyan">
+                    BorderBrush="Cyan"
+                    Command="{Binding SelectDrawNoneCommand}">
+
                 <Button.Background>
                     <ImageBrush 
                         ImageSource="/assets/cursor.png" 
@@ -355,7 +360,7 @@
                    Canvas.Top="94" 
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Center"/>
-            
+
             <Label Content="Станция" 
                    Foreground="#FF15E2DC" 
                    Height="26" 
@@ -443,7 +448,7 @@
                          Margin="0,21,0,0"/>
             </Grid>
             <Label x:Name="labelX" 
-                   Content="Label" 
+                   Content="{Binding labelX}" 
                    Canvas.Left="182" 
                    Canvas.Bottom="143" 
                    Height="27" 
@@ -458,7 +463,7 @@
                    Foreground="#FF13F7E8"/>
 
             <Label x:Name="labelY" 
-                   Content="Label" 
+                   Content="{Binding labelY}" 
                    Canvas.Right="10" 
                    Canvas.Bottom="115" 
                    Height="28"
@@ -480,8 +485,11 @@
                 Grid.RowSpan="3" 
                 Grid.ColumnSpan="2"
                 ScrollViewer.CanContentScroll="True" 
-                ScrollViewer.VerticalScrollBarVisibility="Visible">
+                ScrollViewer.VerticalScrollBarVisibility="Visible"
+                MouseEvents:MouseBehaviour.MouseMoveCommand="{Binding MouseMoveCommand}"
+                >
             
+
             <Canvas.Background>
                 <DrawingBrush TileMode="FlipXY" 
                               Viewport="-20,-10,20,20" 
