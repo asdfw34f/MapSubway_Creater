@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 using System.Windows;
-using System.Windows.Forms;
 
 namespace WpfApp1
 {

@@ -69,12 +69,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\DrawingMode.cs" />
-    <Compile Include="Infastructure\Commands\Base\Command.cs" />
-    <Compile Include="Infastructure\Commands\LambdaCommand.cs" />
-    <Compile Include="Infastructure\Commands\SelectDrawingModeCommands\SelectCircleMode.cs" />
-    <Compile Include="Infastructure\Commands\SelectDrawingModeCommands\SelectLineMode.cs" />
-    <Compile Include="Infastructure\Commands\SelectDrawingModeCommands\SelectStationMode.cs" />
+    <Compile Include="Infrastructure\Commands\Base\Command.cs" />
+    <Compile Include="Infrastructure\Commands\CanvasMouseCommands\CanvasMouseDown.cs" />
+    <Compile Include="Infrastructure\Commands\CanvasMouseCommands\CanvasMouseMove.cs" />
+    <Compile Include="Infrastructure\Commands\CanvasMouseCommands\CanvasMouseUp.cs" />
+    <Compile Include="Infrastructure\Commands\LambdaCommand.cs" />
+    <Compile Include="Infrastructure\Commands\SelectDrawingModeCommands\SelectCircleMode.cs" />
+    <Compile Include="Infrastructure\Commands\SelectDrawingModeCommands\SelectLineMode.cs" />
+    <Compile Include="Infrastructure\Commands\SelectDrawingModeCommands\SelectStationMode.cs" />
     <Compile Include="Models\ElementsOfMap\CircleWay.cs" />
     <Compile Include="Models\ElementsOfMap\LineWay.cs" />
     <Compile Include="Models\ElementsOfMap\Station.cs" />
@@ -122,7 +124,6 @@
     <Resource Include="assets\station.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="assets\cursor-move.png" />
     <Resource Include="assets\cursor.png" />
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +139,8 @@
       <Name>DrawMapSubwayLibrary</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
