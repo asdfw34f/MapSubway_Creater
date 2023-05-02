@@ -130,6 +130,16 @@ namespace WpfApp1
                 AtrSt_grid.Visibility = Visibility.Visible;
 
                 modelStation ms = new modelStation(ellipse, lWays, eWays);
+                Point stTemp = ms.GetPoint();
+                if (stTemp == new Point(0, 0))
+                {
+                    return;
+                }
+                else
+                {
+                    Canvas.SetLeft(ellipse, stTemp.X);
+                    Canvas.SetTop(ellipse, stTemp.Y);
+                }
             }
         }
 

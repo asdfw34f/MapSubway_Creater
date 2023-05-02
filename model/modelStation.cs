@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows;
+using DrawMapMetroLibrary.Atributs;
 
 namespace EditorSubwayMap.model
 {
@@ -13,29 +14,47 @@ namespace EditorSubwayMap.model
     {
         private double _disEll = double.MaxValue;
         private double _disLine = double.MaxValue;
-        private Point _nearestPointEll;
+
+        private Point _nearestPointonEll = new Point();
         private Point _nearestPointLine;
+        private Ellipse _nearestEllipse = new Ellipse();
+
+        private Ellipse station { get; set; }
+        private List<Line> lineways { get; set; }
+        private List<Ellipse> ellipseways { get; set; }
 
         internal modelStation(Ellipse station, List<Line> lineways, List<Ellipse> ellipseways)
         {
+            this.station = station;
+            this.lineways = lineways;
+            this.ellipseways = ellipseways;
+        }
+
+        internal Point GetPoint()
+        {
             double disL = MoveEllipseToNearestLine(station, lineways);
             double disE = MoveEllipseToNearestEllipse(station, ellipseways);
-            if (disL == double.MaxValue && disL == double.MaxValue)
-                return;
-            else 
+
+            if (disL == double.MaxValue && disE == double.MaxValue)
+                return new Point(0, 0);
+            if (_disLine < _disEll)
             {
-                if (_disLine < _disEll)
-                {
-                    // Перемещаем Ellipse в ближайшую точку на ближайшей Line
-                    Canvas.SetLeft(station, _nearestPointLine.X - station.ActualWidth / 2);
-                    Canvas.SetTop(station, _nearestPointLine.Y - station.ActualHeight / 2);
-                }
-                else
-                {
-                    // Перемещаем Ellipse в ближайшую точку на ближайшем контуре Ellipse
-                    Canvas.SetLeft(station, _nearestPointEll.X - station.ActualWidth / 2);
-                    Canvas.SetTop(station, _nearestPointEll.Y - station.ActualHeight / 2);
-                }
+                // Перемещаем Ellipse в ближайшую точку на ближайшей Line
+                return new Point(
+                            _nearestPointLine.X - station.ActualWidth / 2,
+                            _nearestPointLine.Y - station.ActualHeight / 2
+                            );
+            }
+            else
+            {
+                // Перемещаем Ellipse в ближайшую точку на ближайшем контуре Ellipse
+                //Canvas.SetLeft(station, Canvas.GetLeft(_nearestEllipse) + _nearestPointonEll.X - station.Width / 2);
+                //Canvas.SetTop(station, Canvas.GetTop(_nearestEllipse) + _nearestPointonEll.Y - station.Height / 2);
+                Point n =  new Point(
+                            Canvas.GetLeft(_nearestEllipse) + _nearestPointonEll.X - station.Width / 2,
+                            Canvas.GetTop(_nearestEllipse) + _nearestPointonEll.Y - station.Height / 2
+                    );
+                return n;
             }
         }
 
@@ -93,39 +112,39 @@ namespace EditorSubwayMap.model
 
         private double MoveEllipseToNearestEllipse(Ellipse ellipse, List<Ellipse> ellipses)
         {
-            if (ellipses == null)
+            // список круговых веток метро
+            List<Ellipse> circles = ellipses;
+
+            // координаты новой станции
+            double stationX = Canvas.GetLeft(ellipse);
+            double stationY = Canvas.GetTop(ellipse);
+
+            // поиск ближайшей круговой ветки метро
+            double nearestDistance = double.MaxValue;
+
+            foreach (Ellipse circle in circles)
             {
-                return double.MaxValue;
-            }
+                // координаты центра круга
+                double centerX = Canvas.GetLeft(circle) + circle.Width / 2;
+                double centerY = Canvas.GetTop(circle) + circle.Height / 2;
 
-            // Проходим по всем Ellipse на Canvas, за исключением текущей
-            foreach (Ellipse otherEllipse in ellipses)
-            {
-                // Получаем границы текущей и другой Ellipse
-                Rect ellipseBounds = ellipse.RenderTransform.TransformBounds(new Rect(ellipse.RenderSize));
-                Rect otherEllipseBounds = otherEllipse.RenderTransform.TransformBounds(new Rect(otherEllipse.RenderSize));
+                // расстояние от станции до центра круга
+                double distance = Math.Sqrt(Math.Pow((centerX - stationX), 2) + Math.Pow((centerY - stationY), 2));
 
-                // Находим центр Ellipse и другой Ellipse
-                Point ellipseCenter = new Point(ellipseBounds.Left + ellipseBounds.Width / 2,
-                    ellipseBounds.Top + ellipseBounds.Height / 2);
-
-                Point otherEllipseCenter = new Point(otherEllipseBounds.Left + otherEllipseBounds.Width / 2,
-                    otherEllipseBounds.Top + otherEllipseBounds.Height / 2);
-
-                // Вычисляем расстояние между центром Ellipse и другой Ellipse
-                double distance = Math.Sqrt((ellipseCenter.X - otherEllipseCenter.X) *
-                    (ellipseCenter.X - otherEllipseCenter.X) + (ellipseCenter.Y - otherEllipseCenter.Y) *
-                    (ellipseCenter.Y - otherEllipseCenter.Y));
-
-                // Если расстояние меньше текущего минимального расстояния,
-                // то запоминаем новое минимальное расстояние и ближайшую точку
-                if (distance < _disEll)
+                if (distance < nearestDistance)
                 {
-                    _disEll = distance;
-                    _nearestPointEll = otherEllipseCenter;
+                    _nearestEllipse = circle;
+                    nearestDistance = distance;
                 }
             }
-            return _disEll;
+
+            // координаты станции на ближайшей круговой ветке метро
+            _nearestPointonEll = new Point(
+                (_nearestEllipse.Width / 2) * (stationX - Canvas.GetLeft(_nearestEllipse)) / (_nearestEllipse.Width / 2),
+                (_nearestEllipse.Height / 2) * (stationY - Canvas.GetTop(_nearestEllipse)) / (_nearestEllipse.Height / 2)
+                );
+
+            return nearestDistance;
         }
     }
 }
