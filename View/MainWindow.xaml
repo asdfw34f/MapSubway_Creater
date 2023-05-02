@@ -10,7 +10,6 @@
         Height="1027" 
         Width="1628"
         xmlns:vm="clr-namespace:EditorSubwayMap.ViewModels"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:views="clr-namespace:EditorSubwayMap.View"
         >
 
@@ -41,8 +40,8 @@
                 Background="Black" 
                 Grid.ColumnSpan="2">
 
-            <Grid x:Name="AtrSt_grid"
-                  Background="#FF43A49A" 
+            <Grid
+                Background="#FF43A49A" 
                   Canvas.Left="10" 
                   Canvas.Top="203" 
                   HorizontalAlignment="Center"
@@ -50,29 +49,22 @@
                   Height="336" Width="240"
                   Visibility="Visible">
 
-                <TextBox x:Name="AtrSt_NameSt" 
+                <TextBox x:Name="AtrStNameSt" 
                          Text="{Binding NameStation}"
                          HorizontalAlignment="Center" 
                          VerticalAlignment="Top" 
-                         Width="220" 
-                         Canvas.Left="9" 
-                         Canvas.Top="11" 
+                         Width="220"
                          Height="34" 
                          HorizontalContentAlignment="Center" 
                          VerticalContentAlignment="Center" 
                          FontSize="14" BorderBrush="Black" 
-                         Margin="0,13,0,0"
-                         >
-
-                </TextBox>
+                         Margin="0,13,0,0" />
 
 
-                <TextBox x:Name="AtrSt_NextWay" 
+                <TextBox x:Name="AtrStNextWay" 
                          Text="{Binding distanceNext}" 
                          Width="80" 
                          Height="30" 
-                         Canvas.Left="79" 
-                         Canvas.Top="185" 
                          HorizontalAlignment="Left" 
                          VerticalAlignment="Top"
                          FontSize="14" 
@@ -80,13 +72,10 @@
                          HorizontalContentAlignment="Center" 
                          BorderBrush="Black" 
                          Margin="145,158,0,0"
-                         Background="#FF32C8BE">
-                </TextBox>
+                         Background="#FF32C8BE" />
 
-                <Label x:Name="lBackWay" 
-                       FontSize="11" 
-                       Canvas.Left="8"
-                       Canvas.Top="152" 
+                <Label x:Name="LBackWay" 
+                       FontSize="11"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
                        FontWeight="Bold" 
@@ -101,9 +90,7 @@
                     </TextBlock>
                 </Label>
 
-                <Label x:Name="lBackWay_Copy" 
-                       Canvas.Left="9"
-                       Canvas.Top="225" 
+                <Label x:Name="LBackWayCopy" 
                        Height="40" 
                        HorizontalAlignment="Left" 
                        VerticalAlignment="Center" 
@@ -124,9 +111,7 @@
 
                 <Button Background="#FF77FFF2" 
                         Height="37"
-                        x:Name="btnAddStation"
-                        Canvas.Left="10" 
-                        Canvas.Top="257" 
+                        x:Name="BtnAddStation"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Top"
                         FontSize="10"
@@ -137,11 +122,9 @@
                         Margin="0,285,0,0"
                         Width="140"/>
 
-                <ComboBox x:Name="AtrSt_NameWay"
+                <ComboBox x:Name="AtrStNameWay"
                           Text="Ветка"
                           Width="220" 
-                          Canvas.Left="9" 
-                          Canvas.Top="60"
                           FontSize="14" 
                           HorizontalAlignment="Center" 
                           VerticalAlignment="Top"
@@ -151,10 +134,8 @@
                           BorderBrush="Black" 
                           Margin="0,65,0,0" />
 
-                <TextBox x:Name="AtrSt_BackWay"
+                <TextBox x:Name="AtrStBackWay"
                          Text="{Binding distanceBack}" 
-                         Canvas.Left="79" 
-                         Canvas.Top="110"
                          HorizontalAlignment="Left" 
                          VerticalAlignment="Top"
                          FontSize="14"
@@ -166,10 +147,8 @@
                          Width="80" 
                          Background="#FF32C8BE" d:LayoutOverrides="VerticalAlignment"/>
 
-                <Label x:Name="success"
-                       Content="Станция добавлена!" 
-                       Canvas.Left="10" 
-                       Canvas.Top="120" 
+                <Label x:Name="Success"
+                       Content="Станция добавлена!"
                        Height="40" 
                        Background="{x:Null}" 
                        Margin="57,229,59,0"
@@ -184,7 +163,7 @@
                        Visibility="Hidden"/>
             </Grid>
 
-            <ComboBox Name="cboColors" 
+            <ComboBox Name="ComboColors" 
                       SelectedValuePath="Name" 
                       Height="30" 
                       Width="240" 
@@ -204,10 +183,9 @@
                                     CornerRadius="2" 
                                     BorderBrush="Black" 
                                     Width="50" 
-                                    VerticalAlignment="Stretch"
-                                    Background="{Binding Name}"/>
+                                    VerticalAlignment="Stretch"/>
 
-                            <TextBlock Text="{Binding Name}" 
+                            <TextBlock Text="" 
                                        Margin="8,0,0,0"/>
                         </StackPanel>
                     </DataTemplate>
@@ -229,8 +207,8 @@
                    Canvas.Left="10" Canvas.Top="5"/>
 
             <!-- Select the pen Buttons-->
-            <Button x:Name="btnPath"
-                    Canvas.Top="39" 
+            <Button
+                Canvas.Top="39" 
                     Canvas.Left="10"
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top"
@@ -246,7 +224,7 @@
                 </Button.Background>
             </Button>
 
-            <Button x:Name="btnEllipse"
+            <Button x:Name="BtnEllipse"
                     Width="50" Height="50"
                     Canvas.Top="39"
                     HorizontalAlignment="Center"
@@ -261,7 +239,7 @@
                 </Button.Background>
             </Button>
 
-            <Button x:Name="btnStation" 
+            <Button x:Name="BtnStation" 
                     Cursor="Hand"
                     Canvas.Top="39"
                     Width="50"
@@ -278,7 +256,7 @@
                 </Button.Background>
             </Button>
 
-            <Button x:Name="btnCursor" 
+            <Button x:Name="BtnCursor" 
                     Cursor="Hand"
                     Canvas.Top="39" 
                     Canvas.Left="200"
@@ -314,7 +292,7 @@
                    VerticalAlignment="Center"/>
 
             <!--Open the map button-->
-            <Button x:Name="btnOpenMap"
+            <Button x:Name="BtnOpenMap"
                     Cursor="Hand"
                     Content="Открыть схему"
                     Canvas.Bottom="5" 
@@ -330,7 +308,7 @@
                     FontWeight="Bold" />
 
             <!--Save the map button-->
-            <Button x:Name="btnSave"
+            <Button x:Name="BtnSave"
                     Cursor="Hand"
                     Content="Сохранить схему"
                     Canvas.Bottom="5" 
@@ -394,7 +372,7 @@
                    HorizontalAlignment="Left" 
                    VerticalAlignment="Center"/>
 
-            <Button x:Name="btnRemoveAll"
+            <Button x:Name="BtnRemoveAll"
                     Cursor="Hand"
                     Content="Удалить всё"
                     Canvas.Bottom="80" 
@@ -412,7 +390,7 @@
             <Grid Background="#FF22847B" 
                   Canvas.Left="10"
                   Canvas.Top="189" 
-                  x:Name="AtrWay_grid"
+                  x:Name="AtrWayGrid"
                   Height="143"
                   Width="240"
                   Visibility="Hidden"
@@ -421,9 +399,7 @@
 
                 <Button Background="#FF77FFF2" 
                         Height="32"
-                        x:Name="btnAddWay"
-                        Canvas.Left="10" 
-                        Canvas.Top="257"
+                        x:Name="BtnAddWay"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Top" 
                         FontSize="10"
@@ -434,13 +410,11 @@
                         Margin="0,88,0,0"
                         Width="146"/>
 
-                <TextBox x:Name="AWay_Name" 
+                <TextBox x:Name="AWayName" 
                          Text="Название ветки:" 
                          HorizontalAlignment="Center" 
                          VerticalAlignment="Top" 
                          Width="220" 
-                         Canvas.Left="9" 
-                         Canvas.Top="11"
                          Height="34" 
                          HorizontalContentAlignment="Center" 
                          VerticalContentAlignment="Center" 
@@ -448,9 +422,11 @@
                          BorderBrush="Black" 
                          Margin="0,21,0,0"/>
             </Grid>
-            <Label x:Name="labelX" 
+            
+            <Label x:Name="LabelX" 
                    Canvas.Left="182" 
                    Canvas.Bottom="143" 
+                   Content="{Binding labelX}"
                    Height="27" 
                    Width="68" 
                    HorizontalContentAlignment="Center"
@@ -463,9 +439,10 @@
                    Foreground="#FF13F7E8">
             </Label>
 
-            <Label x:Name="labelY" 
+            <Label x:Name="LabelY" 
                    Canvas.Right="10" 
                    Canvas.Bottom="115" 
+                   Content="{Binding labelY}"
                    Height="28"
                    Width="68" 
                    HorizontalContentAlignment="Center"
@@ -478,20 +455,36 @@
                    Canvas.Left="182" 
                    Foreground="#FF13F7E8"/>
         </Canvas>
-        <ScrollViewer x:Name="Scrolling"
-                      VerticalScrollBarVisibility="Auto"
-                      Grid.Row="0" Grid.Column="2"
-                      Grid.RowSpan="3"
-                      Grid.ColumnSpan="2">
-            <views:CanvasView  
-                x:Name="CanvasViewControl" 
-                AllowDrop="True" 
-                Grid.Row="0"
-                Grid.Column="2"
-                Grid.RowSpan="3" 
-                Grid.ColumnSpan="2"
-            Focusable="True"/>
-
-        </ScrollViewer>
+ 
+                <views:CanvasView x:Name="CanvasViewControl" 
+                                  AllowDrop="True" 
+                                  Margin="0, 0, 0, 0"
+                                  HorizontalContentAlignment="Center"
+                                  Grid.Row="0" Grid.Column="2"
+                                  Grid.RowSpan="3"
+                                  Grid.ColumnSpan="2"
+                                  Visibility="Visible" 
+                                  Focusable="True" Loaded="CanDrawing_Loaded"
+                                  >
+                    <views:CanvasView.Background>
+                        
+                        <DrawingBrush TileMode="FlipXY" 
+                                      Viewport="-20,-10,20,20" 
+                                      ViewportUnits="Absolute" 
+                                      Stretch="UniformToFill">
+                            <DrawingBrush.Drawing>
+                                <GeometryDrawing>
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry Rect="0,0,50,50"/>
+                                    </GeometryDrawing.Geometry>
+                                    <GeometryDrawing.Pen>
+                                        <Pen Brush="Gray" 
+                                             Thickness="1"/>
+                                    </GeometryDrawing.Pen>
+                                </GeometryDrawing>
+                            </DrawingBrush.Drawing>
+                        </DrawingBrush>
+                    </views:CanvasView.Background>
+                </views:CanvasView>
     </Grid>
 </Window>

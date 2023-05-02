@@ -1,13 +1,8 @@
 ﻿using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
 using EditorSubwayMap.Models;
-using EditorSubwayMap.Infastructure.Commands;
-
-using System;
-using System.Reflection.Emit;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -18,37 +13,26 @@ namespace EditorSubwayMap.ViewModels
 {
     public class CanvasViewModel : ViewModel
     {
+        public MyCanvas DrawingBoard
+        { get;
+            set; }
         private MainViewModel _mainvm;
-        public MyCanvas DrawingBoard { get; set; }
 
-        #region  X Y labels
-
-        private string _labelX = "0";
-        public string labelX
-        {
-            get => _labelX;
-            set => Set(ref _labelX, value);
-        }
-
-        private string _labelY = "0";
-        public string labelY
-        {
-            get => _labelY;
-            set => Set(ref _labelY, value);
-        }
-
-        #endregion
         public CanvasViewModel(MainViewModel mainvm)
         {
-            _mainvm = mainvm;
-            DrawingBoard = new MyCanvas { canvas = new Canvas(), isDrawing = false};
-            DrawingBoard.canvas.Background = new SolidColorBrush(Colors.WhiteSmoke);
-            DrawingBoard.canvas.AllowDrop = true;
-            DrawingBoard.canvas.Focusable = true;
-            DrawingBoard.canvas.MouseDown += CanvasClicked;
-            DrawingBoard.canvas.MouseMove += CanvasMove;
-            DrawingBoard.canvas.MouseUp += CanvasRelease;
-            DrawingBoard.canvas.PreviewMouseMove += CanvasMove;
+            this._mainvm = mainvm;
+            DrawingBoard = new MyCanvas
+            {
+                DrawingCanvas = new Canvas(),
+                IsDrawing = false
+            };
+            DrawingBoard.DrawingCanvas.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            DrawingBoard.DrawingCanvas.AllowDrop = true;
+            DrawingBoard.DrawingCanvas.Focusable = true;
+            DrawingBoard.DrawingCanvas.MouseLeftButtonDown += CanvasDown;
+            DrawingBoard.DrawingCanvas.MouseMove += CanvasMove;
+            DrawingBoard.DrawingCanvas.MouseLeftButtonUp += CanvasRelease;
+            DrawingBoard.DrawingCanvas.PreviewMouseMove += CanvasMove;
         }
 
         public void DrawShape()
@@ -59,6 +43,7 @@ namespace EditorSubwayMap.ViewModels
         DrawEllipse drawCircle = new DrawEllipse();
         DrawLine drawLine = new DrawLine();
         DrawStation drawStation = new DrawStation();
+//     <ContentPresenter Content="{Binding Path=DrawingBoard.DrawingCanvas}"/>
 
         Ellipse circle;
         Line line;
@@ -66,33 +51,33 @@ namespace EditorSubwayMap.ViewModels
 
         private void CanvasMove(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed && DrawingBoard.isDrawing == true)
+            if (e.LeftButton == MouseButtonState.Pressed && DrawingBoard.IsDrawing == true)
                 switch (DrawingBoard.DrawMode)
                 {
                     //  DRAW LINE 
                     case "Line":
-                        line.X2 = e.GetPosition(DrawingBoard.canvas).X;
-                        line.Y2 = e.GetPosition(DrawingBoard.canvas).Y;
+                        line.X2 = e.GetPosition(DrawingBoard.DrawingCanvas).X;
+                        line.Y2 = e.GetPosition(DrawingBoard.DrawingCanvas).Y;
                         break;
 
                     //  DRAW ELLIPSE
                     case "Circle":
-                        drawCircle.currentP = e.GetPosition(DrawingBoard.canvas);
+                        drawCircle.currentP = e.GetPosition(DrawingBoard.DrawingCanvas);
                         circle = drawCircle.EditSize(circle);
                         break;
                 }
-            labelX = "X: " + e.GetPosition(DrawingBoard.canvas).X;
-            labelY = "Y: " + e.GetPosition(DrawingBoard.canvas).Y;
+            _mainvm.labelX = "X: " + e.GetPosition(DrawingBoard.DrawingCanvas).X;
+            _mainvm.labelY = "Y: " + e.GetPosition(DrawingBoard.DrawingCanvas).Y;
         }
 
-        private void CanvasRelease(object sender, RoutedEventArgs e)
+        private void CanvasRelease(object sender, MouseEventArgs e)
         {
 
         }
 
-        private void CanvasClicked(object sender, RoutedEventArgs e)
+        private void CanvasDown(object sender, MouseEventArgs e)
         {
-
+            
         }
 
         private void ShapeMove(object sender, RoutedEventArgs e)

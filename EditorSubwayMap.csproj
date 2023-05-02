@@ -59,10 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="View\CanvasView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Page Include="View\CanvasView.xaml" />
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -73,7 +70,6 @@
     </Compile>
     <Compile Include="Infrastructure\Commands\Base\Command.cs" />
     <Compile Include="Infrastructure\Commands\LambdaCommand.cs" />
-    <Compile Include="Infrastructure\Commands\RelayCommand.cs" />
     <Compile Include="Models\CanvasModel.cs" />
     <Compile Include="Models\ElementsOfMap\CircleWay.cs" />
     <Compile Include="Models\ElementsOfMap\LineWay.cs" />

@@ -22,7 +22,8 @@ namespace WpfApp1
 
         private void CanDrawing_Loaded(object sender, RoutedEventArgs e)
         {
-            CanvasViewControl.DataContext = _mainvm.canvasVM;
+            //CanvasViewControl.DataContext = _mainvm.canvasVM;
+            CanvasViewControl.DataContext = _mainvm.canvasVM.DrawingBoard.DrawingCanvas;
         }
     }
 }
