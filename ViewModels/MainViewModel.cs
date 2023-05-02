@@ -3,7 +3,6 @@ using EditorSubwayMap.Infastructure.Commands;
 using EditorSubwayMap.Infrastructure;
 using EditorSubwayMap.Model;
 using EditorSubwayMap.ViewModels.Base;
-using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,8 +12,10 @@ using System.Windows.Shapes;
 
 namespace EditorSubwayMap.ViewModels
 {
-    internal class MainViewModel : ViewModel
+    public class MainViewModel : ViewModel
     {
+        public CanvasViewModel canvasVM;
+
         #region  X Y labels
         
         private string _labelX = "0";
@@ -153,11 +154,13 @@ namespace EditorSubwayMap.ViewModels
             SelectDrawNoneCommand = new LambdaCommand(OnSelectDrawNoneCommand, CanSelectDrawNoneCommand);
             #endregion
             MouseMoveCommand = new LambdaCommand(OnMouseMoveCommand, canMouseMoveCommand);
-
-            Canvas.MouseDown += Canvas_MouseDown;
-            Canvas.MouseUp += Canvas_MouseUp;
-            Canvas.MouseMove += Canvas_MouseMove;
-
+            canvasVM = new CanvasViewModel(this);
+            labelX = canvasVM.labelX;
+            labelY = canvasVM.labelY;
+            //Canvas.MouseDown += Canvas_MouseDown;
+            //Canvas.MouseUp += Canvas_MouseUp;
+            //Canvas.MouseMove += Canvas_MouseMove;
+            //
         }
 
         private ICommand _mouseClick;
@@ -271,7 +274,5 @@ namespace EditorSubwayMap.ViewModels
             labelX = "X: " + e.GetPosition(Canvas).X;
             labelY = "Y: " + e.GetPosition(Canvas).Y;
         }
-
-
     }
 }

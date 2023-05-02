@@ -11,7 +11,7 @@
         Width="1628"
         xmlns:vm="clr-namespace:EditorSubwayMap.ViewModels"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:MouseEvents="clr-namespace:EditorSubwayMap.Infrastructure.MouseByhaviours"
+        xmlns:views="clr-namespace:EditorSubwayMap.View"
         >
 
     <Window.DataContext>
@@ -80,7 +80,8 @@
                          HorizontalContentAlignment="Center" 
                          BorderBrush="Black" 
                          Margin="145,158,0,0"
-                         Background="#FF32C8BE"/>
+                         Background="#FF32C8BE">
+                </TextBox>
 
                 <Label x:Name="lBackWay" 
                        FontSize="11" 
@@ -448,7 +449,6 @@
                          Margin="0,21,0,0"/>
             </Grid>
             <Label x:Name="labelX" 
-                   Content="{Binding labelX}" 
                    Canvas.Left="182" 
                    Canvas.Bottom="143" 
                    Height="27" 
@@ -460,10 +460,10 @@
                    Background="Black" 
                    HorizontalAlignment="Left"
                    VerticalAlignment="Top" 
-                   Foreground="#FF13F7E8"/>
+                   Foreground="#FF13F7E8">
+            </Label>
 
             <Label x:Name="labelY" 
-                   Content="{Binding labelY}" 
                    Canvas.Right="10" 
                    Canvas.Bottom="115" 
                    Height="28"
@@ -478,36 +478,20 @@
                    Canvas.Left="182" 
                    Foreground="#FF13F7E8"/>
         </Canvas>
-
-        <Canvas x:Name="canDrawing"
+        <ScrollViewer x:Name="Scrolling"
+                      VerticalScrollBarVisibility="Auto"
+                      Grid.Row="0" Grid.Column="2"
+                      Grid.RowSpan="3"
+                      Grid.ColumnSpan="2">
+            <views:CanvasView  
+                x:Name="CanvasViewControl" 
+                AllowDrop="True" 
                 Grid.Row="0"
                 Grid.Column="2"
                 Grid.RowSpan="3" 
                 Grid.ColumnSpan="2"
-                ScrollViewer.CanContentScroll="True" 
-                ScrollViewer.VerticalScrollBarVisibility="Visible"
-                MouseEvents:MouseBehaviour.MouseMoveCommand="{Binding MouseMoveCommand}"
-                >
-            
+            Focusable="True"/>
 
-            <Canvas.Background>
-                <DrawingBrush TileMode="FlipXY" 
-                              Viewport="-20,-10,20,20" 
-                              ViewportUnits="Absolute" 
-                              Stretch="UniformToFill">
-                    <DrawingBrush.Drawing>
-                        <GeometryDrawing>
-                            <GeometryDrawing.Geometry>
-                                <RectangleGeometry Rect="0,0,50,50"/>
-                            </GeometryDrawing.Geometry>
-                            <GeometryDrawing.Pen>
-                                <Pen Brush="Gray" 
-                                     Thickness="1"/>
-                            </GeometryDrawing.Pen>
-                        </GeometryDrawing>
-                    </DrawingBrush.Drawing>
-                </DrawingBrush>
-            </Canvas.Background>
-        </Canvas>
+        </ScrollViewer>
     </Grid>
 </Window>

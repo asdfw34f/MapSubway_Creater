@@ -11,10 +11,18 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
+        MainViewModel _mainvm;
+
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+            _mainvm = new MainViewModel();
+            DataContext = _mainvm;
+        }
+
+        private void CanDrawing_Loaded(object sender, RoutedEventArgs e)
+        {
+            CanvasViewControl.DataContext = _mainvm.canvasVM;
         }
     }
 }
