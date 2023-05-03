@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using EditorSubwayMap.Data.ElementsOfMap;
 
 namespace EditorSubwayMap.Models.ElementsOfMap
 {

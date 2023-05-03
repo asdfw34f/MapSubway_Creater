@@ -1,11 +1,10 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
 using System.Windows.Shapes;
 using EditorSubwayMap.Infastructure.Commands;
-using EditorSubwayMap.Infastructure.Commands.CanvasMouseEvents;
 using EditorSubwayMap.ViewModels.Base;
 using WpfApp1.Data;
 
@@ -13,12 +12,7 @@ namespace EditorSubwayMap.ViewModels
 {
     public class CanvasViewModel : ViewModel
     {
-        private CanvasEventsCommands _commands;
-        public CanvasEventsCommands Commands
-        {
-            get => _commands;
-        }
-
+        #region Propertyes
         private string _positionx = "0";
         public string PositionX
         {
@@ -32,9 +26,9 @@ namespace EditorSubwayMap.ViewModels
             get => _positiony;
             set => Set(ref _positiony, value);
         }
+        #endregion
         
-        
-    DrawEllipse DCircle = new DrawEllipse();
+        DrawEllipse DCircle = new DrawEllipse();
         DrawLine DLine = new DrawLine();
         DrawStation DStation = new DrawStation();
 
@@ -55,7 +49,7 @@ namespace EditorSubwayMap.ViewModels
             else if (DrawingOnCanvas.Drawing == DrawingOnCanvas.Modes.Station)
             {
                 DStation.Pstart = Mouse.GetPosition(p as Canvas);
-                //DStation.color = convColors.ConvertFromString(Color) as Brush;
+                DStation.color = Brushes.Black;
                 _Circle = DStation.Draw();
                 DrawingOnCanvas.DrawingBoard.Children.Add(_Circle);
             }
@@ -70,13 +64,12 @@ namespace EditorSubwayMap.ViewModels
             {
                 case DrawingOnCanvas.Modes.None:
                     break;
-
                 //  DRAW LINE 
                 case  DrawingOnCanvas.Modes.Line:
                     //NameWay = "Название ветки: ";
                     DLine.Pstart = Mouse.GetPosition(p as Canvas);
                     DLine.Pend = Mouse.GetPosition(p as Canvas);
-                    // DLine.color = convColors.ConvertFromString(Color) as Brush;
+                    DLine.color = Brushes.Black;
 
                     _Line = DLine.Draw();
                     DrawingOnCanvas.DrawingBoard.Children.Add(_Line);
@@ -90,7 +83,7 @@ namespace EditorSubwayMap.ViewModels
                 case  DrawingOnCanvas.Modes.Circle:
                     //NameWay = "Название ветки: ";
                     DCircle.Pstart = Mouse.GetPosition(p as Canvas);
-                    //      DCircle.color = convColors.ConvertFromString(Color) as Brush;
+                    DCircle.color = Brushes.Black;
                     DCircle.currentP = Mouse.GetPosition(p as Canvas);
 
                     _Circle = DCircle.Draw();
@@ -108,19 +101,18 @@ namespace EditorSubwayMap.ViewModels
                 //  DRAW LINE 
                 case DrawingOnCanvas.Modes.Line:
                     //ViewModel   //View
-                    //         line.X2 = e.GetPosition(DrawingBoard.DrawingCanvas).X;
-                    //         line.Y2 = e.GetPosition(DrawingBoard.DrawingCanvas).Y;
+                    _Line.X2 = Mouse.GetPosition(p as Canvas).X;
+                    _Line.Y2 = Mouse.GetPosition(p as Canvas).Y;
                     break;
 
                 //  DRAW ELLIPSE
                 case DrawingOnCanvas.Modes.Circle:
-                    //                drawCircle.currentP = e.GetPosition(DrawingBoard.DrawingCanvas);
+                    DCircle.currentP = Mouse.GetPosition(p as Canvas);
                     _Circle = DCircle.EditSize(_Circle);
                     break;
             }
-
-            PositionX = "X: " + Mouse.GetPosition(p as Canvas).X.ToString();
-            PositionY = "Y: " + Mouse.GetPosition(p as Canvas).Y.ToString();
+            PositionX = "X: " + Mouse.GetPosition(p as Canvas).X;
+            PositionY = "Y: " + Mouse.GetPosition(p as Canvas).Y;
         }
 
         internal CanvasViewModel()

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using EditorSubwayMap.Models;
 
-namespace EditorSubwayMap.Models
+namespace EditorSubwayMap.Data.ElementsOfMap
 {
     public class CircleWay
     {

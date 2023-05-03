@@ -1,7 +1,7 @@
 ﻿using AtributsSubwauLibrary.Model;
 using System.Collections.Generic;
 
-namespace EditorSubwayMap.Models
+namespace EditorSubwayMap.Data
 {
     public class RouteSubway
     {

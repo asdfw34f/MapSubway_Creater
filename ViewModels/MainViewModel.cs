@@ -1,69 +1,13 @@
-﻿using EditorSubwayMap.DrawFigure;
+﻿using System;
 using EditorSubwayMap.Infastructure.Commands;
-using EditorSubwayMap.Model;
 using EditorSubwayMap.ViewModels.Base;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using WpfApp1.Data;
 
 namespace EditorSubwayMap.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-        #region  X Y labels
-        
-        private string _labelX = "0";
-        public string labelX
-        {
-            get => _labelX;
-            set => Set(ref _labelX, value);
-        }
-
-        private string _labelY = "0";
-        public string labelY
-        {
-            get => _labelY;
-            set => Set(ref _labelY, value);
-        }
-
-        #endregion
-
-        #region Canvas Property
-
-        private List<UIElement> _Children;
-        public List<UIElement> Children
-        {
-            get => _Children;
-            set => Set(ref _Children, value);
-        }
-
-        private Canvas _Canvas = new Canvas();
-        public Canvas Canvas
-        {
-            get => _Canvas;
-            set => Set(ref _Canvas, value);
-        }
-
-        private bool _isDrawing;
-        public bool isDrawing
-        {
-            get => _isDrawing;
-            set => Set(ref _isDrawing, value);
-        }
-
-        private string _Color;
-        public string Color
-        {
-            get => _Color;
-            set => Set(ref _Color, value);
-        }
-
-        #endregion
-
         #region Add come station
 
         private string _NameStation;
@@ -100,10 +44,6 @@ namespace EditorSubwayMap.ViewModels
 
         #endregion
 
-
-
-        BrushConverter convColors;
-
         #region Select the drawing mode 
 
         public ICommand SelectDrawLineCommand{ get; }
@@ -124,9 +64,32 @@ namespace EditorSubwayMap.ViewModels
 
         #endregion
 
+        #region Map Commands
+
+        public ICommand Save { get; }
+        private bool CanSaved(Object p) => true;
+
+        private void SaveExecute(Object p)
+        {
+            
+        }
+
+        public ICommand Import { get; }
+        private bool CanImport(Object p) => true;
+
+        private void ImportExecute(Object p)
+        {
+            
+        }
+        #endregion
+
         public MainViewModel()
         {
-            //     <ContentPresenter Name="Cont" Content="{Binding Path=DrawingBoard.DrawingCanvas}">
+            #region Map Commands
+            Import = new LambdaCommand(ImportExecute, CanImport);
+            Save = new LambdaCommand(SaveExecute, CanSaved);
+            #endregion            
+            
             #region Select the drawing mode 
             SelectDrawLineCommand = new LambdaCommand(OnSelectDrawLineCommand, CanSelectDrawLineCommand);
             SelectDrawCircleCommand = new LambdaCommand(OnSelectDrawCircleCommand, CanSelectDrawCircleCommand);

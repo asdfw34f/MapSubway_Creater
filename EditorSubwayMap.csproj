@@ -59,8 +59,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="View\AddingStationView.xaml" />
-    <Page Include="View\AddingWayView.xaml" />
     <Page Include="View\CanvasView.xaml" />
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -71,23 +69,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Data\DrawingOnCanvas.cs" />
+    <Compile Include="Data\ElementsOfMap\CircleWay.cs" />
+    <Compile Include="Data\ElementsOfMap\LineWay.cs" />
+    <Compile Include="Data\ElementsOfMap\Station.cs" />
+    <Compile Include="Data\RouteSubway.cs" />
     <Compile Include="Infrastructure\Commands\Base\Command.cs" />
-    <Compile Include="Infrastructure\Commands\CanvasCommands\CanvasEventsCommands.cs" />
     <Compile Include="Infrastructure\Commands\LambdaCommand.cs" />
     <Compile Include="Models\CanvasModel.cs" />
-    <Compile Include="Models\ElementsOfMap\CircleWay.cs" />
-    <Compile Include="Models\ElementsOfMap\LineWay.cs" />
-    <Compile Include="Models\ElementsOfMap\Station.cs" />
-    <Compile Include="Models\RouteSubway.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Compile Include="ViewModels\CanvasViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="View\AddingStationView.xaml.cs">
-      <DependentUpon>AddingStationView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\AddingWayView.xaml.cs">
-      <DependentUpon>AddingWayView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\CanvasView.xaml.cs">
       <DependentUpon>CanvasView.xaml</DependentUpon>
     </Compile>

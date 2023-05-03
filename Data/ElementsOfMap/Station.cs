@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace EditorSubwayMap.Models
+namespace EditorSubwayMap.Data.ElementsOfMap
 {
     public class Station
     {

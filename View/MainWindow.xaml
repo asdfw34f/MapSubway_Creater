@@ -422,50 +422,21 @@
                          BorderBrush="Black" 
                          Margin="0,21,0,0"/>
             </Grid>
-            
-            <Label x:Name="LabelX" 
-                   Canvas.Left="182" 
-                   Canvas.Bottom="143" 
-                   Content="{Binding labelX}"
-                   Height="27" 
-                   Width="68" 
-                   HorizontalContentAlignment="Center"
-                   VerticalContentAlignment="Center"
-                   FontSize="14" 
-                   FontWeight="Bold" 
-                   Background="Black" 
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top" 
-                   Foreground="#FF13F7E8">
-            </Label>
-
-            <Label x:Name="LabelY" 
-                   Canvas.Right="10" 
-                   Canvas.Bottom="115" 
-                   Content="{Binding labelY}"
-                   Height="28"
-                   Width="68" 
-                   HorizontalContentAlignment="Center"
-                   VerticalContentAlignment="Center"
-                   FontSize="14" 
-                   FontWeight="Bold" 
-                   Background="Black" 
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top" 
-                   Canvas.Left="182" 
-                   Foreground="#FF13F7E8"/>
         </Canvas>
+        
         <UserControl
-            Grid.Row="0" Grid.Column="2"
-                                 Grid.RowSpan="3"
-                                 Grid.ColumnSpan="2">
+            Grid.Row="0" 
+            Grid.Column="2"
+            Grid.RowSpan="3"
+            Grid.ColumnSpan="2">
+            
             <UserControl.DataContext>
                 <vm:CanvasViewModel/>
             </UserControl.DataContext>
+            
             <UserControl.Content>
                     <views:CanvasView></views:CanvasView>
             </UserControl.Content>
-      
         </UserControl>
                 <Canvas Margin="0"
                                           />
