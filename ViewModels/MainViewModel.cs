@@ -3,12 +3,13 @@ using EditorSubwayMap.Infastructure.Commands;
 using EditorSubwayMap.ViewModels.Base;
 using System.Windows.Input;
 using WpfApp1.Data;
+using EditorSubwayMap.Models;
 
 namespace EditorSubwayMap.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-
+        public MainModel model = new MainModel();
 
         #region Select the drawing mode 
 

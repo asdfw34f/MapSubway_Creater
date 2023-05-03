@@ -171,8 +171,9 @@
                       Canvas.Top="144" 
                       HorizontalAlignment="Center" 
                       VerticalAlignment="Top" 
-                      BorderBrush="Cyan">
-
+                      BorderBrush="Cyan" 
+                      ItemsSource="{Binding Path=model.Brushes}" 
+                      >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" 
@@ -429,13 +430,9 @@
             Grid.Column="2"
             Grid.RowSpan="3"
             Grid.ColumnSpan="2">
-            
-            <UserControl.DataContext>
-                <vm:CanvasViewModel/>
-            </UserControl.DataContext>
-            
+        
             <UserControl.Content>
-                    <views:CanvasView></views:CanvasView>
+                <views:CanvasView/>
             </UserControl.Content>
         </UserControl>
                 <Canvas Margin="0"

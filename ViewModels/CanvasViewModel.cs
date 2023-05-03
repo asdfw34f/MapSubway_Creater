@@ -13,7 +13,7 @@ namespace EditorSubwayMap.ViewModels
 {
     public class CanvasViewModel : ViewModel
     {
-        public static CanvasModel DrawingBoard;
+        public static CanvasModel DrawingBoard = new CanvasModel();
 
         #region Propertyes
         private string _positionx = "0";
@@ -119,7 +119,7 @@ namespace EditorSubwayMap.ViewModels
             PositionY = "Y: " + Mouse.GetPosition(p as Canvas).Y;
         }
 
-        internal CanvasViewModel()
+        public CanvasViewModel()
         {
             MouseMove = new LambdaCommand(OnMouseMove, CanMouseMoved);
             MouseDown = new LambdaCommand(OnMouseDown, CanMouseDown);

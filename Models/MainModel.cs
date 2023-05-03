@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Windows.Media;
 
 namespace EditorSubwayMap.Models
 {
     public class MainModel : Base.Model
     {
-        Base.Model model;
         private struct Station
         {
             public string _NameStation;
@@ -23,12 +21,9 @@ namespace EditorSubwayMap.Models
             public string NameWay;
         }
 
-        private List<string> _WayList;
-
-        public List<object> BrushList { get; } 
-
 
         #region Fields
+        private List<string> _WayList = new List<string>();
         private Station _Station = new Station()
         {
             _NameStation = "Название станции",
@@ -66,14 +61,13 @@ namespace EditorSubwayMap.Models
             set => Set(ref _Way.NameWay, value);
         }
 
-        public Array Brushes { get; }
-
         public MainModel()
         {
-            BrushConverter conv = new BrushConverter();
-            Brushes = typeof(Brushes).GetProperties().
-                Select(p => new { Name = p.Name, Brush = p.GetValue(null) as Brush }).
-                ToArray();
+            var values = typeof(Brushes).GetProperties().
+                 Select(p => new { Name = p.Name, Brush = p.GetValue(null) as Brush }).
+                 ToArray();
+            Type Brushes =  values.GetType();
+            
         }
     }
 }
