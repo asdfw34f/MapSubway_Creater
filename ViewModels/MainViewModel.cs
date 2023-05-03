@@ -1,6 +1,5 @@
 ﻿using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Infastructure.Commands;
-using EditorSubwayMap.Infrastructure;
 using EditorSubwayMap.Model;
 using EditorSubwayMap.ViewModels.Base;
 using System.Collections.Generic;
@@ -147,35 +146,15 @@ namespace EditorSubwayMap.ViewModels
 
         public MainViewModel()
         {
+            canvasVM = new CanvasViewModel(this);
+            
             #region Select the drawing mode 
             SelectDrawLineCommand = new LambdaCommand(OnSelectDrawLineCommand, CanSelectDrawLineCommand);
             SelectDrawCircleCommand = new LambdaCommand(OnSelectDrawCircleCommand, CanSelectDrawCircleCommand);
             SelectDrawStationCommand = new LambdaCommand(OnSelectDrawStationCommand, CanSelectDrawStationCommand);
             SelectDrawNoneCommand = new LambdaCommand(OnSelectDrawNoneCommand, CanSelectDrawNoneCommand);
             #endregion
-            MouseMoveCommand = new LambdaCommand(OnMouseMoveCommand, canMouseMoveCommand);
-            canvasVM = new CanvasViewModel(this);
-            labelX = canvasVM.labelX;
-            labelY = canvasVM.labelY;
-            //Canvas.MouseDown += Canvas_MouseDown;
-            //Canvas.MouseUp += Canvas_MouseUp;
-            //Canvas.MouseMove += Canvas_MouseMove;
-            //
-        }
-
-        private ICommand _mouseClick;
-        public ICommand MouseClick
-        {
-            get
-            {
-                return _mouseClick ?? (_mouseClick = new RelayCommand<object>(
-                          x => { DoStuffWhenMouseClicked(); }));
-            }
-        }
-
-        private static void DoStuffWhenMouseClicked()
-        {
-            MessageBox.Show("Mouse click event handled!");
+            
         }
 
         public void Canvas_MouseUp(object sender, MouseButtonEventArgs e)
