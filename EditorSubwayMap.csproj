@@ -59,6 +59,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="View\AddingStationView.xaml" />
+    <Page Include="View\AddingWayView.xaml" />
     <Page Include="View\CanvasView.xaml" />
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -68,6 +70,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Data\DrawingOnCanvas.cs" />
     <Compile Include="Infrastructure\Commands\Base\Command.cs" />
     <Compile Include="Infrastructure\Commands\LambdaCommand.cs" />
     <Compile Include="Models\CanvasModel.cs" />
@@ -78,6 +81,12 @@
     <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Compile Include="ViewModels\CanvasViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="View\AddingStationView.xaml.cs">
+      <DependentUpon>AddingStationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddingWayView.xaml.cs">
+      <DependentUpon>AddingWayView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CanvasView.xaml.cs">
       <DependentUpon>CanvasView.xaml</DependentUpon>
     </Compile>
@@ -137,9 +146,6 @@
       <Project>{34c816a0-c125-49fa-9ae5-313b3c2ff862}</Project>
       <Name>DrawMapSubwayLibrary</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

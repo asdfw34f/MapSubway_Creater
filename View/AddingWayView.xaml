@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="EditorSubwayMap.View.AddingWayView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:EditorSubwayMap.View"
+             mc:Ignorable="d"
+             d:DesignHeight="143" d:DesignWidth="240">
+<Grid Background="#FF22847B" 
+                         Canvas.Left="10"
+                         Canvas.Top="189" 
+                         x:Name="AtrWayGrid"
+                         Height="143"
+                         Width="240"
+                         Visibility="Visible"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Top">
+
+        <Button Background="#FF77FFF2" 
+                Height="32"
+                x:Name="BtnAddWay"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                FontSize="10"
+                BorderThickness="1.4"
+                BorderBrush="Black" 
+                Content="Добавить ветку" 
+                FontWeight="Bold" 
+                Margin="0,88,0,0"
+                Width="146"/>
+
+        <TextBox x:Name="AWayName" 
+                 Text="Название ветки:" 
+                 HorizontalAlignment="Center" 
+                 VerticalAlignment="Top" 
+                 Width="220" 
+                 Height="34" 
+                 HorizontalContentAlignment="Center" 
+                 VerticalContentAlignment="Center" 
+                 FontSize="14" 
+                 BorderBrush="Black" 
+                 Margin="0,21,0,0"/>
+    </Grid>
+</UserControl>

@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using WpfApp1.Data;
 
 namespace EditorSubwayMap.ViewModels
 {
@@ -52,19 +53,6 @@ namespace EditorSubwayMap.ViewModels
         {
             get => _isDrawing;
             set => Set(ref _isDrawing, value);
-        }
-
-        private string _DrawMode;
-        public string DrawMode
-        {
-            get => _DrawMode;
-            set
-            {
-                if (value == "Line" || value == "Circle" || value == "Station" || value == "")
-                {
-                    Set(ref _DrawMode, value);
-                }
-            }
         }
 
         private string _Color;
@@ -112,13 +100,7 @@ namespace EditorSubwayMap.ViewModels
 
         #endregion
 
-        DrawEllipse drawCircle = new DrawEllipse();
-        DrawLine drawLine = new DrawLine();
-        DrawStation drawStation = new DrawStation();
 
-        Ellipse Circle;
-        Line Line;
-        Ellipse Station;
 
         BrushConverter convColors;
 
@@ -126,19 +108,19 @@ namespace EditorSubwayMap.ViewModels
 
         public ICommand SelectDrawLineCommand{ get; }
         private bool CanSelectDrawLineCommand(object p) => true;
-        private void OnSelectDrawLineCommand(object p) => DrawMode = "Line";
+        private void OnSelectDrawLineCommand(object p) => DrawingOnCanvas.Drawing = DrawingOnCanvas.Modes.Line;
 
         public ICommand SelectDrawCircleCommand { get; }
         private bool CanSelectDrawCircleCommand(object p) => true;
-        private void OnSelectDrawCircleCommand(object p) => DrawMode = "Circle";
+        private void OnSelectDrawCircleCommand(object p) => DrawingOnCanvas.Drawing = DrawingOnCanvas.Modes.Circle;
 
         public ICommand SelectDrawStationCommand { get; }
         private bool CanSelectDrawStationCommand(object p) => true;
-        private void OnSelectDrawStationCommand(object p) => DrawMode = "Station";
+        private void OnSelectDrawStationCommand(object p) => DrawingOnCanvas.Drawing = DrawingOnCanvas.Modes.Station;
 
         public ICommand SelectDrawNoneCommand { get; }
         private bool CanSelectDrawNoneCommand(object p) => true;
-        private void OnSelectDrawNoneCommand(object p) => DrawMode = "";
+        private void OnSelectDrawNoneCommand(object p) => DrawingOnCanvas.Drawing = DrawingOnCanvas.Modes.None;
 
         #endregion
 
@@ -152,103 +134,6 @@ namespace EditorSubwayMap.ViewModels
             SelectDrawNoneCommand = new LambdaCommand(OnSelectDrawNoneCommand, CanSelectDrawNoneCommand);
             #endregion
             
-        }
-
-        public void Canvas_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            isDrawing = false;
-            if (DrawMode == "")
-                return;
-            else if (DrawMode == "Station")
-            {
-                drawStation.Pstart = e.GetPosition(Canvas);
-                drawStation.color = convColors.ConvertFromString(Color) as Brush;
-                Circle = drawStation.Draw();
-                Children.Add(Circle);
-            }
-        }
-
-        public void Canvas_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed && isDrawing == true)
-                switch (DrawMode)
-                {
-                    //  DRAW LINE 
-                    case "Line":
-                        Line.X2 = e.GetPosition(Canvas).X;
-                        Line.Y2 = e.GetPosition(Canvas).Y;
-                        break;
-
-                    //  DRAW ELLIPSE
-                    case "Circle":
-                        drawCircle.currentP = e.GetPosition(Canvas);
-                        Circle = drawCircle.EditSize(Circle);
-                        break;
-                }
-
-            labelX = "X: " + e.GetPosition(Canvas).X;
-            labelY = "Y: " + e.GetPosition(Canvas).Y;
-        }
-
-        public void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            isDrawing = true;
-            switch (DrawMode)
-            {
-                case "":
-                    break;
-
-                //  DRAW LINE 
-                case "Line":
-                    NameWay = "Название ветки: ";
-                    drawLine.Pstart = e.GetPosition(Canvas);
-                    drawLine.Pend = e.GetPosition(Canvas);
-                    drawLine.color = convColors.ConvertFromString(Color) as Brush;
-
-                    Line = drawLine.Draw();
-                    Children.Add(Line);
-                    break;
-
-                //  DRAW STATION
-                case "Station":
-                    break;
-
-                //  DRAW ELLIPSE
-                case "Circle":
-                    NameWay = "Название ветки: ";
-                    drawCircle.Pstart = e.GetPosition(Canvas);
-                    drawCircle.color = convColors.ConvertFromString(Color) as Brush;
-                    drawCircle.currentP = e.GetPosition(Canvas);
-
-                    Circle = drawCircle.Draw();
-                    Children.Add(Circle);
-                    break;
-            }
-        }
-
-        public ICommand MouseMoveCommand { get; }
-        private bool canMouseMoveCommand(object p) => true;
-        private void OnMouseMoveCommand(object p)
-        {
-            var e = p as MouseButtonEventArgs;
-            if (e.LeftButton == MouseButtonState.Pressed && isDrawing == true)
-                switch (DrawMode)
-                {
-                    //  DRAW LINE 
-                    case "Line":
-                        Line.X2 = e.GetPosition(Canvas).X;
-                        Line.Y2 = e.GetPosition(Canvas).Y;
-                        break;
-
-                    //  DRAW ELLIPSE
-                    case "Circle":
-                        drawCircle.currentP = e.GetPosition(Canvas);
-                        Circle = drawCircle.EditSize(Circle);
-                        break;
-                }
-
-            labelX = "X: " + e.GetPosition(Canvas).X;
-            labelY = "Y: " + e.GetPosition(Canvas).Y;
         }
     }
 }

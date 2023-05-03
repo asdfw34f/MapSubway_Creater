@@ -1,20 +1,20 @@
 ﻿using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
 using EditorSubwayMap.Models;
-using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Shapes;
 using EditorSubwayMap.Infastructure.Commands;
-using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using EditorSubwayMap.ViewModels.Base;
+using WpfApp1.Data;
 
 namespace EditorSubwayMap.ViewModels
 {
     public class CanvasViewModel : ViewModel
     {
-        public MyCanvas DrawingBoard
-        { get;
-            set; }
+        public MyCanvas DrawingBoard { get; set; }
+
         public CanvasViewModel()
         {
             DrawingBoard = new MyCanvas
@@ -22,94 +22,96 @@ namespace EditorSubwayMap.ViewModels
                 IsDrawing = false
             };
             MouseMove = new LambdaCommand(OnMouseMove, CanMouseMoved);
+            MouseDown = new LambdaCommand(OnMouseDown, CanMouseDown);
+            MouseUp = new LambdaCommand(OnMouseUp, CanMouseUp);
         }
-        public ICommand MouseMove{ get; }
+
+        DrawEllipse DCircle = new DrawEllipse();
+        DrawLine DLine = new DrawLine();
+        DrawStation DStation = new DrawStation();
+
+        Ellipse Circle;
+        Line Line;
+        Ellipse Station;
+        #region MouseEvents commands
+        public ICommand MouseDown { get; }
+        private bool CanMouseDown(object p) => true;
+
+        private void OnMouseDown(object p)
+        {
+            DrawingBoard.IsDrawing = true;
+            switch (DrawingOnCanvas.Drawing)
+            {
+                case DrawingOnCanvas.Modes.None:
+                    break;
+
+                //  DRAW LINE 
+                case  DrawingOnCanvas.Modes.Line:
+                    //NameWay = "Название ветки: ";
+                    DLine.Pstart = Mouse.GetPosition(p as Canvas);
+                    DLine.Pend = Mouse.GetPosition(p as Canvas);
+                   // DLine.color = convColors.ConvertFromString(Color) as Brush;
+
+                    Line = DLine.Draw();
+                    DrawingBoard.Children.Add(Line);
+                    break;
+
+                //  DRAW STATION
+                case  DrawingOnCanvas.Modes.Station:
+                    break;
+
+                //  DRAW ELLIPSE
+                case  DrawingOnCanvas.Modes.Circle:
+                    //NameWay = "Название ветки: ";
+                    DCircle.Pstart = Mouse.GetPosition(p as Canvas);
+              //      DCircle.color = convColors.ConvertFromString(Color) as Brush;
+                    DCircle.currentP = Mouse.GetPosition(p as Canvas);
+
+                    Circle = DCircle.Draw();
+                    DrawingBoard.Children.Add(Circle);
+                    break;
+            }
+        }
+
+        public ICommand MouseUp { get; }
+        private bool CanMouseUp(object p) => true;
+
+        private void OnMouseUp(object p)
+        {
+            DrawingBoard.IsDrawing = false;
+            if (DrawingOnCanvas.Drawing == DrawingOnCanvas.Modes.None)
+                return;
+            else if (DrawingOnCanvas.Drawing == DrawingOnCanvas.Modes.Station)
+            {
+                DStation.Pstart = Mouse.GetPosition(p as Canvas);
+                //DStation.color = convColors.ConvertFromString(Color) as Brush;
+                Circle = DStation.Draw();
+                DrawingBoard.Children.Add(Circle);
+            }
+        }
+
+        public ICommand MouseMove { get; }
         private bool CanMouseMoved(object p) => true;
+
         private void OnMouseMove(object p)
         {
-        }
-        
-        public void DrawShape()
-        { 
+            switch (DrawingOnCanvas.Drawing)
+            {
+                //  DRAW LINE 
+                case DrawingOnCanvas.Modes.Line:
+                    //ViewModel   //View
+                    //         line.X2 = e.GetPosition(DrawingBoard.DrawingCanvas).X;
+                    //         line.Y2 = e.GetPosition(DrawingBoard.DrawingCanvas).Y;
+                    break;
 
-        }
-
-        DrawEllipse drawCircle = new DrawEllipse();
-        DrawLine drawLine = new DrawLine();
-        DrawStation drawStation = new DrawStation();
-//     <ContentPresenter Content="{Binding Path=DrawingBoard.DrawingCanvas}"/>
-
-        Ellipse circle;
-        Line line;
-        Ellipse station;
-
-        private void CanvasMove(object sender, MouseEventArgs e)
-        {
-            //View
-            if (e.LeftButton == MouseButtonState.Pressed && DrawingBoard.IsDrawing == true)
-                //ViewModel
-                switch (DrawingBoard.DrawMode)
-                {
-                    //  DRAW LINE 
-                    case "Line":
-                        //ViewModel   //View
-               //         line.X2 = e.GetPosition(DrawingBoard.DrawingCanvas).X;
-               //         line.Y2 = e.GetPosition(DrawingBoard.DrawingCanvas).Y;
-                        break;
-
-                    //  DRAW ELLIPSE
-                    case "Circle":
-        //                drawCircle.currentP = e.GetPosition(DrawingBoard.DrawingCanvas);
-                        circle = drawCircle.EditSize(circle);
-                        break;
-                }
-            //_mainvm.labelX = "X: " + e.GetPosition(DrawingBoard.DrawingCanvas).X;
-            //_mainvm.labelY = "Y: " + e.GetPosition(DrawingBoard.DrawingCanvas).Y;
+                //  DRAW ELLIPSE
+                case DrawingOnCanvas.Modes.Circle:
+                    //                drawCircle.currentP = e.GetPosition(DrawingBoard.DrawingCanvas);
+                    Circle = DCircle.EditSize(Circle);
+                    break;
+            }
         }
 
-        private void CanvasRelease(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void CanvasDown(object sender, MouseEventArgs e)
-        {
-            
-        }
-
-        private void ShapeMove(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ShapeReleased(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ClickShape(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        public void ChangeShapeColor(string color)
-        {
-
-        }
-
-        public void ChangeShangeSize(string op)
-        {
-
-        }
-
-        public void CreateShape(string shape)
-        {
-
-        }
-
-        public void RemoveShape()
-        {
-
-        }
+        #endregion
     }
 }

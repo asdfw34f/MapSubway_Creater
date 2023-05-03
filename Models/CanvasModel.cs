@@ -1,7 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Shapes;
 
 namespace EditorSubwayMap.Models
 {
@@ -10,10 +8,8 @@ namespace EditorSubwayMap.Models
     }
     public class MyCanvas
     {
-        public string DrawMode { get; set; }
-
         public Point StartPoint { get; set; }
-        
+        public List<UIElement> Children { get; set; }
         public bool IsDrawing { get; set; }
     }
 }
