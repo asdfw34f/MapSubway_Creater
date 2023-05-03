@@ -6,13 +6,47 @@
              xmlns:vm="clr-namespace:EditorSubwayMap.ViewModels"
              xmlns:local="clr-namespace:EditorSubwayMap.View"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="390" d:DesignWidth="690">
+    <UserControl.DataContext>
+        <vm:CanvasViewModel/>
+    </UserControl.DataContext>
     <Canvas Name="DrawingCanvas"
             PreviewMouseMove="DrawingCanvas_OnMouseMove"
             MouseMove="DrawingCanvas_OnMouseMove"
             MouseLeftButtonDown="DrawingCanvas_OnMouseLeftButtonDown"
             MouseLeftButtonUp="DrawingCanvas_OnMouseLeftButtonUp">
-            <Canvas.Background>
+       
+        
+        <Label x:Name="LabelX" 
+               Canvas.Left="5" 
+               Canvas.Bottom="5" 
+               Content="{Binding Path=PositionX}"
+               Height="28" 
+               Width="68" 
+               HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Center"
+               FontSize="14" 
+               FontWeight="Bold" 
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top" 
+               Foreground="Black">
+        </Label>
+
+        <Label x:Name="LabelY" 
+               Canvas.Left="78" 
+               Canvas.Bottom="5" 
+               Content="{Binding Path=PositionY}"
+               Height="28"
+               Width="68" 
+               HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Center"
+               FontSize="14" 
+               FontWeight="Bold" 
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top" 
+               Foreground="Black"/>
+        
+        <Canvas.Background>
                 <DrawingBrush TileMode="FlipXY" 
                               Viewport="-20,-10,20,20" 
                               ViewportUnits="Absolute" 

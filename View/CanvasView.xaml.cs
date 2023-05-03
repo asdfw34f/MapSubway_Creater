@@ -11,6 +11,7 @@ namespace EditorSubwayMap.View
         {
             InitializeComponent();
             _viewModel = new CanvasViewModel();
+            DataContext = _viewModel;
         }
 
         private void DrawingCanvas_OnMouseMove(object sender, MouseEventArgs e)
@@ -20,10 +21,12 @@ namespace EditorSubwayMap.View
 
         private void DrawingCanvas_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            _viewModel.MouseDown.Execute(sender);
         }
 
         private void DrawingCanvas_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            _viewModel.MouseUp.Execute(sender);
         }
     }
 }

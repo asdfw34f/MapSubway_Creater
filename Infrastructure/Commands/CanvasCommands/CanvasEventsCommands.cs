@@ -1,40 +1,15 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Shapes;
 using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
-using System.Windows.Shapes;
-using EditorSubwayMap.Infastructure.Commands;
-using EditorSubwayMap.Infastructure.Commands.CanvasMouseEvents;
-using EditorSubwayMap.ViewModels.Base;
 using WpfApp1.Data;
 
-namespace EditorSubwayMap.ViewModels
+namespace EditorSubwayMap.Infastructure.Commands.CanvasMouseEvents
 {
-    public class CanvasViewModel : ViewModel
+    public class CanvasEventsCommands
     {
-        private CanvasEventsCommands _commands;
-        public CanvasEventsCommands Commands
-        {
-            get => _commands;
-        }
-
-        private string _positionx = "0";
-        public string PositionX
-        {
-            get => _positionx;
-            set => Set(ref _positionx, value);
-        }
-        
-        private string _positiony = "0";
-        public string PositionY
-        {
-            get => _positiony;
-            set => Set(ref _positiony, value);
-        }
-        
-        
-    DrawEllipse DCircle = new DrawEllipse();
+        DrawEllipse DCircle = new DrawEllipse();
         DrawLine DLine = new DrawLine();
         DrawStation DStation = new DrawStation();
 
@@ -119,11 +94,11 @@ namespace EditorSubwayMap.ViewModels
                     break;
             }
 
-            PositionX = "X: " + Mouse.GetPosition(p as Canvas).X.ToString();
-            PositionY = "Y: " + Mouse.GetPosition(p as Canvas).Y.ToString();
+            DrawingOnCanvas.PositionX = Mouse.GetPosition(p as Canvas).X.ToString();
+            DrawingOnCanvas.PositionY = Mouse.GetPosition(p as Canvas).Y.ToString();
         }
 
-        internal CanvasViewModel()
+        internal CanvasEventsCommands()
         {
             MouseMove = new LambdaCommand(OnMouseMove, CanMouseMoved);
             MouseDown = new LambdaCommand(OnMouseDown, CanMouseDown);
