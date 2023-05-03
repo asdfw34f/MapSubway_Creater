@@ -7,6 +7,28 @@
              xmlns:local="clr-namespace:EditorSubwayMap.View"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-  <ContentPresenter Content="{Binding Path=DrawingBoard.DrawingCanvas}"/>
-  
+    <Canvas Name="DrawingCanvas"
+            PreviewMouseMove="DrawingCanvas_OnMouseMove"
+            MouseMove="DrawingCanvas_OnMouseMove"
+            MouseLeftButtonDown="DrawingCanvas_OnMouseLeftButtonDown"
+            MouseLeftButtonUp="DrawingCanvas_OnMouseLeftButtonUp">
+            <Canvas.Background>
+                <DrawingBrush TileMode="FlipXY" 
+                              Viewport="-20,-10,20,20" 
+                              ViewportUnits="Absolute" 
+                              Stretch="UniformToFill">
+                    <DrawingBrush.Drawing>
+                        <GeometryDrawing>
+                            <GeometryDrawing.Geometry>
+                                <RectangleGeometry Rect="0,0,50,50"/>
+                            </GeometryDrawing.Geometry>
+                            <GeometryDrawing.Pen>
+                                <Pen Brush="Gray" 
+                                     Thickness="1"/>
+                            </GeometryDrawing.Pen>
+                        </GeometryDrawing>
+                    </DrawingBrush.Drawing>
+                </DrawingBrush>
+            </Canvas.Background>
+        </Canvas>
 </UserControl>

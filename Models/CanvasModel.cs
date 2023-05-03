@@ -15,9 +15,5 @@ namespace EditorSubwayMap.Models
         public Point StartPoint { get; set; }
         
         public bool IsDrawing { get; set; }
-        
-        public Canvas DrawingCanvas { get; set; }
-
-        
     }
 }

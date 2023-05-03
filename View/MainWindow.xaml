@@ -455,36 +455,19 @@
                    Canvas.Left="182" 
                    Foreground="#FF13F7E8"/>
         </Canvas>
- 
-                <views:CanvasView x:Name="CanvasViewControl" 
-                                  AllowDrop="True" 
-                                  Margin="0, 0, 0, 0"
-                                  HorizontalContentAlignment="Center"
-                                  Grid.Row="0" Grid.Column="2"
-                                  Grid.RowSpan="3"
-                                  Grid.ColumnSpan="2"
-                                  Visibility="Visible" 
-                                  Focusable="True" Loaded="CanDrawing_Loaded"
-                                  >
-                    <views:CanvasView.Background>
-                        
-                        <DrawingBrush TileMode="FlipXY" 
-                                      Viewport="-20,-10,20,20" 
-                                      ViewportUnits="Absolute" 
-                                      Stretch="UniformToFill">
-                            <DrawingBrush.Drawing>
-                                <GeometryDrawing>
-                                    <GeometryDrawing.Geometry>
-                                        <RectangleGeometry Rect="0,0,50,50"/>
-                                    </GeometryDrawing.Geometry>
-                                    <GeometryDrawing.Pen>
-                                        <Pen Brush="Gray" 
-                                             Thickness="1"/>
-                                    </GeometryDrawing.Pen>
-                                </GeometryDrawing>
-                            </DrawingBrush.Drawing>
-                        </DrawingBrush>
-                    </views:CanvasView.Background>
-                </views:CanvasView>
+        <UserControl
+            Grid.Row="0" Grid.Column="2"
+                                 Grid.RowSpan="3"
+                                 Grid.ColumnSpan="2">
+            <UserControl.DataContext>
+                <vm:CanvasViewModel/>
+            </UserControl.DataContext>
+            <UserControl.Content>
+                    <views:CanvasView></views:CanvasView>
+            </UserControl.Content>
+      
+        </UserControl>
+                <Canvas Margin="0"
+                                          />
     </Grid>
 </Window>

@@ -13,8 +13,6 @@ namespace EditorSubwayMap.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-        public CanvasViewModel canvasVM;
-
         #region  X Y labels
         
         private string _labelX = "0";
@@ -146,8 +144,7 @@ namespace EditorSubwayMap.ViewModels
 
         public MainViewModel()
         {
-            canvasVM = new CanvasViewModel(this);
-            
+            //     <ContentPresenter Name="Cont" Content="{Binding Path=DrawingBoard.DrawingCanvas}">
             #region Select the drawing mode 
             SelectDrawLineCommand = new LambdaCommand(OnSelectDrawLineCommand, CanSelectDrawLineCommand);
             SelectDrawCircleCommand = new LambdaCommand(OnSelectDrawCircleCommand, CanSelectDrawCircleCommand);
