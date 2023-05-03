@@ -75,7 +75,9 @@
     <Compile Include="Data\RouteSubway.cs" />
     <Compile Include="Infrastructure\Commands\Base\Command.cs" />
     <Compile Include="Infrastructure\Commands\LambdaCommand.cs" />
+    <Compile Include="Models\Base\Model.cs" />
     <Compile Include="Models\CanvasModel.cs" />
+    <Compile Include="Models\MainModel.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Compile Include="ViewModels\CanvasViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -139,5 +141,6 @@
       <Name>DrawMapSubwayLibrary</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

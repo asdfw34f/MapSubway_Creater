@@ -8,41 +8,7 @@ namespace EditorSubwayMap.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-        #region Add come station
 
-        private string _NameStation;
-        public string NameStation
-        {
-            get => _NameStation;
-            set => Set(ref _NameStation, value);
-        }
-
-        private string _distanceNext = "0";
-        public string distanceNext
-        {
-            get => _distanceNext;
-            set => Set(ref _distanceNext, value);
-        }
-
-        private string _distanceBack = "0";
-        public string distanceBack
-        {
-            get => _distanceBack;
-            set => Set(ref _distanceBack, value);
-        }
-
-        #endregion
-
-        #region Add come way
-        
-        private string _NameWay;
-        public string NameWay
-        {
-            get => _NameWay;
-            set => Set(ref _NameWay, value);
-        }
-
-        #endregion
 
         #region Select the drawing mode 
 
@@ -81,6 +47,18 @@ namespace EditorSubwayMap.ViewModels
         {
             
         }
+
+        public ICommand RemoveAll { get; }
+        private bool CanRemoveAll(Object p) => true;
+
+        private void OnRemoveAllExecute(Object p)
+        {
+            
+        }
+        #endregion
+
+        #region 
+
         #endregion
 
         public MainViewModel()

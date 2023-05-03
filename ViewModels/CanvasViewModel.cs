@@ -7,11 +7,14 @@ using System.Windows.Shapes;
 using EditorSubwayMap.Infastructure.Commands;
 using EditorSubwayMap.ViewModels.Base;
 using WpfApp1.Data;
+using EditorSubwayMap.Models;
 
 namespace EditorSubwayMap.ViewModels
 {
     public class CanvasViewModel : ViewModel
     {
+        public static CanvasModel DrawingBoard;
+
         #region Propertyes
         private string _positionx = "0";
         public string PositionX
@@ -42,7 +45,7 @@ namespace EditorSubwayMap.ViewModels
         private bool CanMouseUp(object p) => true;
         private void OnMouseUp(object p)
         {
-            DrawingOnCanvas.DrawingBoard.IsDrawing = false;
+            DrawingBoard.IsDrawing = false;
 
             if (DrawingOnCanvas.Drawing == DrawingOnCanvas.Modes.None)
                 return;
@@ -51,7 +54,7 @@ namespace EditorSubwayMap.ViewModels
                 DStation.Pstart = Mouse.GetPosition(p as Canvas);
                 DStation.color = Brushes.Black;
                 _Circle = DStation.Draw();
-                DrawingOnCanvas.DrawingBoard.Children.Add(_Circle);
+                DrawingBoard.Children.Add(_Circle);
             }
         }
         
@@ -59,7 +62,7 @@ namespace EditorSubwayMap.ViewModels
         private bool CanMouseDown(object p) => true;
         private void OnMouseDown(object p)
         {
-            DrawingOnCanvas.DrawingBoard.IsDrawing = true;
+            DrawingBoard.IsDrawing = true;
             switch (DrawingOnCanvas.Drawing)
             {
                 case DrawingOnCanvas.Modes.None:
@@ -72,7 +75,7 @@ namespace EditorSubwayMap.ViewModels
                     DLine.color = Brushes.Black;
 
                     _Line = DLine.Draw();
-                    DrawingOnCanvas.DrawingBoard.Children.Add(_Line);
+                    DrawingBoard.Children.Add(_Line);
                     break;
 
                 //  DRAW STATION
@@ -87,7 +90,7 @@ namespace EditorSubwayMap.ViewModels
                     DCircle.currentP = Mouse.GetPosition(p as Canvas);
 
                     _Circle = DCircle.Draw();
-                    DrawingOnCanvas.DrawingBoard.Children.Add(_Circle);
+                    DrawingBoard.Children.Add(_Circle);
                     break;
             }
         }
@@ -96,21 +99,22 @@ namespace EditorSubwayMap.ViewModels
         private bool CanMouseMoved(object p) => true;
         private void OnMouseMove(object p)
         {
-            switch (DrawingOnCanvas.Drawing)
-            {
-                //  DRAW LINE 
-                case DrawingOnCanvas.Modes.Line:
-                    //ViewModel   //View
-                    _Line.X2 = Mouse.GetPosition(p as Canvas).X;
-                    _Line.Y2 = Mouse.GetPosition(p as Canvas).Y;
-                    break;
+            if (DrawingBoard.IsDrawing == true)
+                switch (DrawingOnCanvas.Drawing)
+                {
+                    //  DRAW LINE 
+                    case DrawingOnCanvas.Modes.Line:
+                        //ViewModel   //View
+                        _Line.X2 = Mouse.GetPosition(p as Canvas).X;
+                        _Line.Y2 = Mouse.GetPosition(p as Canvas).Y;
+                        break;
 
-                //  DRAW ELLIPSE
-                case DrawingOnCanvas.Modes.Circle:
-                    DCircle.currentP = Mouse.GetPosition(p as Canvas);
-                    _Circle = DCircle.EditSize(_Circle);
-                    break;
-            }
+                    //  DRAW ELLIPSE
+                    case DrawingOnCanvas.Modes.Circle:
+                        DCircle.currentP = Mouse.GetPosition(p as Canvas);
+                        _Circle = DCircle.EditSize(_Circle);
+                        break;
+                }
             PositionX = "X: " + Mouse.GetPosition(p as Canvas).X;
             PositionY = "Y: " + Mouse.GetPosition(p as Canvas).Y;
         }
