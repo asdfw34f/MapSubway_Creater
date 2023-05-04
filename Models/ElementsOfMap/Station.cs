@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace EditorSubwayMap.Data.ElementsOfMap
+namespace EditorSubwayMap.Models.ElementsOfMap
 {
     public class Station
     {
@@ -9,6 +9,5 @@ namespace EditorSubwayMap.Data.ElementsOfMap
         public int DistanceLast { get; set; }
         public int DistanceBack { get; set; }
         public Point Position { get; set; }
-        public Station() { }
     }
 }

@@ -69,10 +69,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Data\DrawingOnCanvas.cs" />
-    <Compile Include="Data\ElementsOfMap\CircleWay.cs" />
-    <Compile Include="Data\ElementsOfMap\LineWay.cs" />
-    <Compile Include="Data\ElementsOfMap\Station.cs" />
-    <Compile Include="Data\RouteSubway.cs" />
+    <Compile Include="Models\ElementsOfMap\CircleWay.cs" />
+    <Compile Include="Models\ElementsOfMap\LineWay.cs" />
+    <Compile Include="Models\ElementsOfMap\Station.cs" />
+    <Compile Include="Models\RouteSubway.cs" />
     <Compile Include="Infrastructure\Commands\Base\Command.cs" />
     <Compile Include="Infrastructure\Commands\LambdaCommand.cs" />
     <Compile Include="Models\Base\Model.cs" />

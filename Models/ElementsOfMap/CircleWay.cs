@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using EditorSubwayMap.Models;
 
-namespace EditorSubwayMap.Data.ElementsOfMap
+namespace EditorSubwayMap.Models.ElementsOfMap
 {
     public class CircleWay
     {
@@ -12,6 +11,5 @@ namespace EditorSubwayMap.Data.ElementsOfMap
         public Point Position { get; set; }
         public double Height { get; set; }
         public double Width { get; set; }
-        public CircleWay() { }
     }
 }

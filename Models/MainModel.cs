@@ -1,65 +1,98 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 using System.Windows.Media;
 
 namespace EditorSubwayMap.Models
 {
     public class MainModel : Base.Model
     {
-        private struct Station
+        private struct TStationAtributs
         {
             public string _NameStation;
             public string _distanceNext;
             public string _distanceBack;
         }
 
-        private struct Way
+        private struct TWayAtributs
         {
             public string NameWay;
         }
 
-
         #region Fields
         private List<string> _WayList = new List<string>();
-        private Station _Station = new Station()
+        private TStationAtributs _StationAtributs = new TStationAtributs()
         {
             _NameStation = "Название станции",
             _distanceBack = "0",
             _distanceNext = "0"
         };
-        private Way _Way = new Way
+        private TWayAtributs _WayAtributs = new TWayAtributs
         {
             NameWay = "Название ветки"
         };
+        private RouteSubway _RouteSubway = new RouteSubway();
+        private int _IdStation = -1;
         #endregion
 
-
+        #region Propertys
+        /// <summary>
+        /// Contain the Id last Station
+        /// </summary>
+        public int IdStation
+        {
+            get => _IdStation;
+            set => Set(ref _IdStation, value);
+        }
+        /// <summary>
+        /// List of Names of Ways, user saved
+        /// </summary>
+        public List<string> WayList 
+        {
+            get => _WayList;
+            set => Set(ref _WayList, value);
+        }
+        /// <summary>
+        /// Saved Stations end Ways
+        /// </summary>
+        public RouteSubway RouteSubway
+        {
+            get => _RouteSubway;
+            set => Set(ref _RouteSubway, value);
+        }
+        /// <summary>
+        /// Binding Textbox some Station atributs
+        /// </summary>
         public string NameStation
         {
-            get => _Station._NameStation;
-            set => Set(ref _Station._NameStation, value);
+            get => _StationAtributs._NameStation;
+            set => Set(ref _StationAtributs._NameStation, value);
         }
-
+        /// <summary>
+        /// Binding Textbox some Station atributs
+        /// </summary>
         public string distanceNext
         {
-            get => _Station._distanceNext;
-            set => Set(ref _Station._distanceNext, value);
+            get => _StationAtributs._distanceNext;
+            set => Set(ref _StationAtributs._distanceNext, value);
         }
-
+        /// <summary>
+        /// Binding Textbox some Station atributs
+        /// </summary>
         public string distanceBack
         {
-            get => _Station._distanceBack;
-            set => Set(ref _Station._distanceBack, value);
+            get => _StationAtributs._distanceBack;
+            set => Set(ref _StationAtributs._distanceBack, value);
         }
-
+        /// <summary>
+        /// Binding Textbox some Way atributs
+        /// </summary>
         public string NameWay
         {
-            get => _Way.NameWay;
-            set => Set(ref _Way.NameWay, value);
+            get => _WayAtributs.NameWay;
+            set => Set(ref _WayAtributs.NameWay, value);
         }
+        #endregion
 
         public MainModel()
         {
