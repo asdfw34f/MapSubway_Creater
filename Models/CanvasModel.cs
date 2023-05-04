@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace EditorSubwayMap.Models
@@ -7,7 +9,7 @@ namespace EditorSubwayMap.Models
     public class CanvasModel : Base.Model
     {
         #region Fields
-        private List<UIElement> _Children = new List<UIElement>();
+        private UIElement _Children = new UIElement();
         private Point _StartPoint = new Point();
         private Point _EndPoint = new Point();
         private Ellipse _Ellipse = new Ellipse();
@@ -27,10 +29,21 @@ namespace EditorSubwayMap.Models
             set => Set(ref _Ellipse, value);
         }
        
-        public List<UIElement> Children
+    //    public UIElement Child
+    //    {
+    //        get => _Children;
+    //        set
+    //        {
+    //            if (!Set(ref _Children, value))
+    //                this.Canvas.Children.Add(value);
+    //        }
+    //    }
+        
+        private Canvas _canvas = new Canvas() { Background=Brushes.Black};
+        public Canvas Canvas
         {
-            get => _Children;
-            set => Set(ref _Children, value);
+            get => _canvas;
+            set => Set(ref _canvas, value);
         }
 
         public bool IsDrawing

@@ -12,8 +12,13 @@ namespace EditorSubwayMap.View
             InitializeComponent();
             _viewModel = new CanvasViewModel();
             DataContext = _viewModel;
+            DrawingCanvas.DataContext = _viewModel.DrawingBoard.Canvas;
         }
-
+        /*
+        <UserControl.DataContext>
+        <vm:CanvasViewModel/>
+    </UserControl.DataContext>
+        */
         private void DrawingCanvas_OnMouseMove(object sender, MouseEventArgs e)
         {
             _viewModel.MouseMove.Execute(sender);

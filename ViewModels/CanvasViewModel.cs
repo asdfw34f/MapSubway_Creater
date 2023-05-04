@@ -13,7 +13,7 @@ namespace EditorSubwayMap.ViewModels
 {
     public class CanvasViewModel : ViewModel
     {
-        public static CanvasModel DrawingBoard = new CanvasModel();
+        public  CanvasModel DrawingBoard = new CanvasModel();
 
         #region Propertyes
         private string _positionx = "0";
@@ -36,9 +36,9 @@ namespace EditorSubwayMap.ViewModels
         DrawStation DStation = new DrawStation();
 
         #region Figures
-            private Ellipse _Circle;
-            private Line _Line;
-            private Ellipse _Station;
+            private Ellipse _Circle = new Ellipse();
+            private Line _Line = new Line();
+            private Ellipse _Station = new Ellipse();
         #endregion
         
         public ICommand MouseUp { get; }
@@ -47,14 +47,12 @@ namespace EditorSubwayMap.ViewModels
         {
             DrawingBoard.IsDrawing = false;
 
-            if (DrawingOnCanvas.Drawing == DrawingOnCanvas.Modes.None)
-                return;
-            else if (DrawingOnCanvas.Drawing == DrawingOnCanvas.Modes.Station)
+            if (DrawingOnCanvas.Drawing == DrawingOnCanvas.Modes.Station)
             {
                 DStation.Pstart = Mouse.GetPosition(p as Canvas);
                 DStation.color = Brushes.Black;
                 _Circle = DStation.Draw();
-                DrawingBoard.Children.Add(_Circle);
+                (p as Canvas).Children.Add(_Circle);
             }
         }
         
@@ -75,11 +73,12 @@ namespace EditorSubwayMap.ViewModels
                     DLine.color = Brushes.Black;
 
                     _Line = DLine.Draw();
-                    DrawingBoard.Children.Add(_Line);
+                    (p as Canvas).Children.Add(_Line);
                     break;
 
                 //  DRAW STATION
                 case  DrawingOnCanvas.Modes.Station:
+
                     break;
 
                 //  DRAW ELLIPSE
@@ -90,7 +89,7 @@ namespace EditorSubwayMap.ViewModels
                     DCircle.currentP = Mouse.GetPosition(p as Canvas);
 
                     _Circle = DCircle.Draw();
-                    DrawingBoard.Children.Add(_Circle);
+                    (p as Canvas).Children.Add(_Circle);
                     break;
             }
         }

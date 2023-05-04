@@ -7,16 +7,13 @@
              xmlns:local="clr-namespace:EditorSubwayMap.View"
              mc:Ignorable="d"
              d:DesignHeight="390" d:DesignWidth="690">
-    <UserControl.DataContext>
-        <vm:CanvasViewModel/>
-    </UserControl.DataContext>
+
     <Canvas Name="DrawingCanvas"
             PreviewMouseMove="DrawingCanvas_OnMouseMove"
             MouseMove="DrawingCanvas_OnMouseMove"
             MouseLeftButtonDown="DrawingCanvas_OnMouseLeftButtonDown"
-            MouseLeftButtonUp="DrawingCanvas_OnMouseLeftButtonUp">
-       
-        
+            MouseLeftButtonUp="DrawingCanvas_OnMouseLeftButtonUp"
+            >
         <Label x:Name="LabelX" 
                Canvas.Left="5" 
                Canvas.Bottom="5" 
@@ -45,24 +42,24 @@
                HorizontalAlignment="Left"
                VerticalAlignment="Top" 
                Foreground="Black"/>
-        
+
         <Canvas.Background>
-                <DrawingBrush TileMode="FlipXY" 
+            <DrawingBrush TileMode="FlipXY" 
                               Viewport="-20,-10,20,20" 
                               ViewportUnits="Absolute" 
                               Stretch="UniformToFill">
-                    <DrawingBrush.Drawing>
-                        <GeometryDrawing>
-                            <GeometryDrawing.Geometry>
-                                <RectangleGeometry Rect="0,0,50,50"/>
-                            </GeometryDrawing.Geometry>
-                            <GeometryDrawing.Pen>
-                                <Pen Brush="Gray" 
+                <DrawingBrush.Drawing>
+                    <GeometryDrawing>
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry Rect="1,1,20,20"/>
+                        </GeometryDrawing.Geometry>
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="DarkGray" 
                                      Thickness="1"/>
-                            </GeometryDrawing.Pen>
-                        </GeometryDrawing>
-                    </DrawingBrush.Drawing>
-                </DrawingBrush>
-            </Canvas.Background>
-        </Canvas>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingBrush.Drawing>
+            </DrawingBrush>
+        </Canvas.Background>
+    </Canvas>
 </UserControl>

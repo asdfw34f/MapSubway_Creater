@@ -155,8 +155,6 @@ namespace EditorSubwayMap.DrawFigure
 
         private void ellipse_MouseMove(object sender, MouseEventArgs e)
         {
-
-
             if (_isDragging)
             {
                 // Вычисляем новые координаты эллипса
