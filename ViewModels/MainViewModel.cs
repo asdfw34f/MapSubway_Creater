@@ -6,12 +6,69 @@ using WpfApp1.Data;
 using EditorSubwayMap.Models;
 using EditorSubwayMap.Models.ElementsOfMap;
 using System.Windows.Controls;
+using static EditorSubwayMap.Models.MainModel;
+using System.Collections.Generic;
 
 namespace EditorSubwayMap.ViewModels
 {
     public class MainViewModel : ViewModel
     {
         public MainModel model = new MainModel();
+
+        #region Fields
+        private string _Title = Convert.ToString(DrawingOnCanvas.Drawing);
+        private List<string> _WayList = new List<string>() { "erwer", "sdfy", "Werwer" };
+        private RouteSubway _RouteSubway = new RouteSubway();
+        private int _IdStation = -1;
+        #endregion
+
+
+        public string Title
+        {
+            get => _Title;
+            set => Set(ref _Title, value);
+        }
+
+        /// <summary>
+        /// List of Names of Ways, user saved
+        /// </summary>
+        public List<string> WayList
+        {
+            get =>_WayList;
+            set => Set(ref _WayList, value);
+        }
+        /// <summary>
+        /// Binding Textbox some Station atributs
+        /// </summary>
+        public string NameStation
+        {
+            get => StationAtributs._NameStation;
+            set => Set(ref StationAtributs._NameStation, value);
+        }
+        /// <summary>
+        /// Binding Textbox some Station atributs
+        /// </summary>
+        public string distanceNext
+        {
+            get => StationAtributs._distanceNext;
+            set => Set(ref StationAtributs._distanceNext, value);
+        }
+        /// <summary>
+        /// Binding Textbox some Station atributs
+        /// </summary>
+        public string distanceBack
+        {
+            get => StationAtributs._distanceBack;
+            set => Set(ref StationAtributs._distanceBack, value);
+        }
+        /// <summary>
+        /// Binding Textbox some Way atributs
+        /// </summary>
+        public string NameWay
+        {
+            get => WayAtributs.NameWay;
+            set => Set(ref WayAtributs.NameWay, value);
+        }
 
         #region Commands Select the drawing mode 
         public ICommand SelectDrawLineCommand{ get; }
@@ -61,7 +118,7 @@ namespace EditorSubwayMap.ViewModels
         #region Commands Saving some Station and Ways
         public ICommand SaveStation { get; }
         private bool CanSaveStation(object p) => true;
-        private void OnSaveStation(object p)
+    /*    private void OnSaveStation(object p)
         {
             if (DrawingOnCanvas.Drawing == DrawingOnCanvas.Modes.Station)
             {
@@ -72,9 +129,9 @@ namespace EditorSubwayMap.ViewModels
                         t.stations.Add(
                             new Station
                             {
-                                Name = model.NameStation,
-                                DistanceBack = Convert.ToInt32(model.distanceBack),
-                                DistanceLast = Convert.ToInt32(model.distanceNext),
+                                Name = NameStation,
+                                DistanceBack = Convert.ToInt32(distanceBack),
+                                DistanceLast = Convert.ToInt32(distanceNext),
                                 Position = new System.Windows.Point(
                                     Canvas.GetLeft(DrawingOnCanvas.Ellipse),
                                     Canvas.GetTop(DrawingOnCanvas.Ellipse)),
@@ -91,9 +148,9 @@ namespace EditorSubwayMap.ViewModels
                         t.stations.Add(
                             new Station
                             {
-                                Name = model.NameStation,
-                                DistanceBack = Convert.ToInt32(model.distanceBack),
-                                DistanceLast = Convert.ToInt32(model.distanceNext),
+                                Name = NameStation,
+                                DistanceBack = Convert.ToInt32(distanceBack),
+                                DistanceLast = Convert.ToInt32(distanceNext),
                                 Position = new System.Windows.Point(
                                     Canvas.GetLeft(DrawingOnCanvas.Ellipse), 
                                     Canvas.GetTop(DrawingOnCanvas.Ellipse)),
@@ -126,7 +183,7 @@ namespace EditorSubwayMap.ViewModels
             {
 
             }
-        }
+        }*/
         #endregion
 
         public MainViewModel()
@@ -144,9 +201,9 @@ namespace EditorSubwayMap.ViewModels
             #endregion
 
             #region Commands Saving some Station and Ways
-            SaveStation = new LambdaCommand(OnSaveStation, CanSaveStation);
-            SaveLine = new LambdaCommand(OnSaveLine, CanSaveLine);
-            SaveCircle = new LambdaCommand(OnSaveCircle, CanSaveCircle);
+          //  SaveStation = new LambdaCommand(OnSaveStation, CanSaveStation);
+        ////    SaveLine = new LambdaCommand(OnSaveLine, CanSaveLine);
+        //    SaveCircle = new LambdaCommand(OnSaveCircle, CanSaveCircle);
             #endregion
         }
     }

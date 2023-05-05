@@ -6,11 +6,12 @@
         mc:Ignorable="d"
         WindowState="Maximized"
         Icon="/assets/icon-map.png"
-        Title="MainWindow" 
+        Title="Metro Map Creator" 
         Height="1027" 
         Width="1628"
         xmlns:vm="clr-namespace:EditorSubwayMap.ViewModels"
         xmlns:views="clr-namespace:EditorSubwayMap.View"
+        
         >
 
     <Window.DataContext>
@@ -123,6 +124,7 @@
                         Width="140"/>
 
                 <ComboBox x:Name="AtrStNameWay"
+                          ItemsSource="{Binding WayList}"
                           Text="Ветка"
                           Width="220" 
                           FontSize="14" 
@@ -145,7 +147,8 @@
                          BorderBrush="Black" 
                          Margin="145,112,0,0"
                          Width="80" 
-                         Background="#FF32C8BE" d:LayoutOverrides="VerticalAlignment"/>
+                         Background="#FF32C8BE" 
+                         d:LayoutOverrides="VerticalAlignment"/>
 
                 <Label x:Name="Success"
                        Content="Станция добавлена!"
@@ -162,7 +165,43 @@
                        FontSize="12" 
                        Visibility="Hidden"/>
             </Grid>
+            
+            <Grid Background="#FF22847B" 
+                  Canvas.Left="10"
+                  Canvas.Top="189" 
+                  x:Name="AtrWayGrid"
+                  Height="143"
+                  Width="240"
+                  Visibility="Hidden"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Top">
 
+                <Button Background="#FF77FFF2" 
+                        Height="32"
+                        x:Name="BtnAddWay"
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Top" 
+                        FontSize="10"
+                        BorderThickness="1.4"
+                        BorderBrush="Black" 
+                        Content="Добавить ветку" 
+                        FontWeight="Bold" 
+                        Margin="0,88,0,0"
+                        Width="146"/>
+
+                <TextBox x:Name="AWayName" 
+                         Text="{Binding NameWay}"
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Top" 
+                         Width="220" 
+                         Height="34" 
+                         HorizontalContentAlignment="Center" 
+                         VerticalContentAlignment="Center" 
+                         FontSize="14" 
+                         BorderBrush="Black" 
+                         Margin="0,21,0,0"/>
+            </Grid>
+            
             <ComboBox Name="ComboColors" 
                       SelectedValuePath="Name" 
                       Height="30" 
@@ -172,7 +211,7 @@
                       HorizontalAlignment="Center" 
                       VerticalAlignment="Top" 
                       BorderBrush="Cyan" 
-                      ItemsSource="{Binding Path=model.Brushes}" 
+                       
                       >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -388,41 +427,7 @@
                     BorderBrush="#FF00FFF9" 
                     FontWeight="Medium"/>
 
-            <Grid Background="#FF22847B" 
-                  Canvas.Left="10"
-                  Canvas.Top="189" 
-                  x:Name="AtrWayGrid"
-                  Height="143"
-                  Width="240"
-                  Visibility="Hidden"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Top">
-
-                <Button Background="#FF77FFF2" 
-                        Height="32"
-                        x:Name="BtnAddWay"
-                        HorizontalAlignment="Center" 
-                        VerticalAlignment="Top" 
-                        FontSize="10"
-                        BorderThickness="1.4"
-                        BorderBrush="Black" 
-                        Content="Добавить ветку" 
-                        FontWeight="Bold" 
-                        Margin="0,88,0,0"
-                        Width="146"/>
-
-                <TextBox x:Name="AWayName" 
-                         Text="Название ветки:" 
-                         HorizontalAlignment="Center" 
-                         VerticalAlignment="Top" 
-                         Width="220" 
-                         Height="34" 
-                         HorizontalContentAlignment="Center" 
-                         VerticalContentAlignment="Center" 
-                         FontSize="14" 
-                         BorderBrush="Black" 
-                         Margin="0,21,0,0"/>
-            </Grid>
+            
         </Canvas>
         
         <UserControl
