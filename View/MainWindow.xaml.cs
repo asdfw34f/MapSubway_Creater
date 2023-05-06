@@ -3,6 +3,8 @@
 
 using EditorSubwayMap.ViewModels;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace WpfApp1
 {
@@ -11,9 +13,18 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
+        MainViewModel _model;
         public MainWindow()
         {
+            _model = new MainViewModel();
+            DataContext = _model;
             InitializeComponent();
+        }
+
+        private void ComboColors_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            ComboBox ComboColor = sender as ComboBox;
+            _model.SelectBrush.Execute((sender as ComboBox).SelectedValue as Brush);
         }
     }
 }

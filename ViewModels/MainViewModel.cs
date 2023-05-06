@@ -24,9 +24,17 @@ namespace EditorSubwayMap.ViewModels
         private List<string> _WayList = new List<string>() { "erwer", "sdfy", "Werwer" };
         private RouteSubway _RouteSubway = new RouteSubway();
         private int _IdStation = -1;
+        private string _SColor;
+        private Brush _Color = Brushes.Black;
+        private BrushConverter _ColorConvert = new BrushConverter();
         private Array _Colors;
         #endregion
 
+        public Brush Color
+        {
+            get => _Color;
+            set => Set(ref _Color, value);
+        }
 
         public string Title
         {
@@ -190,7 +198,14 @@ namespace EditorSubwayMap.ViewModels
                 }
             }*/
         #endregion
-        MainModel model;
+
+        public ICommand SelectBrush { get; }
+        private bool CanSelectBrush(object p) => true;
+        private void SelectBrushExecute(object p)
+        {
+            Color = (p as Brush);
+        }
+
         public Array Colors
         {
             get => _Colors;
@@ -201,6 +216,8 @@ namespace EditorSubwayMap.ViewModels
         {
             Colors = typeof(Brushes).GetProperties()
             .Select(p => new { Name = p.Name, Brush = p.GetValue(null) as Brush }).ToArray();
+
+            SelectBrush = new LambdaCommand(SelectBrushExecute, CanSelectBrush);
 
             #region Map Commands
             Import = new LambdaCommand(ImportExecute, CanImport);

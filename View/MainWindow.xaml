@@ -13,10 +13,6 @@
         xmlns:views="clr-namespace:EditorSubwayMap.View"
         
         >
-
-    <Window.DataContext>
-        <vm:MainViewModel/>
-    </Window.DataContext>
     <Window.Resources>
     </Window.Resources>
 
@@ -204,6 +200,8 @@
             
             <ComboBox Name="ComboColors" 
                       ItemsSource="{Binding Colors}"
+                      SelectionChanged="ComboColors_SelectionChanged"
+                      SelectedIndex="7"
                       SelectedValuePath="Name" 
                       Height="30" 
                       Width="240" 
