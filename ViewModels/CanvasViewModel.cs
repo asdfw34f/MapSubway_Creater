@@ -48,10 +48,10 @@ namespace EditorSubwayMap.ViewModels
         {
             DrawingBoard.IsDrawing = false;
 
-            if (DrawingOnCanvas.Drawing == DrawingOnCanvas.Modes.Station)
+            if (OnCanvas.Drawing == OnCanvas.Modes.Station)
             {
                 DStation.Pstart = Mouse.GetPosition(p as Canvas);
-                DStation.color = DrawingOnCanvas.Color;
+                DStation.color = OnCanvas.Color;
                 _Circle = DStation.Draw();
                 (p as Canvas).Children.Add(_Circle);
             }
@@ -62,31 +62,31 @@ namespace EditorSubwayMap.ViewModels
         private void OnMouseDown(object p)
         {
             DrawingBoard.IsDrawing = true;
-            switch (DrawingOnCanvas.Drawing)
+            switch (OnCanvas.Drawing)
             {
-                case DrawingOnCanvas.Modes.None:
+                case OnCanvas.Modes.None:
                     break;
                 //  DRAW LINE 
-                case  DrawingOnCanvas.Modes.Line:
+                case  OnCanvas.Modes.Line:
                     //NameWay = "Название ветки: ";
                     DLine.Pstart = Mouse.GetPosition(p as Canvas);
                     DLine.Pend = Mouse.GetPosition(p as Canvas);
-                    DLine.color = DrawingOnCanvas.Color;
+                    DLine.color = OnCanvas.Color;
 
                     _Line = DLine.Draw();
                     (p as Canvas).Children.Add(_Line);
                     break;
 
                 //  DRAW STATION
-                case  DrawingOnCanvas.Modes.Station:
+                case  OnCanvas.Modes.Station:
 
                     break;
 
                 //  DRAW ELLIPSE
-                case  DrawingOnCanvas.Modes.Circle:
+                case  OnCanvas.Modes.Circle:
                     //NameWay = "Название ветки: ";
                     DCircle.Pstart = Mouse.GetPosition(p as Canvas);
-                    DCircle.color = DrawingOnCanvas.Color;
+                    DCircle.color = OnCanvas.Color;
                     DCircle.currentP = Mouse.GetPosition(p as Canvas);
 
                     _Circle = DCircle.Draw();
@@ -100,17 +100,17 @@ namespace EditorSubwayMap.ViewModels
         private void OnMouseMove(object p)
         {
             if (DrawingBoard.IsDrawing == true)
-                switch (DrawingOnCanvas.Drawing)
+                switch (OnCanvas.Drawing)
                 {
                     //  DRAW LINE 
-                    case DrawingOnCanvas.Modes.Line:
+                    case OnCanvas.Modes.Line:
                         //ViewModel   //View
                         _Line.X2 = Mouse.GetPosition(p as Canvas).X;
                         _Line.Y2 = Mouse.GetPosition(p as Canvas).Y;
                         break;
 
                     //  DRAW ELLIPSE
-                    case DrawingOnCanvas.Modes.Circle:
+                    case OnCanvas.Modes.Circle:
                         DCircle.currentP = Mouse.GetPosition(p as Canvas);
                         _Circle = DCircle.EditSize(_Circle);
                         break;

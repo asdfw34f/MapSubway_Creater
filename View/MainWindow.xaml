@@ -121,6 +121,7 @@
 
                 <ComboBox x:Name="AtrStNameWay"
                           ItemsSource="{Binding WayList}"
+                          SelectedValue="{Binding SelectedWay}"
                           Text="Ветка"
                           Width="220" 
                           FontSize="14" 

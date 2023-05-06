@@ -68,7 +68,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\DrawingOnCanvas.cs" />
+    <Compile Include="Data\OnCanvas.cs" />
     <Compile Include="Models\ElementsOfMap\CircleWay.cs" />
     <Compile Include="Models\ElementsOfMap\LineWay.cs" />
     <Compile Include="Models\ElementsOfMap\Station.cs" />

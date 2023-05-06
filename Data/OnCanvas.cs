@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using AtributsSubwauLibrary.Model;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace WpfApp1.Data
 {
-    public static class DrawingOnCanvas
+    public static class OnCanvas
     {
         public enum Modes
         {
@@ -15,6 +16,7 @@ namespace WpfApp1.Data
             Station
         }
 
+        public static RouteSubway RouteSubway { get; set; }
         public static Modes Drawing { get; set; }
         public static Ellipse Ellipse { get; set; }
         public static Line Line { get; set; }

@@ -8,10 +8,10 @@ namespace EditorSubwayMap.View
     public partial class CanvasView : UserControl
     {
         private CanvasViewModel _viewModel;
-        public CanvasView(MainViewModel Main)
+        public CanvasView()
         {
             InitializeComponent();
-            _viewModel = new CanvasViewModel(Main);
+            _viewModel = new CanvasViewModel();
             DataContext = _viewModel;
             DrawingCanvas.DataContext = _viewModel.DrawingBoard.Canvas;
         }
