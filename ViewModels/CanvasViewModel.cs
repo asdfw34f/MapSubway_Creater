@@ -14,6 +14,7 @@ namespace EditorSubwayMap.ViewModels
     public class CanvasViewModel : ViewModel
     {
         public  CanvasModel DrawingBoard = new CanvasModel();
+        
 
         #region Propertyes
         private string _positionx = "0";
@@ -50,7 +51,7 @@ namespace EditorSubwayMap.ViewModels
             if (DrawingOnCanvas.Drawing == DrawingOnCanvas.Modes.Station)
             {
                 DStation.Pstart = Mouse.GetPosition(p as Canvas);
-                DStation.color = Brushes.Black;
+                DStation.color = DrawingOnCanvas.Color;
                 _Circle = DStation.Draw();
                 (p as Canvas).Children.Add(_Circle);
             }
@@ -70,7 +71,7 @@ namespace EditorSubwayMap.ViewModels
                     //NameWay = "Название ветки: ";
                     DLine.Pstart = Mouse.GetPosition(p as Canvas);
                     DLine.Pend = Mouse.GetPosition(p as Canvas);
-                    DLine.color = Brushes.Black;
+                    DLine.color = DrawingOnCanvas.Color;
 
                     _Line = DLine.Draw();
                     (p as Canvas).Children.Add(_Line);
@@ -85,7 +86,7 @@ namespace EditorSubwayMap.ViewModels
                 case  DrawingOnCanvas.Modes.Circle:
                     //NameWay = "Название ветки: ";
                     DCircle.Pstart = Mouse.GetPosition(p as Canvas);
-                    DCircle.color = Brushes.Black;
+                    DCircle.color = DrawingOnCanvas.Color;
                     DCircle.currentP = Mouse.GetPosition(p as Canvas);
 
                     _Circle = DCircle.Draw();

@@ -200,8 +200,7 @@
             
             <ComboBox Name="ComboColors" 
                       ItemsSource="{Binding Colors}"
-                      SelectionChanged="ComboColors_SelectionChanged"
-                      SelectedIndex="7"
+                      SelectedValue="{Binding Color}"
                       SelectedValuePath="Name" 
                       Height="30" 
                       Width="240" 
@@ -422,17 +421,16 @@
             
         </Canvas>
         
-        <UserControl
+        <UserControl x:Name="CanvasDrawing"
             Grid.Row="0" 
             Grid.Column="2"
             Grid.RowSpan="3"
             Grid.ColumnSpan="2">
-        
-            <UserControl.Content>
-                <views:CanvasView/>
-            </UserControl.Content>
+            <UserControl.Content >
+                <views:CanvasView />
+            </UserControl.Content >
+
         </UserControl>
-                <Canvas Margin="0"
-                                          />
+                <Canvas Margin="0"/>
     </Grid>
 </Window>

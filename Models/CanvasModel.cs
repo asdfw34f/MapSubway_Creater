@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -29,16 +28,6 @@ namespace EditorSubwayMap.Models
             set => Set(ref _Ellipse, value);
         }
        
-    //    public UIElement Child
-    //    {
-    //        get => _Children;
-    //        set
-    //        {
-    //            if (!Set(ref _Children, value))
-    //                this.Canvas.Children.Add(value);
-    //        }
-    //    }
-        
         private Canvas _canvas = new Canvas() { Background=Brushes.Black};
         public Canvas Canvas
         {

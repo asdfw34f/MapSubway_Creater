@@ -3,9 +3,7 @@ using EditorSubwayMap.Infastructure.Commands;
 using EditorSubwayMap.ViewModels.Base;
 using System.Windows.Input;
 using WpfApp1.Data;
-using EditorSubwayMap.Models;
-using EditorSubwayMap.Models.ElementsOfMap;
-using System.Windows.Controls;
+using EditorSubwayMap.Models; 
 using static EditorSubwayMap.Models.MainModel;
 using System.Collections.Generic;
 using System.Windows.Media;
@@ -23,7 +21,6 @@ namespace EditorSubwayMap.ViewModels
         private string _Title = Convert.ToString(DrawingOnCanvas.Drawing);
         private List<string> _WayList = new List<string>() { "erwer", "sdfy", "Werwer" };
         private RouteSubway _RouteSubway = new RouteSubway();
-        private int _IdStation = -1;
         private string _SColor;
         private Brush _Color = Brushes.Black;
         private BrushConverter _ColorConvert = new BrushConverter();
@@ -33,7 +30,7 @@ namespace EditorSubwayMap.ViewModels
         public Brush Color
         {
             get => _Color;
-            set => Set(ref _Color, value);
+            set { if (Set(ref _Color, value)) { DrawingOnCanvas.Color = _Color; } }
         }
 
         public string Title
@@ -41,7 +38,6 @@ namespace EditorSubwayMap.ViewModels
             get => _Title;
             set => Set(ref _Title, value);
         }
-
         /// <summary>
         /// List of Names of Ways, user saved
         /// </summary>
@@ -104,25 +100,25 @@ namespace EditorSubwayMap.ViewModels
         #region Map Commands
 
         public ICommand Save { get; }
-        private bool CanSaved(Object p) => true;
+        private bool CanSaved(object p) => true;
 
-        private void SaveExecute(Object p)
+        private void SaveExecute(object p)
         {
             
         }
 
         public ICommand Import { get; }
-        private bool CanImport(Object p) => true;
+        private bool CanImport(object p) => true;
 
-        private void ImportExecute(Object p)
+        private void ImportExecute(object p)
         {
             
         }
 
         public ICommand RemoveAll { get; }
-        private bool CanRemoveAll(Object p) => true;
+        private bool CanRemoveAll(object p) => true;
 
-        private void OnRemoveAllExecute(Object p)
+        private void OnRemoveAllExecute(object p)
         {
             
         }
@@ -199,13 +195,6 @@ namespace EditorSubwayMap.ViewModels
             }*/
         #endregion
 
-        public ICommand SelectBrush { get; }
-        private bool CanSelectBrush(object p) => true;
-        private void SelectBrushExecute(object p)
-        {
-            Color = (p as Brush);
-        }
-
         public Array Colors
         {
             get => _Colors;
@@ -216,8 +205,6 @@ namespace EditorSubwayMap.ViewModels
         {
             Colors = typeof(Brushes).GetProperties()
             .Select(p => new { Name = p.Name, Brush = p.GetValue(null) as Brush }).ToArray();
-
-            SelectBrush = new LambdaCommand(SelectBrushExecute, CanSelectBrush);
 
             #region Map Commands
             Import = new LambdaCommand(ImportExecute, CanImport);
