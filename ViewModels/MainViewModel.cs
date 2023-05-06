@@ -3,9 +3,7 @@ using EditorSubwayMap.Infastructure.Commands;
 using EditorSubwayMap.ViewModels.Base;
 using System.Windows.Input;
 using WpfApp1.Data;
-using EditorSubwayMap.Models;
-using EditorSubwayMap.Models.ElementsOfMap;
-using System.Windows.Controls;
+using EditorSubwayMap.Models; 
 using static EditorSubwayMap.Models.MainModel;
 using System.Collections.Generic;
 using System.Windows.Media;
@@ -41,7 +39,6 @@ namespace EditorSubwayMap.ViewModels
             get => _Title;
             set => Set(ref _Title, value);
         }
-
         /// <summary>
         /// List of Names of Ways, user saved
         /// </summary>

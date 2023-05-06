@@ -1,6 +1,7 @@
 ﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
+using EditorSubwayMap.View;
 using EditorSubwayMap.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,9 +17,16 @@ namespace WpfApp1
         MainViewModel _model;
         public MainWindow()
         {
+            InitializeComponent();
+            /*
+            < UserControl.Content >
+                < views:CanvasView />
+            </ UserControl.Content >
+            */
+
             _model = new MainViewModel();
             DataContext = _model;
-            InitializeComponent();
+            CanvasDrawing.Content = new CanvasView(_model);
         }
 
         private void ComboColors_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

@@ -422,15 +422,13 @@
             
         </Canvas>
         
-        <UserControl
+        <UserControl x:Name="CanvasDrawing"
             Grid.Row="0" 
             Grid.Column="2"
             Grid.RowSpan="3"
             Grid.ColumnSpan="2">
         
-            <UserControl.Content>
-                <views:CanvasView/>
-            </UserControl.Content>
+            
         </UserControl>
                 <Canvas Margin="0"
                                           />
