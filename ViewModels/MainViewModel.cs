@@ -8,18 +8,23 @@ using EditorSubwayMap.Models.ElementsOfMap;
 using System.Windows.Controls;
 using static EditorSubwayMap.Models.MainModel;
 using System.Collections.Generic;
+using System.Windows.Media;
+using System.Linq;
 
 namespace EditorSubwayMap.ViewModels
 {
     public class MainViewModel : ViewModel
     {
-        public MainModel model = new MainModel();
+        /// <summary>
+        /// public MainModel model = new MainModel();
+        /// </summary>
 
         #region Fields
         private string _Title = Convert.ToString(DrawingOnCanvas.Drawing);
         private List<string> _WayList = new List<string>() { "erwer", "sdfy", "Werwer" };
         private RouteSubway _RouteSubway = new RouteSubway();
         private int _IdStation = -1;
+        private Array _Colors;
         #endregion
 
 
@@ -118,76 +123,85 @@ namespace EditorSubwayMap.ViewModels
         #region Commands Saving some Station and Ways
         public ICommand SaveStation { get; }
         private bool CanSaveStation(object p) => true;
-    /*    private void OnSaveStation(object p)
-        {
-            if (DrawingOnCanvas.Drawing == DrawingOnCanvas.Modes.Station)
+        /*    private void OnSaveStation(object p)
             {
-                foreach (var t in model.RouteSubway.LineWays)
+                if (DrawingOnCanvas.Drawing == DrawingOnCanvas.Modes.Station)
                 {
-                    if (t.Name == "")
+                    foreach (var t in model.RouteSubway.LineWays)
                     {
-                        t.stations.Add(
-                            new Station
-                            {
-                                Name = NameStation,
-                                DistanceBack = Convert.ToInt32(distanceBack),
-                                DistanceLast = Convert.ToInt32(distanceNext),
-                                Position = new System.Windows.Point(
-                                    Canvas.GetLeft(DrawingOnCanvas.Ellipse),
-                                    Canvas.GetTop(DrawingOnCanvas.Ellipse)),
-                                StationId = model.IdStation++
-                            });
-                        return;
-                    } 
-                }
+                        if (t.Name == "")
+                        {
+                            t.stations.Add(
+                                new Station
+                                {
+                                    Name = NameStation,
+                                    DistanceBack = Convert.ToInt32(distanceBack),
+                                    DistanceLast = Convert.ToInt32(distanceNext),
+                                    Position = new System.Windows.Point(
+                                        Canvas.GetLeft(DrawingOnCanvas.Ellipse),
+                                        Canvas.GetTop(DrawingOnCanvas.Ellipse)),
+                                    StationId = model.IdStation++
+                                });
+                            return;
+                        } 
+                    }
 
-                foreach (var t in model.RouteSubway.CircleWays)
-                {
-                    if (t.Name == "")
+                    foreach (var t in model.RouteSubway.CircleWays)
                     {
-                        t.stations.Add(
-                            new Station
-                            {
-                                Name = NameStation,
-                                DistanceBack = Convert.ToInt32(distanceBack),
-                                DistanceLast = Convert.ToInt32(distanceNext),
-                                Position = new System.Windows.Point(
-                                    Canvas.GetLeft(DrawingOnCanvas.Ellipse), 
-                                    Canvas.GetTop(DrawingOnCanvas.Ellipse)),
-                                StationId = model.IdStation++
-                            });
-                        return;
+                        if (t.Name == "")
+                        {
+                            t.stations.Add(
+                                new Station
+                                {
+                                    Name = NameStation,
+                                    DistanceBack = Convert.ToInt32(distanceBack),
+                                    DistanceLast = Convert.ToInt32(distanceNext),
+                                    Position = new System.Windows.Point(
+                                        Canvas.GetLeft(DrawingOnCanvas.Ellipse), 
+                                        Canvas.GetTop(DrawingOnCanvas.Ellipse)),
+                                    StationId = model.IdStation++
+                                });
+                            return;
+                        }
                     }
                 }
             }
-        }
 
-        public ICommand SaveLine{ get; }
-        private bool CanSaveLine(object p) => true;
-        private void OnSaveLine(object p)
-        {
-            if (DrawingOnCanvas.Drawing == DrawingOnCanvas.Modes.Line)
+            public ICommand SaveLine{ get; }
+            private bool CanSaveLine(object p) => true;
+            private void OnSaveLine(object p)
             {
-                model.RouteSubway.LineWays.Add(
-                    new LineWay()
-                    {
-                    });
+                if (DrawingOnCanvas.Drawing == DrawingOnCanvas.Modes.Line)
+                {
+                    model.RouteSubway.LineWays.Add(
+                        new LineWay()
+                        {
+                        });
+                }
             }
-        }
 
-        public ICommand SaveCircle{ get; }
-        private bool CanSaveCircle(object p) => true;
-        private void OnSaveCircle(object p)
-        {
-            if (DrawingOnCanvas.Drawing == DrawingOnCanvas.Modes.Circle)
+            public ICommand SaveCircle{ get; }
+            private bool CanSaveCircle(object p) => true;
+            private void OnSaveCircle(object p)
             {
+                if (DrawingOnCanvas.Drawing == DrawingOnCanvas.Modes.Circle)
+                {
 
-            }
-        }*/
+                }
+            }*/
         #endregion
+        MainModel model;
+        public Array Colors
+        {
+            get => _Colors;
+            private set => Set(ref _Colors, value);
+        }
 
         public MainViewModel()
         {
+            Colors = typeof(Brushes).GetProperties()
+            .Select(p => new { Name = p.Name, Brush = p.GetValue(null) as Brush }).ToArray();
+
             #region Map Commands
             Import = new LambdaCommand(ImportExecute, CanImport);
             Save = new LambdaCommand(SaveExecute, CanSaved);

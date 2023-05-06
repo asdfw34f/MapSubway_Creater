@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Windows;
 using System.Windows.Media;
 
 namespace EditorSubwayMap.Models
 {
-    public class MainModel : Base.Model
+    public abstract class MainModel : Base.Model
     {
         public struct StationAtributs
         {
@@ -13,6 +15,7 @@ namespace EditorSubwayMap.Models
             public static string _NameStation = "Название станции";
             public static string _distanceNext = "0";
             public static string _distanceBack = "0";
+            public static Point _point = new Point(0, 0);
         }
 
         public struct WayAtributs
@@ -20,13 +23,12 @@ namespace EditorSubwayMap.Models
             public static string NameWay = "Название ветки";
         }
 
+
+
         public MainModel()
         {
-            var values = typeof(Brushes).GetProperties().
-                 Select(p => new { Name = p.Name, Brush = p.GetValue(null) as Brush }).
-                 ToArray();
-            Type Brushes =  values.GetType();
             
         }
+
     }
 }

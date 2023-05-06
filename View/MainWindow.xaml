@@ -203,6 +203,7 @@
             </Grid>
             
             <ComboBox Name="ComboColors" 
+                      ItemsSource="{Binding Colors}"
                       SelectedValuePath="Name" 
                       Height="30" 
                       Width="240" 
@@ -215,18 +216,11 @@
                       >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" 
-                                    Height="18" 
-                                    Margin="0,0,0,2">
-
-                            <Border BorderThickness="1" 
-                                    CornerRadius="2" 
-                                    BorderBrush="Black" 
-                                    Width="50" 
-                                    VerticalAlignment="Stretch"/>
-
-                            <TextBlock Text="" 
-                                       Margin="8,0,0,0"/>
+                        <StackPanel Orientation="Horizontal" Height="18" Margin="0,0,0,2">
+                            <Border BorderThickness="1" CornerRadius="2" 
+                  BorderBrush="Black" Width="50" VerticalAlignment="Stretch"
+                  Background="{Binding Name}"/>
+                            <TextBlock Text="{Binding Name}" Margin="8,0,0,0"/>
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
