@@ -1,8 +1,8 @@
-﻿using AtributsSubwauLibrary.Model;
+﻿using AtributsSubwayLibrary.Model;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace AtributsSubwauLibrary.Saving
+namespace AtributsSubwayLibrary.Saving
 {
     public class SaveMap
     {

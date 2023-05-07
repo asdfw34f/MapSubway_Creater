@@ -1,4 +1,4 @@
-﻿using AtributsSubwauLibrary.Model;
+﻿using AtributsSubwayLibrary.Model;
 using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
 
-namespace AtributsSubwauLibrary.Import
+namespace AtributsSubwayLibrary.Import
 {
     public class ImportMap
     {

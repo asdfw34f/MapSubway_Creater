@@ -2,10 +2,11 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using EditorSubwayMap.MVVM.Base;
 
-namespace EditorSubwayMap.Models
+namespace EditorSubwayMap.MVVM.Model
 {
-    public class CanvasModel : Base.Model
+    public class CanvasModel : NotifyPropertyChanged
     {
         #region Fields
         private UIElement _Children = new UIElement();

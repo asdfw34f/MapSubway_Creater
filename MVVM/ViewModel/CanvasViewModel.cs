@@ -1,21 +1,19 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using EditorSubwayMap.DrawFigure;
 using EditorSubwayMap.Model;
 using System.Windows.Shapes;
-using EditorSubwayMap.Infastructure.Commands;
-using EditorSubwayMap.ViewModels.Base;
-using WpfApp1.Data;
-using EditorSubwayMap.Models;
+using EditorSubwayMap.Infrastructure.Commands;
+using EditorSubwayMap.MVVM.Base;
+using EditorSubwayMap.Data;
+using EditorSubwayMap.MVVM.Model;
 
-namespace EditorSubwayMap.ViewModels
+namespace EditorSubwayMap.MVVM.ViewModel
 {
-    public class CanvasViewModel : ViewModel
+    public class CanvasViewModel: NotifyPropertyChanged
     {
-        public  CanvasModel DrawingBoard = new CanvasModel();
+        public CanvasModel DrawingBoard = new CanvasModel();
         
-
         #region Propertyes
         private string _positionx = "0";
         public string PositionX
@@ -37,9 +35,8 @@ namespace EditorSubwayMap.ViewModels
         DrawStation DStation = new DrawStation();
 
         #region Figures
-            private Ellipse _Circle = new Ellipse();
-            private Line _Line = new Line();
-            private Ellipse _Station = new Ellipse();
+        private Ellipse _Circle = new Ellipse();
+        private Line _Line = new Line();
         #endregion
         
         public ICommand MouseUp { get; }
@@ -54,6 +51,7 @@ namespace EditorSubwayMap.ViewModels
                 DStation.color = OnCanvas.Color;
                 _Circle = DStation.Draw();
                 (p as Canvas).Children.Add(_Circle);
+                OnCanvas.Ellipse= _Circle;
             }
         }
         
@@ -64,22 +62,20 @@ namespace EditorSubwayMap.ViewModels
             DrawingBoard.IsDrawing = true;
             switch (OnCanvas.Drawing)
             {
-                case OnCanvas.Modes.None:
-                    break;
+                case OnCanvas.Modes.None: break;
+
+                //  DRAW STATION
+                case OnCanvas.Modes.Station: break; 
+
                 //  DRAW LINE 
                 case  OnCanvas.Modes.Line:
                     //NameWay = "Название ветки: ";
                     DLine.Pstart = Mouse.GetPosition(p as Canvas);
                     DLine.Pend = Mouse.GetPosition(p as Canvas);
                     DLine.color = OnCanvas.Color;
-
                     _Line = DLine.Draw();
                     (p as Canvas).Children.Add(_Line);
-                    break;
-
-                //  DRAW STATION
-                case  OnCanvas.Modes.Station:
-
+                    OnCanvas.Line= _Line;
                     break;
 
                 //  DRAW ELLIPSE

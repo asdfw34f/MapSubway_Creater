@@ -1,7 +1,7 @@
-﻿using EditorSubwayMap.Infastructure.Commands.Base;
+﻿using EditorSubwayMap.Infrastructure.Commands.Base;
 using System;
 
-namespace EditorSubwayMap.Infastructure.Commands
+namespace EditorSubwayMap.Infrastructure.Commands
 {
     internal class LambdaCommand : Command
     {

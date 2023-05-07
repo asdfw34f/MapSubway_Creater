@@ -1,4 +1,4 @@
-﻿<Window x:Class="WpfApp1.MainWindow"
+﻿<Window x:Class="EditorSubwayMap.MVVM.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,9 +9,8 @@
         Title="Metro Map Creator" 
         Height="1027" 
         Width="1628"
-        xmlns:vm="clr-namespace:EditorSubwayMap.ViewModels"
-        xmlns:views="clr-namespace:EditorSubwayMap.View"
-        
+        xmlns:vm="clr-namespace:EditorSubwayMap.MVVM.ViewModel"
+        xmlns:views="clr-namespace:EditorSubwayMap.MVVM.View" 
         >
     <Window.Resources>
     </Window.Resources>
@@ -37,8 +36,7 @@
                 Background="Black" 
                 Grid.ColumnSpan="2">
 
-            <Grid
-                Background="#FF43A49A" 
+            <Grid Background="#FF43A49A" 
                   Canvas.Left="10" 
                   Canvas.Top="203" 
                   HorizontalAlignment="Center"
@@ -55,11 +53,12 @@
                          HorizontalContentAlignment="Center" 
                          VerticalContentAlignment="Center" 
                          FontSize="14" BorderBrush="Black" 
-                         Margin="0,13,0,0" />
+                         Margin="0,13,0,0" 
+                         />
 
 
                 <TextBox x:Name="AtrStNextWay" 
-                         Text="{Binding distanceNext}" 
+                         Text="{Binding DistanceNext}" 
                          Width="80" 
                          Height="30" 
                          HorizontalAlignment="Left" 
@@ -117,11 +116,12 @@
                         Content="Добавить станцию" 
                         FontWeight="Bold" 
                         Margin="0,285,0,0"
-                        Width="140"/>
+                        Width="140" 
+                        />
 
                 <ComboBox x:Name="AtrStNameWay"
                           ItemsSource="{Binding WayList}"
-                          SelectedValue="{Binding SelectedWay}"
+                          SelectedValue="{Binding NameWay}"
                           Text="Ветка"
                           Width="220" 
                           FontSize="14" 
@@ -134,7 +134,7 @@
                           Margin="0,65,0,0" />
 
                 <TextBox x:Name="AtrStBackWay"
-                         Text="{Binding distanceBack}" 
+                         Text="{Binding DistanceBack}" 
                          HorizontalAlignment="Left" 
                          VerticalAlignment="Top"
                          FontSize="14"
@@ -184,9 +184,11 @@
                         Content="Добавить ветку" 
                         FontWeight="Bold" 
                         Margin="0,88,0,0"
-                        Width="146"/>
+                        Width="146"
+                        Command="{Binding SaveWay}"/>
 
                 <TextBox x:Name="AWayName" 
+                         Foreground="Black"
                          Text="{Binding NameWay}"
                          HorizontalAlignment="Center" 
                          VerticalAlignment="Top" 
@@ -248,7 +250,7 @@
                     Focusable="False"
                     Cursor="Hand" 
                     BorderBrush="Cyan"
-                    Command="{Binding SelectDrawLineCommand}">
+                    Command="{Binding SelectModeCommands.SelectDrawLineCommand}">
 
                 <Button.Background>
                     <ImageBrush 
@@ -263,7 +265,7 @@
                     VerticalAlignment="Top" 
                     Canvas.Left="65" Cursor="Hand" 
                     BorderBrush="Cyan"
-                    Command="{Binding SelectDrawCircleCommand}">
+                    Command="{Binding SelectModeCommands.SelectDrawCircleCommand}">
 
                 <Button.Background>
                     <ImageBrush 
@@ -280,7 +282,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center" 
                     BorderBrush="Cyan"
-                    Command="{Binding SelectDrawStationCommand}">
+                    Command="{Binding SelectModeCommands.SelectDrawStationCommand}">
 
                 <Button.Background>
                     <ImageBrush 
@@ -297,7 +299,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     BorderBrush="Cyan"
-                    Command="{Binding SelectDrawNoneCommand}">
+                    Command="{Binding SelectModeCommands.SelectDrawNoneCommand}">
 
                 <Button.Background>
                     <ImageBrush 

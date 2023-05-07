@@ -6,7 +6,7 @@ using System.Configuration;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace WpfApp1
+namespace EditorSubwayMap
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml

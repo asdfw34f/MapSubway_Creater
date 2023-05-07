@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace EditorSubwayMap.Infastructure.Commands.Base
+namespace EditorSubwayMap.Infrastructure.Commands.Base
 {
     internal abstract class Command : ICommand
     {

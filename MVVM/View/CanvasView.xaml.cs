@@ -1,9 +1,9 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
-using EditorSubwayMap.ViewModels;
+using EditorSubwayMap.MVVM.ViewModel;
+using EditorSubwayMap;
 using WpfApp1;
-
-namespace EditorSubwayMap.View
+namespace EditorSubwayMap.MVVM.View
 {
     public partial class CanvasView : UserControl
     {

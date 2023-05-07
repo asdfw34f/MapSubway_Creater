@@ -2,16 +2,15 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace EditorSubwayMap.Models.Base
+namespace EditorSubwayMap.MVVM.Base
 {
-    public abstract class Model : INotifyPropertyChanged, IDisposable
+    public class NotifyPropertyChanged : INotifyPropertyChanged, IDisposable
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            if (PropertyChanged != null)
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
