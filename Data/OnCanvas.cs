@@ -15,13 +15,15 @@ namespace EditorSubwayMap.Data
             Line,
             Station
         }
-
-        public static RouteSubway RouteSubway { get; set; } = new RouteSubway();
         public static Modes Drawing { get; set; }
+        
+        public static Visibility VisabilityStationGrid;
+        public static Visibility VisabilityWayGrid;
+
         public static Ellipse Ellipse { get; set; }
         public static Line Line { get; set; }
+        public static Brush Color { get; set; } = Brushes.Black;
         public static string PositionX { get; set; }
         public static string PositionY { get; set; }
-        public static Brush Color { get; set; } = Brushes.Black;
     }
 }

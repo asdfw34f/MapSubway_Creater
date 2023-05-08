@@ -11,7 +11,7 @@ namespace EditorSubwayMap.MVVM.Model.Rout
         private int _distanceLast;
         private string _NameWay;
         private string _Color;
-        private Point _Position;
+        private Point _Position = new Point(0,0);
 
         public string StationID
         {

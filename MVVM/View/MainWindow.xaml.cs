@@ -13,15 +13,17 @@ namespace EditorSubwayMap.MVVM.View
     public partial class MainWindow : Window
     {
         MainViewModel _vm;
-
+        CanvasViewModel _canvas;
         public MainWindow()
         {
             InitializeComponent();
-            /*
             
-            */
             _vm = new MainViewModel();
             DataContext = _vm;
+            _canvas = new CanvasViewModel(_vm);
+            CanvasDrawing.Content = new CanvasView(_canvas);
+            CanvasDrawing.DataContext = _canvas;
         }
+
     }
 }

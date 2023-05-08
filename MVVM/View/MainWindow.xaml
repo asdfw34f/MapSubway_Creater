@@ -10,8 +10,7 @@
         Height="1027" 
         Width="1628"
         xmlns:vm="clr-namespace:EditorSubwayMap.MVVM.ViewModel"
-        xmlns:views="clr-namespace:EditorSubwayMap.MVVM.View" 
-        >
+        xmlns:views="clr-namespace:EditorSubwayMap.MVVM.View" d:DataContext="{d:DesignInstance Type=vm:MainViewModel}">
     <Window.Resources>
     </Window.Resources>
 
@@ -42,7 +41,7 @@
                   HorizontalAlignment="Center"
                   VerticalAlignment="Top" 
                   Height="336" Width="240"
-                  Visibility="Visible">
+                  Visibility="{Binding VisabilityStationGrid}">
 
                 <TextBox x:Name="AtrStNameSt" 
                          Text="{Binding NameStation}"
@@ -117,6 +116,8 @@
                         FontWeight="Bold" 
                         Margin="0,285,0,0"
                         Width="140" 
+                        IsEnabled="True"
+                        Command="{Binding SaveStation}"
                         />
 
                 <ComboBox x:Name="AtrStNameWay"
@@ -162,14 +163,15 @@
                        FontSize="12" 
                        Visibility="Hidden"/>
             </Grid>
-            
+
             <Grid Background="#FF22847B" 
+                  
                   Canvas.Left="10"
-                  Canvas.Top="189" 
+                  Canvas.Top="279" 
                   x:Name="AtrWayGrid"
                   Height="143"
                   Width="240"
-                  Visibility="Hidden"
+                  Visibility="{Binding VisabilityWayGrid}"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Top">
 
@@ -200,7 +202,7 @@
                          BorderBrush="Black" 
                          Margin="0,21,0,0"/>
             </Grid>
-            
+
             <ComboBox Name="ComboColors" 
                       ItemsSource="{Binding Colors}"
                       SelectedValue="{Binding Color}"
@@ -421,19 +423,15 @@
                     BorderBrush="#FF00FFF9" 
                     FontWeight="Medium"/>
 
-            
+
         </Canvas>
-        
+
         <UserControl x:Name="CanvasDrawing"
             Grid.Row="0" 
             Grid.Column="2"
             Grid.RowSpan="3"
             Grid.ColumnSpan="2">
-            <UserControl.Content >
-                <views:CanvasView />
-            </UserControl.Content >
-
         </UserControl>
-                <Canvas Margin="0"/>
+        <Canvas Margin="0"/>
     </Grid>
 </Window>

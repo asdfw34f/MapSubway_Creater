@@ -8,9 +8,9 @@ namespace EditorSubwayMap.MVVM.Model.Rout
     {
         private string _NameWay;
         private string _Color;
-        private Point _startPoint;
-        private Point _endPoint;
-        private List<Station> _stations;
+        private Point _startPoint = new Point(0,0);
+        private Point _endPoint = new Point(0,0);
+        private List<Station> _stations = new List<Station>();
 
         public string NameWay
         {

@@ -8,12 +8,13 @@ namespace EditorSubwayMap.MVVM.View
     public partial class CanvasView : UserControl
     {
         private CanvasViewModel _viewModel;
-        public CanvasView()
+        public CanvasView(CanvasViewModel ViewModel)
         {
+            _viewModel= ViewModel;
             InitializeComponent();
-            _viewModel = new CanvasViewModel();
-            DataContext = _viewModel;
-            DrawingCanvas.DataContext = _viewModel.DrawingBoard.Canvas;
+            //_viewModel = new CanvasViewModel();
+            //DataContext = _viewModel;
+            //DrawingCanvas.DataContext = _viewModel.DrawingBoard.Canvas;
         }
         
         private void DrawingCanvas_OnMouseMove(object sender, MouseEventArgs e)

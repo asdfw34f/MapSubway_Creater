@@ -10,21 +10,24 @@ using System.Linq;
 using EditorSubwayMap.MVVM.Model.Rout;
 using System.Windows;
 using EditorSubwayMap.MVVM.Model;
+using LineWay = EditorSubwayMap.MVVM.Model.Rout.LineWay;
+using System.Windows.Controls;
 
 namespace EditorSubwayMap.MVVM.ViewModel
 {
     public class MainViewModel : NotifyPropertyChanged
     {
-        /// <summary>
-        /// public MainModel model = new MainModel();
-        /// </summary>
-
         #region Commands
         public SelectModeDrawing SelectModeCommands { get; } = new SelectModeDrawing();
         public IOMap IOMapCommands { get; } = new IOMap();
         public Saving SavingCommands { get; } = new Saving();
         #endregion
-
+        
+        #region the Map
+        List<LineWay> Lines = new List<LineWay>();
+        List<CircleWay> Circles = new List<CircleWay>();
+        List<Station> Stations = new List<Station>();
+        #endregion
 
         #region Fields
         private BrushConverter _ColorConvert = new BrushConverter();
@@ -32,20 +35,37 @@ namespace EditorSubwayMap.MVVM.ViewModel
         private string _SelectedWay;
         private Brush _Color = Brushes.Black;
         private Array _Colors;
-
         private string _ID = "we";
         private string _NameStation = "Название станции: ";
         private string _distanceNext = "0";
         private string _distanceBack = "0";
         private Point _point = new Point(0, 0);
         private string _NameWay = "Название ветки :";
-
-        private List<LineWay> _Lines= new List<LineWay>();
-        private List<Station> _Stations = new List<Station>();
-        private List<CircleWay> _Circles= new List<CircleWay>();
-
+        private Visibility _VisabilityWayGrid = Visibility.Hidden;
+        private Visibility _VisabilityStationGrid = Visibility.Hidden;
         #endregion
-        #region Adding to Map Propertys
+
+        public Visibility VisabilityStationGrid
+        {
+            get => _VisabilityStationGrid;
+            set => Set(ref _VisabilityStationGrid, value);
+        }
+
+        public Visibility VisabilityWayGrid
+        {
+            get => _VisabilityWayGrid;
+            set => Set(ref _VisabilityWayGrid, value);
+        }
+
+
+        #region Adding to Map 
+
+        public List<string> WayList
+        {
+            get => _WayList;
+            set=> Set(ref _WayList, value);
+        }
+
         public string NameWay
         {
             get => _NameWay;
@@ -92,14 +112,75 @@ namespace EditorSubwayMap.MVVM.ViewModel
         }
         #endregion
 
-        
+        public ICommand SaveWay { get; }
+        private bool CanSaveWay(object p) => true;
+        private void OnSaveWay(object p)
+        {
+            if (OnCanvas.Drawing == OnCanvas.Modes.Line)
+            {
+                Lines.Add(
+                    new LineWay()
+                    {
+                        Color = _ColorConvert.ConvertToString(Color),
+                        endPoint = new Point(
+                            OnCanvas.Line.X2, OnCanvas.Line.Y2),
+                        NameWay = NameWay,
+                        startPoint = new Point(
+                            OnCanvas.Line.X1, OnCanvas.Line.Y1),
+                        stations = new List<Station>()
+                    });
 
+                WayList.Add(NameWay);
+
+                OnCanvas.Line.ToolTip = "Ветка: " + NameWay;
+                OnCanvas.Line.Name = NameWay;
+                NameWay = "Ветка добавлена";
+            }
+            else if (OnCanvas.Drawing == OnCanvas.Modes.Circle)
+            {
+                Circles.Add(new CircleWay()
+                {
+                    Color= _ColorConvert.ConvertToString(Color),
+                    Position= new Point(
+                        Canvas.GetLeft(OnCanvas.Ellipse), Canvas.GetTop(OnCanvas.Ellipse)),
+                    Height = OnCanvas.Ellipse.Height,
+                    Width = OnCanvas.Ellipse.Width,
+                    NameWay= NameWay,
+                    stations= new List<Station>()
+                });
+                WayList.Add(NameWay);
+
+                OnCanvas.Ellipse.ToolTip = "Ветка: " + NameWay;
+                OnCanvas.Ellipse.Name = NameWay;
+                NameWay = "Ветка добавлена";
+            }
+        }
+
+        public ICommand SaveStation { get; }
+        private bool CanSaveStation(object p) => true;
+        private void OnSaveStation(object p)
+        {
+            Stations.Add(new Station()
+            {
+                Name = NameStation,
+                NameWay= NameWay,
+                Color= _ColorConvert.ConvertToString(Color), 
+                Position= new Point(
+                    Canvas.GetLeft(OnCanvas.Ellipse), Canvas.GetTop(OnCanvas.Ellipse)),
+                distanceBack = Convert.ToInt32(DistanceBack),
+                distanceLast = Convert.ToInt32(DistanceNext)
+            });
+            OnCanvas.Ellipse.ToolTip = "Станция - " + NameStation;
+            NameStation = "Станция добалвена";
+        }
 
         public MainModel MainM;
         public MainViewModel()
         {
             MainM = new MainModel();
-            
+            SaveWay = new LambdaCommand(OnSaveWay, CanSaveWay);
+            SaveStation = new LambdaCommand(OnSaveStation, CanSaveStation);
+
             Colors = typeof(Brushes).GetProperties()
             .Select(p => new { Name = p.Name, Brush = p.GetValue(null) as Brush }).ToArray();
 
