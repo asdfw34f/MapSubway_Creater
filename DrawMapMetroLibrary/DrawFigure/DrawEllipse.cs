@@ -169,10 +169,6 @@ namespace EditorSubwayMap.DrawFigure
                     newLeft = 0;
                 if (newTop < 0)
                     newTop = 0;
-                if (newLeft > canvas.ActualWidth)
-                    newLeft =canvas.ActualWidth;
-                if (newTop > canvas.ActualHeight)
-                    newTop = canvas.ActualHeight;
 
                 // Устанавливаем новые координаты эллипса
                 Canvas.SetLeft((Ellipse)sender, newLeft);

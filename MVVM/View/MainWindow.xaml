@@ -252,7 +252,7 @@
                     Focusable="False"
                     Cursor="Hand" 
                     BorderBrush="Cyan"
-                    Command="{Binding SelectModeCommands.SelectDrawLineCommand}">
+                    Command="{Binding SelectDrawLineCommand}">
 
                 <Button.Background>
                     <ImageBrush 
@@ -267,7 +267,7 @@
                     VerticalAlignment="Top" 
                     Canvas.Left="65" Cursor="Hand" 
                     BorderBrush="Cyan"
-                    Command="{Binding SelectModeCommands.SelectDrawCircleCommand}">
+                    Command="{Binding SelectDrawCircleCommand}">
 
                 <Button.Background>
                     <ImageBrush 
@@ -284,7 +284,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center" 
                     BorderBrush="Cyan"
-                    Command="{Binding SelectModeCommands.SelectDrawStationCommand}">
+                    Command="{Binding SelectDrawStationCommand}">
 
                 <Button.Background>
                     <ImageBrush 
@@ -301,7 +301,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     BorderBrush="Cyan"
-                    Command="{Binding SelectModeCommands.SelectDrawNoneCommand}">
+                    Command="{Binding SelectDrawNoneCommand}">
 
                 <Button.Background>
                     <ImageBrush 

@@ -1,5 +1,4 @@
 ﻿using System;
-using EditorSubwayMap.Infrastructure.Commands.MainCommands;
 using EditorSubwayMap.Infrastructure.Commands;
 using EditorSubwayMap.MVVM.Base;
 using System.Windows.Input;
@@ -17,12 +16,6 @@ namespace EditorSubwayMap.MVVM.ViewModel
 {
     public class MainViewModel : NotifyPropertyChanged
     {
-        #region Commands
-        public SelectModeDrawing SelectModeCommands { get; } = new SelectModeDrawing();
-        public IOMap IOMapCommands { get; } = new IOMap();
-        public Saving SavingCommands { get; } = new Saving();
-        #endregion
-        
         #region the Map
         List<LineWay> Lines = new List<LineWay>();
         List<CircleWay> Circles = new List<CircleWay>();
@@ -44,6 +37,34 @@ namespace EditorSubwayMap.MVVM.ViewModel
         private Visibility _VisabilityWayGrid = Visibility.Hidden;
         private Visibility _VisabilityStationGrid = Visibility.Hidden;
         #endregion
+
+        #region Select a mode drawing
+        public enum Modes
+        {
+            None,
+            Circle,
+            Line,
+            Station
+        }
+        public Modes Drawing { get; set; }
+
+        public ICommand SelectDrawLineCommand { get; }
+        private bool CanSelectDrawLineCommand(object p) => true;
+        private void OnSelectDrawLineCommand(object p) => Drawing = Modes.Line;
+
+        public ICommand SelectDrawCircleCommand { get; }
+        private bool CanSelectDrawCircleCommand(object p) => true;
+        private void OnSelectDrawCircleCommand(object p) => Drawing = Modes.Circle;
+
+        public ICommand SelectDrawStationCommand { get; }
+        private bool CanSelectDrawStationCommand(object p) => true;
+        private void OnSelectDrawStationCommand(object p) => Drawing = Modes.Station;
+
+        public ICommand SelectDrawNoneCommand { get; }
+        private bool CanSelectDrawNoneCommand(object p) => true;
+        private void OnSelectDrawNoneCommand(object p) => Drawing = Modes.None;
+        #endregion
+
 
         public Visibility VisabilityStationGrid
         {
@@ -116,7 +137,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
         private bool CanSaveWay(object p) => true;
         private void OnSaveWay(object p)
         {
-            if (OnCanvas.Drawing == OnCanvas.Modes.Line)
+            if (Drawing == Modes.Line)
             {
                 Lines.Add(
                     new LineWay()
@@ -136,7 +157,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
                 OnCanvas.Line.Name = NameWay;
                 NameWay = "Ветка добавлена";
             }
-            else if (OnCanvas.Drawing == OnCanvas.Modes.Circle)
+            else if (Drawing == Modes.Circle)
             {
                 Circles.Add(new CircleWay()
                 {
@@ -181,6 +202,11 @@ namespace EditorSubwayMap.MVVM.ViewModel
             SaveWay = new LambdaCommand(OnSaveWay, CanSaveWay);
             SaveStation = new LambdaCommand(OnSaveStation, CanSaveStation);
 
+            SelectDrawLineCommand = new LambdaCommand(OnSelectDrawLineCommand, CanSelectDrawLineCommand);
+            SelectDrawCircleCommand = new LambdaCommand(OnSelectDrawCircleCommand, CanSelectDrawCircleCommand);
+            SelectDrawStationCommand = new LambdaCommand(OnSelectDrawStationCommand, CanSelectDrawStationCommand);
+            SelectDrawNoneCommand = new LambdaCommand(OnSelectDrawNoneCommand, CanSelectDrawNoneCommand);
+            
             Colors = typeof(Brushes).GetProperties()
             .Select(p => new { Name = p.Name, Brush = p.GetValue(null) as Brush }).ToArray();
 

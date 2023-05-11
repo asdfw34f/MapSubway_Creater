@@ -87,6 +87,8 @@
     <Compile Include="Infrastructure\Commands\MainCommands\IOMap.cs" />
     <Compile Include="Infrastructure\Commands\MainCommands\Saving.cs" />
     <Compile Include="Infrastructure\Commands\MainCommands\SelectModeDrawing.cs" />
+    <Compile Include="Infrastructure\IOMap\ImportMap.cs" />
+    <Compile Include="Infrastructure\IOMap\SavingMap.cs" />
     <Compile Include="MVVM\Base\NotifyPropertyChanged.cs" />
     <Compile Include="Infrastructure\Commands\Base\Command.cs" />
     <Compile Include="Infrastructure\Commands\LambdaCommand.cs" />

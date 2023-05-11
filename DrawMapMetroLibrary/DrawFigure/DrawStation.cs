@@ -79,7 +79,7 @@ namespace EditorSubwayMap.DrawFigure
             };
 
             newSt.MouseLeftButtonDown += station_MouseLeftButtonDown;
-            newSt.MouseMove += station_MouseMove;
+          //  newSt.MouseMove += station_MouseMove;
             newSt.MouseLeftButtonUp += station_MouseLeftButtonUp;
             newSt.AllowDrop = true;
 
@@ -92,6 +92,7 @@ namespace EditorSubwayMap.DrawFigure
             _lastPosition = e.GetPosition(canvas);
             Mouse.Capture((Ellipse)sender);
         }
+        /*
 
         private void station_MouseMove(object sender, MouseEventArgs e)
         {
@@ -119,7 +120,7 @@ namespace EditorSubwayMap.DrawFigure
                 Canvas.SetTop((Ellipse)sender, newTop);
                 _lastPosition = currentPosition;
             }
-        }
+        }*/
 
         private void station_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {

@@ -1,6 +1,4 @@
-﻿using AtributsSubwayLibrary.Model;
-using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -15,8 +13,7 @@ namespace EditorSubwayMap.Data
             Line,
             Station
         }
-        public static Modes Drawing { get; set; }
-        
+
         public static Visibility VisabilityStationGrid;
         public static Visibility VisabilityWayGrid;
 

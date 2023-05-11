@@ -16,6 +16,17 @@ namespace EditorSubwayMap.MVVM.ViewModel
         public CanvasModel DrawingBoard = new CanvasModel();
         public MainViewModel Main;
 
+        #region Fields
+        private bool _IsDrawing;
+        #endregion
+        
+        public bool IsDrawing
+        {
+            get => _IsDrawing;
+            set => Set(ref _IsDrawing, value);
+        }
+
+        #region Visability
         public Visibility VisabilityStationGrid
         {
             get => Main.VisabilityStationGrid;
@@ -27,8 +38,9 @@ namespace EditorSubwayMap.MVVM.ViewModel
             get => Main.VisabilityWayGrid;
             set => Main.VisabilityWayGrid = value;
         }
+        #endregion
 
-        #region Propertyes
+        #region Position
         private string _positionx = "0";
         public string PositionX
         {
@@ -53,17 +65,18 @@ namespace EditorSubwayMap.MVVM.ViewModel
         private Line _Line = new Line();
         #endregion
 
+        #region Commands Mouse events / Drawing
         public ICommand MouseUp { get; }
         private bool CanMouseUp(object p) => true;
         private void OnMouseUp(object p)
         {
-            DrawingBoard.IsDrawing = false;
+            IsDrawing = false;
 
-            switch (OnCanvas.Drawing)
+            switch (Main.Drawing)
             {
-                case OnCanvas.Modes.None:
+                case MainViewModel.Modes.None:
                     break;
-                case OnCanvas.Modes.Station:
+                case MainViewModel.Modes.Station:
                 {
                     DStation.Pstart = Mouse.GetPosition(p as Canvas);
                     DStation.color = OnCanvas.Color;
@@ -78,7 +91,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
                     Main.VisabilityStationGrid = Visibility.Visible;
                     break;
                 }
-                case OnCanvas.Modes.Circle:
+                case MainViewModel.Modes.Circle:
                 {
                     OnCanvas.Ellipse = _Circle;
                     if (VisabilityStationGrid!= Visibility.Visible)
@@ -88,7 +101,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
                     Main.VisabilityWayGrid = Visibility.Visible;
                     break;
                 }
-                case OnCanvas.Modes.Line:
+                case MainViewModel.Modes.Line:
                 {
                     OnCanvas.Line = _Line;
                     if (VisabilityStationGrid != Visibility.Visible)
@@ -98,7 +111,6 @@ namespace EditorSubwayMap.MVVM.ViewModel
                     Main.VisabilityWayGrid = Visibility.Visible;
                     break;
                 }
-
             }
         }
 
@@ -106,16 +118,16 @@ namespace EditorSubwayMap.MVVM.ViewModel
         private bool CanMouseDown(object p) => true;
         private void OnMouseDown(object p)
         {
-            DrawingBoard.IsDrawing = true;
-            switch (OnCanvas.Drawing)
+            IsDrawing = true;
+            switch (Main.Drawing)
             {
-                case OnCanvas.Modes.None:
+                case MainViewModel.Modes.None:
                     break;
                 //  DRAW STATION
-                case OnCanvas.Modes.Station:
+                case MainViewModel.Modes.Station:
                     break;
                 //  DRAW LINE 
-                case OnCanvas.Modes.Line:
+                case MainViewModel.Modes.Line:
                 {
                     DLine.Pstart = Mouse.GetPosition(p as Canvas);
                     DLine.Pend = Mouse.GetPosition(p as Canvas);
@@ -126,7 +138,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
 
                 }
                 //  DRAW ELLIPSE
-                case OnCanvas.Modes.Circle:
+                case MainViewModel.Modes.Circle:
                 {
                     DCircle.Pstart = Mouse.GetPosition(p as Canvas);
                     DCircle.color = OnCanvas.Color;
@@ -144,15 +156,15 @@ namespace EditorSubwayMap.MVVM.ViewModel
         private bool CanMouseMoved(object p) => true;
         private void OnMouseMove(object p)
         {
-            if (DrawingBoard.IsDrawing == true)
-                switch (OnCanvas.Drawing)
+            if (IsDrawing == true)
+                switch (Main.Drawing)
                 {
-                    case OnCanvas.Modes.None:
+                    case MainViewModel.Modes.None:
                         break;
-                    case OnCanvas.Modes.Station:
+                    case MainViewModel.Modes.Station:
                         break;
                     //  DRAW LINE 
-                    case OnCanvas.Modes.Line:
+                    case MainViewModel.Modes.Line:
                     {
                         //ViewModel   //View
                         _Line.X2 = Mouse.GetPosition(p as Canvas).X;
@@ -160,7 +172,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
                         break;
                     }
                     //  DRAW ELLIPSE
-                    case OnCanvas.Modes.Circle:
+                    case MainViewModel.Modes.Circle:
                     {
                         DCircle.currentP = Mouse.GetPosition(p as Canvas);
                         _Circle = DCircle.EditSize(_Circle);
@@ -170,6 +182,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
             PositionX = "X: " + Mouse.GetPosition(p as Canvas).X;
             PositionY = "Y: " + Mouse.GetPosition(p as Canvas).Y;
         }
+        #endregion
 
         public CanvasViewModel(MainViewModel main)
         {
