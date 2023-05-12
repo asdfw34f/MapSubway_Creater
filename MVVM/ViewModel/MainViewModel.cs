@@ -9,8 +9,15 @@ using System.Linq;
 using EditorSubwayMap.MVVM.Model.Rout;
 using System.Windows;
 using EditorSubwayMap.MVVM.Model;
-using LineWay = EditorSubwayMap.MVVM.Model.Rout.LineWay;
+//using LineWay = EditorSubwayMap.MVVM.Model.Rout.LineWay;
 using System.Windows.Controls;
+using LineWay = AtributsSubwayLibrary.Model.LineWay;
+using CircleWay = AtributsSubwayLibrary.Model.CircleWay;
+using Station = AtributsSubwayLibrary.Model.Station;
+using AtributsSubwayLibrary.Model;
+using AtributsSubwayLibrary.Saving;
+using System.Windows.Forms;
+using System.Windows.Shapes;
 
 namespace EditorSubwayMap.MVVM.ViewModel
 {
@@ -20,6 +27,8 @@ namespace EditorSubwayMap.MVVM.ViewModel
         List<LineWay> Lines = new List<LineWay>();
         List<CircleWay> Circles = new List<CircleWay>();
         List<Station> Stations = new List<Station>();
+        private RouteSubway _route = new RouteSubway();
+        public List<UIElement> Children;
         #endregion
 
         #region Fields
@@ -78,6 +87,11 @@ namespace EditorSubwayMap.MVVM.ViewModel
             set => Set(ref _VisabilityWayGrid, value);
         }
 
+        public RouteSubway Route
+        {
+            get => _route;
+            set => Set(ref _route, value);
+        }
 
         #region Adding to Map 
 
@@ -133,6 +147,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
         }
         #endregion
 
+        #region Commands Adding the atributes
         public ICommand SaveWay { get; }
         private bool CanSaveWay(object p) => true;
         private void OnSaveWay(object p)
@@ -194,13 +209,44 @@ namespace EditorSubwayMap.MVVM.ViewModel
             OnCanvas.Ellipse.ToolTip = "Станция - " + NameStation;
             NameStation = "Станция добалвена";
         }
+        #endregion
 
+        #region Command Save the Map
+        public ICommand SaveMap{ get; }
+        private bool CanSaveMap(object p) => true;
+        private void OnSaveMap(object p)
+        {
+            Route = new RouteSubway()
+            {
+                circleWays = Circles,
+                lineWays = Lines,
+                stations = Stations
+            };
+
+            SaveMap save = new SaveMap(Route);
+            var folder = new FolderBrowserDialog();
+            folder.ShowDialog();
+            save.Save(folder.SelectedPath);
+        }
+        #endregion
+
+
+        #region Command Import the Map
+        public ICommand ImportMap { get; }
+        private bool CanImportMap(object p) => true;
+        private void OnImportMap(object p)
+        {
+
+        }
+            #endregion
         public MainModel MainM;
         public MainViewModel()
         {
             MainM = new MainModel();
+
             SaveWay = new LambdaCommand(OnSaveWay, CanSaveWay);
             SaveStation = new LambdaCommand(OnSaveStation, CanSaveStation);
+            SaveMap = new LambdaCommand(OnSaveMap, CanSaveMap);
 
             SelectDrawLineCommand = new LambdaCommand(OnSelectDrawLineCommand, CanSelectDrawLineCommand);
             SelectDrawCircleCommand = new LambdaCommand(OnSelectDrawCircleCommand, CanSelectDrawCircleCommand);
@@ -209,7 +255,6 @@ namespace EditorSubwayMap.MVVM.ViewModel
             
             Colors = typeof(Brushes).GetProperties()
             .Select(p => new { Name = p.Name, Brush = p.GetValue(null) as Brush }).ToArray();
-
         }
     }
 }
