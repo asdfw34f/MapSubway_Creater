@@ -230,7 +230,6 @@ namespace EditorSubwayMap.MVVM.ViewModel
         }
         #endregion
 
-
         #region Command Import the Map
         public ICommand ImportMap { get; }
         private bool CanImportMap(object p) => true;
@@ -238,7 +237,8 @@ namespace EditorSubwayMap.MVVM.ViewModel
         {
 
         }
-            #endregion
+        #endregion
+
         public MainModel MainM;
         public MainViewModel()
         {

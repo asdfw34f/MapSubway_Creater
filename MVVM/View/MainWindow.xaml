@@ -10,7 +10,8 @@
         Height="1027" 
         Width="1628"
         xmlns:vm="clr-namespace:EditorSubwayMap.MVVM.ViewModel"
-        xmlns:views="clr-namespace:EditorSubwayMap.MVVM.View" d:DataContext="{d:DesignInstance Type=vm:MainViewModel}">
+        xmlns:views="clr-namespace:EditorSubwayMap.MVVM.View"
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel}">
     <Window.Resources>
     </Window.Resources>
 
@@ -357,7 +358,8 @@
                     BorderBrush="Cyan" 
                     Foreground="Black" 
                     Height="33" 
-                    FontWeight="Bold" />
+                    FontWeight="Bold"
+                    Command="{Binding SaveMap}"/>
 
             <!--Label text of Select btn Pen-->
             <Label Content="Маршрут" 

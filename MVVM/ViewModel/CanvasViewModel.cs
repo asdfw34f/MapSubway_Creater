@@ -184,6 +184,13 @@ namespace EditorSubwayMap.MVVM.ViewModel
         }
         #endregion
 
+        public ICommand AddElementCommand { get;}
+        private bool CanAddElement(object p) => true;
+        private void OnAddElement(object p)
+        {
+            Main.Children.Add(p as UIElement);
+        }
+
         public CanvasViewModel(MainViewModel main)
         {
             Main = main;
