@@ -23,6 +23,5 @@ namespace EditorSubwayMap.MVVM.View
             CanvasDrawing.Content = new CanvasView(_canvas);
             CanvasDrawing.DataContext = _canvas;
         }
-
     }
 }

@@ -5,7 +5,6 @@ using EditorSubwayMap.Model;
 using System.Windows.Shapes;
 using EditorSubwayMap.Infrastructure.Commands;
 using EditorSubwayMap.MVVM.Base;
-using EditorSubwayMap.Data;
 using EditorSubwayMap.MVVM.Model;
 using System.Windows;
 
@@ -79,10 +78,10 @@ namespace EditorSubwayMap.MVVM.ViewModel
                 case MainViewModel.Modes.Station:
                 {
                     DStation.Pstart = Mouse.GetPosition(p as Canvas);
-                    DStation.color = OnCanvas.Color;
+                    DStation.color = Main.Color;
                     _Circle = DStation.Draw();
                     (p as Canvas).Children.Add(_Circle);
-                    OnCanvas.Ellipse = _Circle;
+                    Main.Ellipse = _Circle;
 
                     if (Main.VisabilityWayGrid == Visibility.Visible)
                     {
@@ -93,7 +92,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
                 }
                 case MainViewModel.Modes.Circle:
                 {
-                    OnCanvas.Ellipse = _Circle;
+                    Main.Ellipse = _Circle;
                     if (VisabilityStationGrid!= Visibility.Visible)
                     {
                         Main.VisabilityStationGrid = Visibility.Hidden;
@@ -103,7 +102,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
                 }
                 case MainViewModel.Modes.Line:
                 {
-                    OnCanvas.Line = _Line;
+                    Main.Line = _Line;
                     if (VisabilityStationGrid != Visibility.Visible)
                     {
                         Main.VisabilityStationGrid = Visibility.Hidden;
@@ -131,7 +130,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
                 {
                     DLine.Pstart = Mouse.GetPosition(p as Canvas);
                     DLine.Pend = Mouse.GetPosition(p as Canvas);
-                    DLine.color = OnCanvas.Color;
+                    DLine.color = Main.Color;
                     _Line = DLine.Draw();
                     (p as Canvas).Children.Add(_Line);
                     break;
@@ -141,7 +140,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
                 case MainViewModel.Modes.Circle:
                 {
                     DCircle.Pstart = Mouse.GetPosition(p as Canvas);
-                    DCircle.color = OnCanvas.Color;
+                    DCircle.color = Main.Color;
                     DCircle.currentP = Mouse.GetPosition(p as Canvas);
 
                     _Circle = DCircle.Draw();

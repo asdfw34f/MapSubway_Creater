@@ -2,22 +2,15 @@
 using EditorSubwayMap.Infrastructure.Commands;
 using EditorSubwayMap.MVVM.Base;
 using System.Windows.Input;
-using EditorSubwayMap.Data;
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Linq;
-using EditorSubwayMap.MVVM.Model.Rout;
 using System.Windows;
 using EditorSubwayMap.MVVM.Model;
-//using LineWay = EditorSubwayMap.MVVM.Model.Rout.LineWay;
 using System.Windows.Controls;
-using LineWay = AtributsSubwayLibrary.Model.LineWay;
-using CircleWay = AtributsSubwayLibrary.Model.CircleWay;
-using Station = AtributsSubwayLibrary.Model.Station;
-using AtributsSubwayLibrary.Model;
-using AtributsSubwayLibrary.Saving;
 using System.Windows.Forms;
 using System.Windows.Shapes;
+using EditorSubwayMap.Infrastructure.IORoute;
 
 namespace EditorSubwayMap.MVVM.ViewModel
 {
@@ -27,8 +20,13 @@ namespace EditorSubwayMap.MVVM.ViewModel
         List<LineWay> Lines = new List<LineWay>();
         List<CircleWay> Circles = new List<CircleWay>();
         List<Station> Stations = new List<Station>();
-        private RouteSubway _route = new RouteSubway();
+        private Route _route = new Route();
         public List<UIElement> Children;
+        #endregion
+
+        #region Shapes
+        public Ellipse Ellipse { get; set; } = new Ellipse();
+        public Line Line { get; set; } = new Line();
         #endregion
 
         #region Fields
@@ -42,7 +40,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
         private string _distanceNext = "0";
         private string _distanceBack = "0";
         private Point _point = new Point(0, 0);
-        private string _NameWay = "Название ветки :";
+        private string _NameWay = "Название ветки: ";
         private Visibility _VisabilityWayGrid = Visibility.Hidden;
         private Visibility _VisabilityStationGrid = Visibility.Hidden;
         #endregion
@@ -87,7 +85,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
             set => Set(ref _VisabilityWayGrid, value);
         }
 
-        public RouteSubway Route
+        public Route Route
         {
             get => _route;
             set => Set(ref _route, value);
@@ -143,7 +141,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
         public Brush Color
         {
             get => _Color;
-            set { if (Set(ref _Color, value)) { OnCanvas.Color = _Color; } }
+            set => Set(ref _Color, value);
         }
         #endregion
 
@@ -159,17 +157,17 @@ namespace EditorSubwayMap.MVVM.ViewModel
                     {
                         Color = _ColorConvert.ConvertToString(Color),
                         endPoint = new Point(
-                            OnCanvas.Line.X2, OnCanvas.Line.Y2),
+                            Line.X2, Line.Y2),
                         NameWay = NameWay,
                         startPoint = new Point(
-                            OnCanvas.Line.X1, OnCanvas.Line.Y1),
+                            Line.X1, Line.Y1),
                         stations = new List<Station>()
                     });
 
                 WayList.Add(NameWay);
 
-                OnCanvas.Line.ToolTip = "Ветка: " + NameWay;
-                OnCanvas.Line.Name = NameWay;
+                Line.ToolTip = "Ветка: " + NameWay;
+                Line.Name = NameWay;
                 NameWay = "Ветка добавлена";
             }
             else if (Drawing == Modes.Circle)
@@ -178,16 +176,16 @@ namespace EditorSubwayMap.MVVM.ViewModel
                 {
                     Color= _ColorConvert.ConvertToString(Color),
                     Position= new Point(
-                        Canvas.GetLeft(OnCanvas.Ellipse), Canvas.GetTop(OnCanvas.Ellipse)),
-                    Height = OnCanvas.Ellipse.Height,
-                    Width = OnCanvas.Ellipse.Width,
+                        Canvas.GetLeft(Ellipse), Canvas.GetTop(Ellipse)),
+                    Height = Ellipse.Height,
+                    Width = Ellipse.Width,
                     NameWay= NameWay,
                     stations= new List<Station>()
                 });
                 WayList.Add(NameWay);
 
-                OnCanvas.Ellipse.ToolTip = "Ветка: " + NameWay;
-                OnCanvas.Ellipse.Name = NameWay;
+                Ellipse.ToolTip = "Ветка: " + NameWay;
+                Ellipse.Name = NameWay;
                 NameWay = "Ветка добавлена";
             }
         }
@@ -202,11 +200,11 @@ namespace EditorSubwayMap.MVVM.ViewModel
                 NameWay= NameWay,
                 Color= _ColorConvert.ConvertToString(Color), 
                 Position= new Point(
-                    Canvas.GetLeft(OnCanvas.Ellipse), Canvas.GetTop(OnCanvas.Ellipse)),
+                    Canvas.GetLeft(Ellipse), Canvas.GetTop(Ellipse)),
                 distanceBack = Convert.ToInt32(DistanceBack),
                 distanceLast = Convert.ToInt32(DistanceNext)
             });
-            OnCanvas.Ellipse.ToolTip = "Станция - " + NameStation;
+            Ellipse.ToolTip = "Станция - " + NameStation;
             NameStation = "Станция добалвена";
         }
         #endregion
@@ -216,7 +214,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
         private bool CanSaveMap(object p) => true;
         private void OnSaveMap(object p)
         {
-            Route = new RouteSubway()
+            Route = new Route()
             {
                 circleWays = Circles,
                 lineWays = Lines,

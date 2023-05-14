@@ -84,20 +84,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\OnCanvas.cs" />
-    <Compile Include="Infrastructure\Commands\MainCommands\IOMap.cs" />
-    <Compile Include="Infrastructure\Commands\MainCommands\Saving.cs" />
-    <Compile Include="Infrastructure\Commands\MainCommands\SelectModeDrawing.cs" />
-    <Compile Include="Infrastructure\IOMap\ImportMap.cs" />
-    <Compile Include="Infrastructure\IOMap\SavingMap.cs" />
+    <Compile Include="Infrastructure\IORoute\SaveMap.cs" />
+    <Compile Include="Infrastructure\IORoute\ImportMap.cs" />
     <Compile Include="MVVM\Base\NotifyPropertyChanged.cs" />
     <Compile Include="Infrastructure\Commands\Base\Command.cs" />
     <Compile Include="Infrastructure\Commands\LambdaCommand.cs" />
     <Compile Include="MVVM\Model\CanvasModel.cs" />
     <Compile Include="MVVM\Model\MainModel.cs" />
-    <Compile Include="MVVM\Model\Rout\CircleWay.cs" />
-    <Compile Include="MVVM\Model\Rout\LineWay.cs" />
-    <Compile Include="MVVM\Model\Rout\Station.cs" />
+    <Compile Include="MVVM\Model\Route.cs" />
     <Compile Include="MVVM\ViewModel\CanvasViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
     <Compile Include="MVVM\View\CanvasView.xaml.cs">
@@ -151,10 +145,6 @@
     <Resource Include="assets\icon-map.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="AtributsSubwauLibrary\AtributsSubwayLibrary.csproj">
-      <Project>{862f8f57-e9b8-4ffb-b9d9-30f89ac986bc}</Project>
-      <Name>AtributsSubwayLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="DrawMapMetroLibrary\DrawMapSubwayLibrary.csproj">
       <Project>{34c816a0-c125-49fa-9ae5-313b3c2ff862}</Project>
       <Name>DrawMapSubwayLibrary</Name>
@@ -173,7 +163,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Infrastructure\Commands\CanvasCommands\" />
+    <Folder Include="Data\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
