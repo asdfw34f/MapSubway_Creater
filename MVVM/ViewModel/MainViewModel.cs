@@ -72,6 +72,21 @@ namespace EditorSubwayMap.MVVM.ViewModel
         private void OnSelectDrawNoneCommand(object p) => Drawing = Modes.None;
         #endregion
 
+        public ICommand CollapsedStation { get; }
+        private bool CanCollapsedStation(object p) => true;
+        private void OnCollapsedStation(object p)
+        {
+            NameWay = "Название станции:";
+        }
+
+        public ICommand CollapsedWay { get; }
+        private bool CanCollapsedWay(object p) => true;
+        private void OnCollapsedWay(object p)
+        {
+            NameStation = "Название ветки:";
+            DistanceBack = "0";
+            DistanceNext= "0";
+        }
 
         public Visibility VisabilityStationGrid
         {
@@ -245,6 +260,9 @@ namespace EditorSubwayMap.MVVM.ViewModel
             SaveWay = new LambdaCommand(OnSaveWay, CanSaveWay);
             SaveStation = new LambdaCommand(OnSaveStation, CanSaveStation);
             SaveMap = new LambdaCommand(OnSaveMap, CanSaveMap);
+
+            CollapsedStation = new LambdaCommand(OnCollapsedStation, CanCollapsedStation);
+            CollapsedWay = new LambdaCommand(OnCollapsedWay, CanCollapsedWay);
 
             SelectDrawLineCommand = new LambdaCommand(OnSelectDrawLineCommand, CanSelectDrawLineCommand);
             SelectDrawCircleCommand = new LambdaCommand(OnSelectDrawCircleCommand, CanSelectDrawCircleCommand);

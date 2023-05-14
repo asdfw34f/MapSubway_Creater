@@ -85,7 +85,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
 
                     if (Main.VisabilityWayGrid == Visibility.Visible)
                     {
-                        Main.VisabilityWayGrid = Visibility.Hidden;
+                        Main.VisabilityWayGrid = Visibility.Collapsed;
                     }
                     Main.VisabilityStationGrid = Visibility.Visible;
                     break;
@@ -93,9 +93,9 @@ namespace EditorSubwayMap.MVVM.ViewModel
                 case MainViewModel.Modes.Circle:
                 {
                     Main.Ellipse = _Circle;
-                    if (VisabilityStationGrid!= Visibility.Visible)
+                    if (VisabilityStationGrid == Visibility.Visible)
                     {
-                        Main.VisabilityStationGrid = Visibility.Hidden;
+                        Main.VisabilityStationGrid = Visibility.Collapsed;
                     }
                     Main.VisabilityWayGrid = Visibility.Visible;
                     break;
@@ -103,9 +103,9 @@ namespace EditorSubwayMap.MVVM.ViewModel
                 case MainViewModel.Modes.Line:
                 {
                     Main.Line = _Line;
-                    if (VisabilityStationGrid != Visibility.Visible)
+                    if (VisabilityStationGrid == Visibility.Visible)
                     {
-                        Main.VisabilityStationGrid = Visibility.Hidden;
+                        Main.VisabilityStationGrid = Visibility.Collapsed;
                     }
                     Main.VisabilityWayGrid = Visibility.Visible;
                     break;

@@ -13,6 +13,7 @@ namespace EditorSubwayMap.MVVM.View
     {
         MainViewModel _vm;
         CanvasViewModel _canvas;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -22,6 +23,16 @@ namespace EditorSubwayMap.MVVM.View
             _canvas = new CanvasViewModel(_vm);
             CanvasDrawing.Content = new CanvasView(_canvas);
             CanvasDrawing.DataContext = _canvas;
+        }
+
+        private void Grid_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            _vm.CollapsedStation.Execute(null);
+        }
+
+        private void AtrWayGrid_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            _vm.CollapsedWay.Execute(null);
         }
     }
 }

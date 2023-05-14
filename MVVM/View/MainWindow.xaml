@@ -42,6 +42,7 @@
                   HorizontalAlignment="Center"
                   VerticalAlignment="Top" 
                   Height="336" Width="240"
+                  IsVisibleChanged="Grid_IsVisibleChanged"
                   Visibility="{Binding VisabilityStationGrid}">
 
                 <TextBox x:Name="AtrStNameSt" 
@@ -172,6 +173,7 @@
                   x:Name="AtrWayGrid"
                   Height="143"
                   Width="240"
+                  IsVisibleChanged="AtrWayGrid_IsVisibleChanged"
                   Visibility="{Binding VisabilityWayGrid}"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Top">
