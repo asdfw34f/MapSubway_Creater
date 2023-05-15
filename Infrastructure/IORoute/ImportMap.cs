@@ -54,19 +54,31 @@ namespace EditorSubwayMap.Infrastructure.IORoute
 
         public Route Import(string Folder)
         {
-            using (FileStream file = new FileStream(Folder + "\\MapMetro.xml", FileMode.Open))
+            try
             {
-                XmlSerializer formatter = new XmlSerializer(typeof(Route));
-                map = formatter.Deserialize(file) as Route;
-
-                if (map != null)
+                using (FileStream file = new FileStream(Folder +
+                    "\\MapMetro.xml", FileMode.Open))
                 {
-                    lines = DrawingLine(map.lineWays);
-                    ellipses = DrawingEllipse(map.circleWays);
-                    stations = DrawingStation(map.stations);
+                    XmlSerializer formatter = new XmlSerializer(typeof(Route));
+                    map = formatter.Deserialize(file) as Route;
+
+                    if (map != null)
+                    {
+                        lines = DrawingLine(map.lineWays);
+                        ellipses = DrawingEllipse(map.circleWays);
+                        stations = DrawingStation(map.stations);
+                    }
+                    else
+                        goto exit;
                 }
-                else
-                    goto exit;
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.Message, 
+                    "Ошибка открытия карты", 
+                    MessageBoxButton.OK, 
+                    MessageBoxImage.Error);
+                return null;
             }
 
             if (!CheckWay())

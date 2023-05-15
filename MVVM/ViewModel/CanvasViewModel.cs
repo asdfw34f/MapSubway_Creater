@@ -17,6 +17,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
         public MainViewModel Main;
         #region Fields
         private bool _IsDrawing;
+        List<UIElement> _Shapes;
         #endregion
         
         public bool IsDrawing
@@ -198,6 +199,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
             MouseMove = new LambdaCommand(OnMouseMove, CanMouseMoved);
             MouseDown = new LambdaCommand(OnMouseDown, CanMouseDown);
             MouseUp = new LambdaCommand(OnMouseUp, CanMouseUp);
+            
         }
     }
 }

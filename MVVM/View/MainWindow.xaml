@@ -435,7 +435,9 @@
             Grid.Row="0" 
             Grid.Column="2"
             Grid.RowSpan="3"
-            Grid.ColumnSpan="2">
+            Grid.ColumnSpan="2"
+                     >
+            <Binding Path="Children"/>
         </UserControl>
         <Canvas Margin="0"/>
     </Grid>
