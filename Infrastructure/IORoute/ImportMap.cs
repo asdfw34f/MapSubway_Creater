@@ -12,10 +12,10 @@ namespace EditorSubwayMap.Infrastructure.IORoute
 {
     public class ImportMap
     {
-        List<Line> lines = new List<Line>();
-        List<Ellipse> ellipses = new List<Ellipse>();
-        List<Ellipse> stations = new List<Ellipse>();
-        Route map;
+        public List<Line> lines { get; private set; } = new List<Line>();
+        public List<Ellipse> ellipses { get; private set; } = new List<Ellipse>();
+        public List<Ellipse> stations { get; private set; } = new List<Ellipse>();
+        public Route map { get; private set; }
 
         public ImportMap() { }
 

@@ -50,5 +50,10 @@ namespace EditorSubwayMap.MVVM.View
         {
             _vm.MouseUp.Execute(sender);
         }
+
+        private void BtnOpenMap_Click(object sender, RoutedEventArgs e)
+        {
+            _vm.ImportMap.Execute(CanvasDrawing);
+        }
     }
 }

@@ -253,36 +253,18 @@ namespace EditorSubwayMap.MVVM.ViewModel
             folder.ShowDialog();
 
             ImportMap map = new ImportMap();
-            map.Import(folder.SelectedPath);
-
-            List<Ellipse> ellipses = Ellipses;
-            if (ellipses != null)
+            Route = map.Import(folder.SelectedPath);
+            foreach (Line line in map.lines)
             {
-                foreach (Ellipse ellipse in ellipses)
-                {
-                    (p as Canvas).Children.Add(ellipse);
-                }
-                ellipses.Clear();
+                (p as Canvas).Children.Add(line);
             }
-
-            List<Line> lines = Liness;
-            if (lines != null)
+            foreach (Ellipse ellipse in map.ellipses)
             {
-                foreach (Line way in lines)
-                {
-                    (p as Canvas).Children.Add(way);
-                }
-                lines.Clear();
+                (p as Canvas).Children.Add(ellipse);
             }
-            ellipses = Stationss;
-
-            if (ellipses != null)
+            foreach (Ellipse ellipse in map.stations)
             {
-                foreach (Ellipse ellipse in ellipses)
-                {
-                    (p as Canvas).Children.Add(ellipse);
-                }
-                ellipses.Clear();
+                (p as Canvas).Children.Add(ellipse);
             }
         }
         #endregion

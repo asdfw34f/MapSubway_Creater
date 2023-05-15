@@ -343,7 +343,7 @@
                     Width="110" 
                     BorderBrush="Cyan" 
                     Foreground="Black"
-                    Command="{Binding ImportMap}"
+                    Click="BtnOpenMap_Click"
                     Height="33" 
                     FontWeight="Bold" />
 
