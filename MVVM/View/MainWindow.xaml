@@ -431,14 +431,36 @@
 
         </Canvas>
 
-        <UserControl x:Name="CanvasDrawing"
+        <Canvas x:Name="CanvasDrawing"
+            PreviewMouseMove="CanvasDrawing_PreviewMouseMove"
+            MouseMove="CanvasDrawing_MouseMove"
+            MouseLeftButtonDown="CanvasDrawing_MouseLeftButtonDown"
+            MouseLeftButtonUp="CanvasDrawing_MouseLeftButtonUp"
             Grid.Row="0" 
             Grid.Column="2"
             Grid.RowSpan="3"
-            Grid.ColumnSpan="2"
-                     >
-            <Binding Path="Children"/>
-        </UserControl>
+            Grid.ColumnSpan="2">
+            
+            <Canvas.Background>
+
+                <DrawingBrush TileMode="FlipXY" 
+                              Viewport="-20,-10,20,20" 
+                              ViewportUnits="Absolute" 
+                              Stretch="UniformToFill">
+                    <DrawingBrush.Drawing>
+                        <GeometryDrawing>
+                            <GeometryDrawing.Geometry>
+                                <RectangleGeometry Rect="1,1,20,20"/>
+                            </GeometryDrawing.Geometry>
+                            <GeometryDrawing.Pen>
+                                <Pen Brush="DarkGray" 
+                                     Thickness="1"/>
+                            </GeometryDrawing.Pen>
+                        </GeometryDrawing>
+                    </DrawingBrush.Drawing>
+                </DrawingBrush>
+            </Canvas.Background>
+        </Canvas>
         <Canvas Margin="0"/>
     </Grid>
 </Window>

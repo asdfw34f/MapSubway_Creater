@@ -75,7 +75,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MVVM\View\CanvasView.xaml" />
     <Page Include="MVVM\View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -89,14 +88,9 @@
     <Compile Include="MVVM\Base\NotifyPropertyChanged.cs" />
     <Compile Include="Infrastructure\Commands\Base\Command.cs" />
     <Compile Include="Infrastructure\Commands\LambdaCommand.cs" />
-    <Compile Include="MVVM\Model\CanvasModel.cs" />
     <Compile Include="MVVM\Model\MainModel.cs" />
     <Compile Include="MVVM\Model\Route.cs" />
-    <Compile Include="MVVM\ViewModel\CanvasViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
-    <Compile Include="MVVM\View\CanvasView.xaml.cs">
-      <DependentUpon>CanvasView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MVVM\View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

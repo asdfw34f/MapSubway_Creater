@@ -3,7 +3,7 @@
 
 using EditorSubwayMap.MVVM.ViewModel;
 using System.Windows;
-
+using System.Windows.Input;
 namespace EditorSubwayMap.MVVM.View
 {
     /// <summary>
@@ -12,7 +12,6 @@ namespace EditorSubwayMap.MVVM.View
     public partial class MainWindow : Window
     {
         MainViewModel _vm;
-        CanvasViewModel _canvas;
 
         public MainWindow()
         {
@@ -20,9 +19,6 @@ namespace EditorSubwayMap.MVVM.View
             
             _vm = new MainViewModel();
             DataContext = _vm;
-            _canvas = new CanvasViewModel(_vm);
-            CanvasDrawing.Content = new CanvasView(_canvas);
-            CanvasDrawing.DataContext = _canvas;
         }
 
         private void Grid_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -33,6 +29,26 @@ namespace EditorSubwayMap.MVVM.View
         private void AtrWayGrid_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             _vm.CollapsedWay.Execute(null);
+        }
+
+        private void CanvasDrawing_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            _vm.MouseMove.Execute(sender);
+        }
+
+        private void CanvasDrawing_MouseMove(object sender, MouseEventArgs e)
+        {
+            _vm.MouseMove.Execute(sender);
+        }
+
+        private void CanvasDrawing_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            _vm.MouseDown.Execute(sender);
+        }
+
+        private void CanvasDrawing_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            _vm.MouseUp.Execute(sender);
         }
     }
 }
