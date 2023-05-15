@@ -6,13 +6,14 @@
              mc:Ignorable="d"
              d:DesignHeight="390" 
              d:DesignWidth="690">
-
+    
     <Canvas Name="DrawingCanvas"
             PreviewMouseMove="DrawingCanvas_OnMouseMove"
             MouseMove="DrawingCanvas_OnMouseMove"
             MouseLeftButtonDown="DrawingCanvas_OnMouseLeftButtonDown"
             MouseLeftButtonUp="DrawingCanvas_OnMouseLeftButtonUp"
             >
+        
         <Label x:Name="LabelX" 
                Canvas.Left="5" 
                Canvas.Bottom="5" 
@@ -41,8 +42,8 @@
                HorizontalAlignment="Left"
                VerticalAlignment="Top" 
                Foreground="Black"/>
-
         <Canvas.Background>
+            
             <DrawingBrush TileMode="FlipXY" 
                               Viewport="-20,-10,20,20" 
                               ViewportUnits="Absolute" 

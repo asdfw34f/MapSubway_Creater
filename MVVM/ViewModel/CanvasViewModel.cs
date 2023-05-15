@@ -7,6 +7,7 @@ using EditorSubwayMap.Infrastructure.Commands;
 using EditorSubwayMap.MVVM.Base;
 using EditorSubwayMap.MVVM.Model;
 using System.Windows;
+using System.Collections.Generic;
 
 namespace EditorSubwayMap.MVVM.ViewModel
 {
@@ -14,7 +15,6 @@ namespace EditorSubwayMap.MVVM.ViewModel
     {
         public CanvasModel DrawingBoard = new CanvasModel();
         public MainViewModel Main;
-
         #region Fields
         private bool _IsDrawing;
         #endregion

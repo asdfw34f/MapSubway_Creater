@@ -24,8 +24,14 @@ namespace EditorSubwayMap.MVVM.ViewModel
         List<CircleWay> Circles = new List<CircleWay>();
         List<Station> Stations = new List<Station>();
         private Route _route = new Route();
-        public List<UIElement> Children;
+        private List<UIElement> _Children = new List<UIElement>();
         #endregion
+
+        public List<UIElement> Children
+        {
+            get => _Children;
+            set => Set(ref _Children, value);
+        }
 
         #region Shapes
         public Ellipse Ellipse { get; set; } = new Ellipse();

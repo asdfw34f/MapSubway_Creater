@@ -11,6 +11,7 @@ namespace EditorSubwayMap.MVVM.View
         {
             InitializeComponent();
             _viewModel = ViewModel;
+            
         }
         
         private void DrawingCanvas_OnMouseMove(object sender, MouseEventArgs e)
