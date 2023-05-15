@@ -81,6 +81,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
                     DStation.color = Main.Color;
                     _Circle = DStation.Draw();
                     (p as Canvas).Children.Add(_Circle);
+                    Main.Stationss.Add(_Circle);
                     Main.Ellipse = _Circle;
 
                     if (Main.VisabilityWayGrid == Visibility.Visible)
@@ -133,8 +134,8 @@ namespace EditorSubwayMap.MVVM.ViewModel
                     DLine.color = Main.Color;
                     _Line = DLine.Draw();
                     (p as Canvas).Children.Add(_Line);
+                    Main.Liness.Add(_Line);
                     break;
-
                 }
                 //  DRAW ELLIPSE
                 case MainViewModel.Modes.Circle:
@@ -145,6 +146,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
 
                     _Circle = DCircle.Draw();
                     (p as Canvas).Children.Add(_Circle);
+                    Main.Ellipses.Add(_Circle);
                     break;
 
                 }

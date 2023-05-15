@@ -343,6 +343,7 @@
                     Width="110" 
                     BorderBrush="Cyan" 
                     Foreground="Black"
+                    Command="{Binding ImportMap}"
                     Height="33" 
                     FontWeight="Bold" />
 

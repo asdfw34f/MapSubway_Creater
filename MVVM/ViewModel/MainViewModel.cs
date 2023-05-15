@@ -17,6 +17,9 @@ namespace EditorSubwayMap.MVVM.ViewModel
     public class MainViewModel : NotifyPropertyChanged
     {
         #region the Map
+        public List<Ellipse> Ellipses = new List<Ellipse>();
+        public List<Line> Liness = new List<Line>();
+        public List<Ellipse> Stationss = new List<Ellipse>();
         List<LineWay> Lines = new List<LineWay>();
         List<CircleWay> Circles = new List<CircleWay>();
         List<Station> Stations = new List<Station>();
@@ -248,7 +251,41 @@ namespace EditorSubwayMap.MVVM.ViewModel
         private bool CanImportMap(object p) => true;
         private void OnImportMap(object p)
         {
+            var folder = new FolderBrowserDialog();
+            folder.ShowDialog();
 
+            ImportMap map = new ImportMap();
+            map.Import(folder.SelectedPath);
+
+            List<Ellipse> ellipses = Ellipses;
+            if (ellipses != null)
+            {
+                foreach (Ellipse ellipse in ellipses)
+                {
+                    Children.Add(ellipse);
+                }
+                ellipses.Clear();
+            }
+
+            List<Line> lines = Liness;
+            if (lines != null)
+            {
+                foreach (Line way in lines)
+                {
+                    Children.Add(way);
+                }
+                lines.Clear();
+            }
+            ellipses = Stationss;
+
+            if (ellipses != null)
+            {
+                foreach (Ellipse ellipse in ellipses)
+                {
+                    Children.Add(ellipse);
+                }
+                ellipses.Clear();
+            }
         }
         #endregion
 
@@ -260,6 +297,7 @@ namespace EditorSubwayMap.MVVM.ViewModel
             SaveWay = new LambdaCommand(OnSaveWay, CanSaveWay);
             SaveStation = new LambdaCommand(OnSaveStation, CanSaveStation);
             SaveMap = new LambdaCommand(OnSaveMap, CanSaveMap);
+            ImportMap = new LambdaCommand(OnImportMap, CanImportMap);
 
             CollapsedStation = new LambdaCommand(OnCollapsedStation, CanCollapsedStation);
             CollapsedWay = new LambdaCommand(OnCollapsedWay, CanCollapsedWay);
